@@ -1,0 +1,157 @@
+{
+  "News": [
+    {
+      "Id" :"1",
+      "Title": "TinHot",
+      "Data": [
+        {
+          "id": "1",
+          "title": "Zing News",
+          "url": "http://news.zing.vn/rss/trang-chu.rss"
+        },
+        {
+          "id": "2",
+          "title": "Việt Nam Net",
+          "url": "http://vietnamnet.vn/rss/tin-noi-bat.rss"
+        },
+        {
+          "id": "3",
+          "title": "Người Đưa Tin",
+          "url": "http://www.nguoiduatin.vn/trang-chu.rss"
+        },
+        {
+          "id": "4",
+          "title": "24h",
+          "url": "http://www.24h.com.vn/upload/rss/tintuctrongngay.rss"
+        },
+        {
+          "id": "5",
+          "title": "Tinh Tế",
+          "url": "https://www.tinhte.vn/rss"
+        },
+        {
+          "id": "6",
+          "title": "Công An ND",
+          "url": "http://cand.com.vn/rss/trang-chu/"
+        }
+      ]
+    },
+    {
+      "Id" :"2",
+      "Title": "VnExpress",
+      "Data": [
+        {
+          "id": "1",
+          "title": "Tin mới nhất",
+          "url": "http://vnexpress.net/rss/tin-moi-nhat.rss"
+        },
+        {
+          "id": "2",
+          "title": "Thời sự",
+          "url": "http://vnexpress.net/rss/thoi-su.rss"
+        },
+        {
+          "id": "3",
+          "title": "Thế giới",
+          "url": "http://vnexpress.net/rss/the-gioi.rss"
+        },
+        {
+          "id": "4",
+          "title": "Kinh doanh",
+          "url": "http://vnexpress.net/rss/kinh-doanh.rss"
+        },
+        {
+          "id": "5",
+          "title": "Giải trí",
+          "url": "http://vnexpress.net/rss/giai-tri.rss"
+        },
+        {
+          "id": "6",
+          "title": "Thể thao",
+          "url": "http://vnexpress.net/rss/the-thao.rss"
+        },
+        {
+          "id": "7",
+          "title": "Pháp luật",
+          "url": "http://vnexpress.net/rss/phap-luat.rss"
+        },
+        {
+          "id": "8",
+          "title": "Khoa học",
+          "url": "http://vnexpress.net/rss/khoa-hoc.rss"
+        },
+        {
+          "id": "9",
+          "title": "Đời sống",
+          "url": "http://vnexpress.net/rss/doi-song.rss"
+        },
+        {
+          "id": "10",
+          "title": "Tâm sự",
+          "url": "http://vnexpress.net/rss/tam-su.rss"
+        },
+        {
+          "id": "11",
+          "title": "Cười",
+          "url": "http://vnexpress.net/rss/cuoi.rss"
+        }
+      ]
+    },
+    {
+      "Id" :"3",
+      "Title": "Dân trí",
+      "Data": [
+        {
+          "id": "1",
+          "title": "Xã hội",
+          "url": "http://dantri.com.vn/xa-hoi.rss"
+        },
+        {
+          "id": "2",
+          "title": "Tình Yêu-Giới tính",
+          "url": "http://dantri.com.vn/tinhyeu-gioitinh.rss"
+        },
+        {
+          "id": "3",
+          "title": "Sức mạnh trí thức",
+          "url": "http://dantri.com.vn/suc-manh-tri-thuc.rss"
+        },
+        {
+          "id": "4",
+          "title": "Thế giới",
+          "url": "http://dantri.com.vn/Thegioi.rss"
+        },
+        {
+          "id": "5",
+          "title": "Thể thao",
+          "url": "http://dantri.com.vn/The-Thao.rss"
+        },
+        {
+          "id": "6",
+          "title": "Giáo dục",
+          "url": "http://dantri.com.vn/giaoduc-khuyenhoc.rss"
+        },
+        {
+          "id": "7",
+          "title": "Kinh doanh",
+          "url": "http://dantri.com.vn/kinhdoanh.rss"
+        },
+        {
+          "id": "8",
+          "title": "Văn hóa",
+          "url": "http://dantri.com.vn/van-hoa.rss"
+        },
+        {
+          "id": "9",
+          "title": "Giải trí",
+          "url": "http://dantri.com.vn/giaitri.rss"
+        },
+        {
+          "id": "10",
+          "title": "Pháp luật",
+          "url": "http://dantri.com.vn/skphapluat.rss"
+        }
+      ]
+    }
+  ]
+}
