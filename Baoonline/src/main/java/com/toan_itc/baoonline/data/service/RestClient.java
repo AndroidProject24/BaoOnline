@@ -2,7 +2,7 @@ package com.toan_itc.baoonline.data.service;
 
 import android.content.Context;
 
-import com.toan_itc.baoonline.utils.Constants;
+import com.toan_it.library.library.utils.Constant;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +26,7 @@ public interface RestClient {
     Observable<ResponseBody> GetRss(@Url String url);
     class Creator {
         public static RestClient sRestClient(Context context) {
-            File cacheFile= new File(context.getCacheDir(), Constants.HTTP_CACHE);
+            File cacheFile= new File(context.getCacheDir(), Constant.HTTP_CACHE);
             Cache cache = new Cache(cacheFile, 1024 * 1024 * 100);
             OkHttpClient.Builder client = new OkHttpClient.Builder();
             client.connectTimeout(30, TimeUnit.SECONDS);

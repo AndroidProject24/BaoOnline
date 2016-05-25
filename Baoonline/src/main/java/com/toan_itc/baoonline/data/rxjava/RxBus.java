@@ -6,7 +6,8 @@ import rx.subjects.SerializedSubject;
 import rx.subjects.Subject;
 
 /**
- * Created by Toan.IT on 3/29/16.
+ * Created by Toan.IT
+ * Date: 25/05/2016
  */
 
 public class RxBus {

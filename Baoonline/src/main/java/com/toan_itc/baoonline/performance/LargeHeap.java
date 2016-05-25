@@ -3,11 +3,9 @@ package com.toan_itc.baoonline.performance;
 import android.os.Debug;
 
 import java.util.Locale;
-
-import timber.log.Timber;
-
 /**
- * Created by huynh on 11/3/2015.
+ * Created by huynh
+ * Date: 22/05/2016
  */
 public class LargeHeap {
     private PerfListener mPerfListener;
@@ -29,7 +27,7 @@ public class LargeHeap {
         appendNumber(sb, "Requests: ", mPerfListener.getOutstandingRequests(), " outsdng ");
         appendNumber(sb, "", mPerfListener.getCancelledRequests(), " cncld\n");*/
         final String message = sb.toString();
-        Timber.e(message);
+    //    Timber.e(message);
     }
 
     private static void appendSize(StringBuilder sb, long bytes) {

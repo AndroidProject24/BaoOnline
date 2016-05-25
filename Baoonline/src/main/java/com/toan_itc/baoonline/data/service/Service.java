@@ -5,11 +5,11 @@ import javax.inject.Singleton;
 
 import okhttp3.ResponseBody;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by toan.it on 1/27/16.
+ * Created by toan.it
+ * Date: 25/05/2016
  */
 @Singleton
 public class Service {
@@ -20,7 +20,7 @@ public class Service {
     }
     public Observable<ResponseBody> GetRss(String url) {
         return sRestClient.GetRss(url)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+                .subscribeOn(Schedulers.io());
+              //  .observeOn(AndroidSchedulers.mainThread());
     }
 }

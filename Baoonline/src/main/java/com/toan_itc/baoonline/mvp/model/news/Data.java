@@ -4,7 +4,8 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 /**
- * Created by Toan.IT on 5/2/16.
+ * Created by Toan.IT
+ * Date: 25/05/2016
  */
 public class Data extends RealmObject{
     @PrimaryKey

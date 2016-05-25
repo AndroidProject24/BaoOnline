@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import com.toan_itc.baoonline.R;
 
 /**
- * Created by Toan.IT on 5/1/16.
+ * Created by Toan.IT
+ * Date: 25/05/2016
  */
 public class HomeFragment extends BaseFragment {
 

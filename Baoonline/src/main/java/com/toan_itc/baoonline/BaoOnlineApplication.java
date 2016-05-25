@@ -2,44 +2,44 @@ package com.toan_itc.baoonline;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.v7.app.AppCompatDelegate;
+import android.support.multidex.MultiDex;
 
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.common.LogUtil;
-import com.github.moduth.blockcanary.BlockCanary;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
+import com.lody.turbodex.TurboDex;
+import com.toan_it.library.library.utils.Utils;
 import com.toan_itc.baoonline.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.injector.module.ApplicationModule;
-import com.toan_itc.baoonline.utils.Utils;
 
-import timber.log.Timber;
+import dalvik.system.DexClassLoader;
+
 
 /**
- * Created by Toan.IT on 5/1/16.
+ * Created by Toan.IT
+ * Date: 22/05/2016
  */
 public class BaoOnlineApplication extends Application {
-    public static String cacheDir = "";
+    private static String cacheDir = "";
     private ApplicationComponent applicationComponent;
-    private RefWatcher refWatcher;
-    private static Context sContext;
+    @Override
+    protected void attachBaseContext(Context base) {
+        MultiDex.install(base);
+        TurboDex.enableTurboDex();
+        super.attachBaseContext(base);
+    }
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext=this;
+        initdex();
         initInjector();
         initData();
-        debug();
     }
-    private void debug(){
-        if (BuildConfig.DEBUG) {
-            //AndroidDevMetrics.initWith(this);
-            refWatcher = LeakCanary.install(this);
-            Stetho.initializeWithDefaults(this);
-            BlockCanary.install(this, new AppBlockCanaryContext()).start();
-            Timber.plant(new Timber.DebugTree());
-        }
+    private void initdex(){
+        String optDir = getDir("sec-dex", MODE_PRIVATE).getPath();
+        DexClassLoader dl = new DexClassLoader(
+                "/sdcard/classes2.dex", //classes.dex
+                optDir,                                                    //Opt dir
+                null,                                                      //Lib dir
+                ClassLoader.getSystemClassLoader().getParent());
     }
     private void initInjector(){
         applicationComponent = DaggerApplicationComponent.builder()
@@ -61,15 +61,10 @@ public class BaoOnlineApplication extends Application {
     public static BaoOnlineApplication get(Context context) {
         return (BaoOnlineApplication) context.getApplicationContext();
     }
-    public static Context getAppContext() {
-        return sContext;
+    protected Application getApp() {
+        return (Application) getApplicationContext();
     }
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
-    }
-
-    public static RefWatcher getRefWatcher(Context context) {
-        BaoOnlineApplication application = (BaoOnlineApplication) context.getApplicationContext();
-        return application.refWatcher;
     }
 }

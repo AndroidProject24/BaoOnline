@@ -14,7 +14,8 @@ import okhttp3.Call;
 import okhttp3.OkHttpClient;
 
 /**
- * Created by Toan.IT on 4/29/16.
+ * Created by Toan.IT
+ * Date: 25/05/2016
  */
 public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
 

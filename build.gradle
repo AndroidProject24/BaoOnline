@@ -8,8 +8,8 @@ buildscript {
         classpath 'com.android.tools.build:gradle:2.1.0'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath "io.realm:realm-gradle-plugin:0.90.0"
-
+        classpath "io.realm:realm-gradle-plugin:0.91.1"
+        classpath "com.fernandocejas.frodo:frodo-plugin:0.8.2"
         //classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.4'
     }
 }
@@ -33,11 +33,11 @@ ext {
     buildToolVersion= "23.0.3"
     compileVersion  = 23
     minSdk          = 15
-    targetSdk       = 23
+    targetSdk       = 19
     versionCode     = 10
     versionName     = "2.0"
 
-    supportLibsVersion = '23.3.0'
+    supportLibsVersion = '23.4.0'
     okHttpVersion = '3.2.0'
     retrofitVersion = '2.0.2'
     tikxmlVersion='0.5.0-SNAPSHOT'
@@ -66,7 +66,7 @@ ext {
     javaxannotation         = 'org.glassfish:javax.annotation:10.0-b28'
     rxandroid               = 'io.reactivex:rxandroid:1.2.0'
     rxjava                  = 'io.reactivex:rxjava:1.1.5'
-    rxlifecycle             = 'com.trello:rxlifecycle:0.5.0'
+    rxbinding               = 'com.jakewharton.rxbinding:rxbinding:0.4.0'
     reactivenetwork         = 'com.github.pwittchen:reactivenetwork:0.2.0'
     jsoup                   = 'org.jsoup:jsoup:1.9.1'
     butterKnife             = 'com.jakewharton:butterknife:8.0.1'
@@ -74,4 +74,5 @@ ext {
     glide                   = 'com.github.bumptech.glide:glide:3.7.0'
     glidetransformations    = 'jp.wasabeef:glide-transformations:1.4.0'
     fresco                  = 'com.facebook.fresco:fresco:0.10.0'
+    xrecycleview            = 'com.jcodecraeer:xrecyclerview:1.2.7'
 }

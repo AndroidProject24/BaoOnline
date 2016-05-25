@@ -15,7 +15,8 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 /**
- * Created by Toan.IT on 4/29/16.
+ * Created by Toan.IT
+ * Date: 25/05/2016
  */
 public class OkHttpStreamFetcher implements DataFetcher<InputStream> {
     private final Call.Factory client;

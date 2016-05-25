@@ -1,1 +1,1 @@
-include ':Baoonline'
+include ':Baoonline', ':library'

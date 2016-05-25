@@ -4,12 +4,17 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.tickaroo.tikxml.TikXml;
+import com.toan_it.library.library.activity.base.BaseActivity;
+import com.toan_itc.baoonline.BaoOnlineApplication;
 import com.toan_itc.baoonline.R;
+import com.toan_itc.baoonline.data.local.DatabaseRealm;
+import com.toan_itc.baoonline.data.local.PreferencesHelper;
+import com.toan_itc.baoonline.data.rxjava.RxBus;
 import com.toan_itc.baoonline.data.service.RestClient;
 import com.toan_itc.baoonline.data.service.Service;
+import com.toan_itc.baoonline.injector.component.ActivityComponent;
+import com.toan_itc.baoonline.injector.component.DaggerActivityComponent;
 import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
-import com.toan_itc.baoonline.ui.fragment.HomeFragment;
-import com.toan_itc.baoonline.utils.ActivityUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,12 +24,14 @@ import okio.Buffer;
 import rx.Subscriber;
 
 public class MainActivity extends BaseActivity {
+    private BaseActivity mBaseActivity=this;
+    private DatabaseRealm mDatabaseRealm;
+    private PreferencesHelper mPreferencesHelper;
+    private RxBus rxBus;
+    private ActivityComponent mActivityComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        getComponent().inject(this);
-        ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFrame);
         RestClient restClient=RestClient.Creator.sRestClient(this);
         Service service=new Service(restClient);
         service.GetRss("http://vietnamnet.vn/rss/tin-noi-bat.rss")
@@ -69,5 +76,31 @@ public class MainActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+
+    @Override
+    protected void setUpView() {
+        //ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFrame);
+    }
+
+    @Override
+    protected int setLayoutResourceID() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void setUpData() {
+        mDatabaseRealm=mActivityComponent.mDatabaseRealm();
+        mDatabaseRealm.setup();
+        mPreferencesHelper = mActivityComponent.mPreferencesHelper();
+        rxBus=mActivityComponent.mRxBus();
+        mDatabaseRealm.Get_News(this);
+    }
+
+    @Override
+    protected void injector() {
+        mActivityComponent= DaggerActivityComponent.builder()
+                .applicationComponent(BaoOnlineApplication.get(this).getApplicationComponent())
+                .build();
     }
 }

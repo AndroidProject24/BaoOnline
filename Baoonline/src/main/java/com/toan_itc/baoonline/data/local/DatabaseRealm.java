@@ -2,8 +2,8 @@ package com.toan_itc.baoonline.data.local;
 
 import android.content.Context;
 
+import com.toan_it.library.library.utils.Constant;
 import com.toan_itc.baoonline.mvp.model.news.ListNews;
-import com.toan_itc.baoonline.utils.Constants;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,6 @@ import javax.inject.Singleton;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import timber.log.Timber;
 
 @Singleton
 public class DatabaseRealm {
@@ -24,12 +23,11 @@ public class DatabaseRealm {
     }
     public void setup() {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(mContext)
-                .name(Constants.BaoOnline_Realm)
+                .name(Constant.BaoOnline_Realm)
                 .schemaVersion(1)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
-        Timber.e("setup");
     }
     public Realm getRealmInstance() {
         return Realm.getDefaultInstance();

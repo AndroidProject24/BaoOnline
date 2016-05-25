@@ -8,12 +8,13 @@ import com.bumptech.glide.load.DecodeFormat;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.GlideModule;
-import com.toan_itc.baoonline.utils.Constants;
+import com.toan_it.library.library.utils.Constant;
 
 import java.io.InputStream;
 
 /**
- * Created by Toan.IT on 4/29/16.
+ * Created by Toan.IT
+ * Date: 22/05/2016
  */
 public class OkHttpGlideModule implements GlideModule {
     @Override
@@ -22,7 +23,7 @@ public class OkHttpGlideModule implements GlideModule {
         //Disk Cache
         int cacheSize100MegaBytes = 104857600;
         builder.setDiskCache(
-                new ExternalCacheDiskCacheFactory(context, Constants.IMAGE_CACHE, cacheSize100MegaBytes )
+                new ExternalCacheDiskCacheFactory(context, Constant.IMAGE_CACHE, cacheSize100MegaBytes )
         );
     }
 

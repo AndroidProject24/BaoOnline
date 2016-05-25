@@ -2,7 +2,7 @@ package com.toan_itc.baoonline.injector.module;
 
 import android.app.Activity;
 
-import com.toan_itc.baoonline.injector.ActivityScope;
+import com.toan_itc.baoonline.injector.ActivityContext;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,7 +16,7 @@ public class ActivityModule {
   }
 
   @Provides
-  @ActivityScope
+  @ActivityContext
   public Activity activity() {
     return mActivity;
   }

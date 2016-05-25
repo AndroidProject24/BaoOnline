@@ -9,7 +9,8 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import java.io.InputStream;
 
 /**
- * Created by Toan.IT on 4/29/16.
+ * Created by Toan.IT
+ * Date: 25/05/2016
  */
 class CustomImageSizeModelFactory implements ModelLoaderFactory<CustomImageSizeModel, InputStream> {
     @Override
