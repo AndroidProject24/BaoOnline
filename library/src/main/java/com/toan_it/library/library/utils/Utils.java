@@ -107,6 +107,6 @@ public class Utils {
         return packageInfo;
     }
     public static int getBuildLevel() {
-        return android.os.Build.VERSION.SDK_INT;
+        return Build.VERSION.SDK_INT;
     }
 }

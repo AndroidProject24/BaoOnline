@@ -1,6 +1,7 @@
 package com.toan_it.library.library.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -10,17 +11,18 @@ import android.util.Log;
 public class DisplayUtil {
     private static final String TAG = DisplayUtil.class.getSimpleName();
 
-    /**
-     * 获取 显示信息
-     */
+    public static boolean isScreenW(int widthDp) {
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        float screenWidth = displayMetrics.widthPixels / displayMetrics.density;
+        return screenWidth >= widthDp;
+    }
+
+
     public static DisplayMetrics getDisplayMetrics(Context context) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         return dm;
     }
 
-    /**
-     * 打印 显示信息
-     */
     public static DisplayMetrics printDisplayInfo(Context context) {
         DisplayMetrics dm = getDisplayMetrics(context);
         StringBuilder sb = new StringBuilder();

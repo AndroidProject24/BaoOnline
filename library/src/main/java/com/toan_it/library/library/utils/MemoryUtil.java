@@ -8,7 +8,8 @@ import android.text.format.Formatter;
 import android.util.Log;
 
 /**
- * Created by Toan.IT on 5/11/16.
+ * Created by Toan.IT
+ * Date: 28/05/2016
  */
 public class MemoryUtil {
     private static final String TAG = MemoryUtil.class.getSimpleName();

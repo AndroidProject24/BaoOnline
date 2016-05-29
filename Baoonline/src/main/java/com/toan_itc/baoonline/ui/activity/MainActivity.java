@@ -1,27 +1,16 @@
 package com.toan_itc.baoonline.ui.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import com.tickaroo.tikxml.TikXml;
+import com.toan_it.library.library.BaseApplication;
 import com.toan_it.library.library.activity.base.BaseActivity;
-import com.toan_itc.baoonline.BaoOnlineApplication;
+import com.toan_it.library.library.data.local.DatabaseRealm;
+import com.toan_it.library.library.data.local.PreferencesHelper;
+import com.toan_it.library.library.data.rxjava.RxBus;
+import com.toan_it.library.library.injector.module.ActivityModule;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.data.local.DatabaseRealm;
-import com.toan_itc.baoonline.data.local.PreferencesHelper;
-import com.toan_itc.baoonline.data.rxjava.RxBus;
-import com.toan_itc.baoonline.data.service.RestClient;
-import com.toan_itc.baoonline.data.service.Service;
-import com.toan_itc.baoonline.injector.component.ActivityComponent;
-import com.toan_itc.baoonline.injector.component.DaggerActivityComponent;
-import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import okio.Buffer;
-import rx.Subscriber;
+import com.toan_itc.baoonline.injector.ActivityComponent;
+import com.toan_itc.baoonline.injector.DaggerActivityComponent;
 
 public class MainActivity extends BaseActivity {
     private BaseActivity mBaseActivity=this;
@@ -32,9 +21,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RestClient restClient=RestClient.Creator.sRestClient(this);
-        Service service=new Service(restClient);
-        service.GetRss("http://vietnamnet.vn/rss/tin-noi-bat.rss")
+        /*RestApi restClient=RestClient.sRestClient();
+        RestData restData =new RestData(restClient);
+        restData.GetRss("http://vietnamnet.vn/rss/tin-noi-bat.rss")
                 .map(responseBody -> {
                     BufferedReader reader = null;
                     StringBuilder sb = new StringBuilder();
@@ -70,37 +59,57 @@ public class MainActivity extends BaseActivity {
                         try {
                             TikXml parse= new TikXml.Builder().exceptionOnUnreadXml(false).build();
                             RssFeed rssFeed=parse.read(new Buffer().writeUtf8(s), RssFeed.class);
-                            Log.wtf("employee=", rssFeed.toString());
+                            //Log.wtf("employee=", rssFeed.toString());
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                     }
-                });
+                });*/
     }
 
     @Override
-    protected void setUpView() {
-        //ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFrame);
+    protected String getTAG() {
+        return this.getClass().getSimpleName();
     }
 
+    @Override
+    protected void injectViews() {
+        //ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFrame);
+    }
     @Override
     protected int setLayoutResourceID() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected void setUpData() {
-        mDatabaseRealm=mActivityComponent.mDatabaseRealm();
+    protected void injectData() {
+       /* mDatabaseRealm=mActivityComponent.mDatabaseRealm();
         mDatabaseRealm.setup();
         mPreferencesHelper = mActivityComponent.mPreferencesHelper();
         rxBus=mActivityComponent.mRxBus();
-        mDatabaseRealm.Get_News(this);
+        mDatabaseRealm.Get_News(this);*/
     }
 
     @Override
-    protected void injector() {
-        mActivityComponent= DaggerActivityComponent.builder()
-                .applicationComponent(BaoOnlineApplication.get(this).getApplicationComponent())
-                .build();
+    protected void injectDependencies() {
+        if (mActivityComponent == null) {
+            mActivityComponent= DaggerActivityComponent.builder()
+                    .applicationComponent(BaseApplication.get(this).getApplicationComponent())
+                    .build();
+        }
+    }
+    protected void remove_fragment(){
+        /*Fragment fragment = getSupportFragmentManager().findFragmentByTag(HomeFragment.class.getName());
+        if(fragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+        Fragment menufragment = getSupportFragmentManager().findFragmentByTag(SkinBaseFragment.class.getName());
+        if(menufragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(menufragment).commit();
+        }*/
+        /*Fragment fragmentseach = getSupportFragmentManager().findFragmentByTag(PlayerSearchFragment.class.getName());
+        if(fragmentseach != null) {
+            getSupportFragmentManager().beginTransaction().remove(fragmentseach).commit();
+        }*/
     }
 }

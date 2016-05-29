@@ -9,9 +9,12 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.toan_it.library.library.BaseApplication;
+import com.toan_it.library.library.utils.Logger;
 import com.toan_it.library.skinloader.base.SkinBaseActivity;
 
 import butterknife.ButterKnife;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -20,30 +23,37 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * Date: 25/05/2016
  */
 public abstract class BaseActivity extends SkinBaseActivity {
+    private CompositeSubscription mCompositeSubscription;
+    private Subscription subscription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
-        injector();
         setContentView(setLayoutResourceID());
+        changeStatusColor();
         setButterKnife();
-        setUpView();
-        setUpData();
+        initbase();
+        injectDependencies();
+        injectViews();
+        injectData();
     }
     private void setButterKnife() {
         ButterKnife.bind(this);
     }
-    protected void init() {
-
+    private void initbase() {
+        Logger.initTag(TAG,true);
     }
 
-    protected abstract void setUpView();
+    protected String TAG = getTAG();
+
+    protected abstract String getTAG();
+
+    protected abstract void injectViews();
 
     protected abstract int setLayoutResourceID();
 
-    protected abstract void setUpData();
+    protected abstract void injectData();
 
-    protected abstract void injector();
+    protected abstract void injectDependencies();
 
     protected void startActivityWithoutExtras(Class<?> clazz) {
         Intent intent = new Intent(this, clazz);
@@ -70,24 +80,69 @@ public abstract class BaseActivity extends SkinBaseActivity {
         transaction.replace(frameId, fragment);
         transaction.commit();
     }
-    /*protected void remove_fragment(){
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(Home.class.getName());
-        if(fragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+    public CompositeSubscription getCompositeSubscription() {
+        if (this.mCompositeSubscription == null) {
+            this.mCompositeSubscription = new CompositeSubscription();
         }
-        Fragment menufragment = getSupportFragmentManager().findFragmentByTag(fragment.class.getName());
-        if(menufragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(menufragment).commit();
+
+        return this.mCompositeSubscription;
+    }
+
+    public void addSubscription(Subscription s) {
+        if (s == null) {
+            return;
         }
-        Fragment fragmentseach = getSupportFragmentManager().findFragmentByTag(PlayerSearchFragment.class.getName());
-        if(fragmentseach != null) {
-            getSupportFragmentManager().beginTransaction().remove(fragmentseach).commit();
+        if (this.mCompositeSubscription == null) {
+            this.mCompositeSubscription = new CompositeSubscription();
         }
-    }*/
+
+        this.mCompositeSubscription.add(s);
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Logger.d(TAG);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Logger.d(TAG);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Logger.d(TAG);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Logger.d(TAG);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Logger.d(TAG);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Logger.d(TAG);
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
+        if (this.mCompositeSubscription != null) {
+
+            this.mCompositeSubscription.unsubscribe();
+        }
         RefWatcher refWatcher = BaseApplication.getRefWatcher();
         refWatcher.watch(this);
+    }
+    @Override
+    public String toString() {
+        return getClass().getName();
     }
 }

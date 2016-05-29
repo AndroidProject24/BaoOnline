@@ -1,3 +1,4 @@
+/*
 package com.toan_itc.baoonline.ui.fragment;
 
 import android.os.Bundle;
@@ -10,10 +11,12 @@ import com.toan_itc.baoonline.mvp.view.BaseView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+*/
 /**
  * Created by Toan.IT
  * Date: 25/05/2016
- */
+ *//*
+
 public abstract class BaseFragment extends Fragment implements BaseView{
     private Unbinder unbinder;
     @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -56,3 +59,4 @@ public abstract class BaseFragment extends Fragment implements BaseView{
 
     }
 }
+*/

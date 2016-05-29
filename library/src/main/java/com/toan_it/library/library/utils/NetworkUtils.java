@@ -3,6 +3,15 @@ package com.toan_it.library.library.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.View;
+
+import com.toan_it.library.R;
+
+import org.json.JSONException;
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 /**
  * Created by _SOLID
@@ -91,4 +100,41 @@ public class NetworkUtils {
         }
         return false;
     }
+    public static void checkHttpException(Context mContext, Throwable mThrowable, View mRootView) {
+        String snack_action_to_setting = mContext.getString(R.string.snack_action_to_setting);
+        if ((mThrowable instanceof UnknownHostException)) {
+            String snack_message_net_error = mContext.getString(R.string.snack_message_net_error);
+            showNetworkErrorSnackBar(mContext, mRootView, snack_message_net_error, snack_action_to_setting);
+        } else if (mThrowable instanceof JSONException) {
+            String snack_message_data_error = mContext.getString(R.string.snack_message_data_error);
+            showNetworkErrorSnackBar(mContext, mRootView, snack_message_data_error, snack_action_to_setting);
+        } else if (mThrowable instanceof SocketTimeoutException) {
+            String snack_message_time_out = mContext.getString(R.string.snack_message_timeout_error);
+            showNetworkErrorSnackBar(mContext, mRootView, snack_message_time_out, snack_action_to_setting);
+        } else if (mThrowable instanceof ConnectException) {
+            String snack_message_net_error = mContext.getString(R.string.snack_message_net_error);
+            showNetworkErrorSnackBar(mContext, mRootView, snack_message_net_error, snack_action_to_setting);
+        } else {
+            String snack_message_unknown_error = mContext.getString(R.string.snack_message_unknown_error);
+            //showSnackBar(mRootView,snack_message_unknown_error);
+        }
+    }
+
+   /* private static Snackbar showSnackBar(View view, String message) {
+        Snackbar snackbar=Snackbar.make(view, message, Snackbar.LENGTH_SHORT);
+        snackbar.show();
+        return snackbar;
+    }*/
+    private static void showNetworkErrorSnackBar(final Context context, View view, String message, String action) {
+       /* Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+                .setAction(action, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        context.startActivity(intent);
+                    }
+                })
+                .show();*/
+    }
+
 }

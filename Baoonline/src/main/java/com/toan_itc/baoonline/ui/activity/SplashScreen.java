@@ -18,22 +18,26 @@ public class SplashScreen extends BaseActivity {
     }
 
     @Override
-    protected void setUpView() {
-
+    protected String getTAG() {
+        return this.getClass().getSimpleName();
     }
 
+    @Override
+    protected void injectViews() {
+
+    }
     @Override
     protected int setLayoutResourceID() {
         return 0;
     }
 
     @Override
-    protected void setUpData() {
+    protected void injectData() {
 
     }
 
     @Override
-    protected void injector() {
+    protected void injectDependencies() {
 
     }
 

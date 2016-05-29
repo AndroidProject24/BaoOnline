@@ -36,10 +36,6 @@ public abstract class SkinBaseActivity extends AppCompatActivity implements ISki
         //getLayoutInflater().cloneInContext(this).setFactory(mSkinInflaterFactory);
         LayoutInflaterCompat.setFactory(getLayoutInflater(), mSkinInflaterFactory);
         super.onCreate(savedInstanceState);
-        setContentView(setLayoutResourceID());
-        changeStatusColor();
-        init();
-        setUpView();
     }
 
     @Override
@@ -98,17 +94,7 @@ public abstract class SkinBaseActivity extends AppCompatActivity implements ISki
         isResponseOnSkinChanging = enable;
     }
 
-    protected <T extends View> T $(int id) {
-        return (T) findViewById(id);
-    }
     public Context getMContext() {
         return mContext;
     }
-
-
-    protected abstract int setLayoutResourceID();
-
-    protected abstract void init();
-
-    protected abstract void setUpView();
 }

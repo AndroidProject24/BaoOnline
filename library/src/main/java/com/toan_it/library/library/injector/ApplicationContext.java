@@ -1,0 +1,15 @@
+package com.toan_it.library.library.injector;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import javax.inject.Qualifier;
+
+/**
+ * Created by toan.it on 1/27/16.
+ * *
+ */
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+public @interface ApplicationContext {
+}

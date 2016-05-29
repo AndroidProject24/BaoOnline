@@ -9,7 +9,8 @@ import java.io.InputStream;
 import java.util.regex.Pattern;
 
 /**
- * Created by Toan.IT on 5/11/16.
+ * Created by Toan.IT
+ * Date: 28/05/2016
  */
 public class CpuUtil {
     private static final String TAG = CpuUtil.class.getSimpleName();
