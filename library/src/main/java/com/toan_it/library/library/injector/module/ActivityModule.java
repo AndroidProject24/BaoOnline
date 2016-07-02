@@ -3,7 +3,7 @@ package com.toan_it.library.library.injector.module;
 import android.app.Activity;
 import android.content.Context;
 
-import com.toan_it.library.library.injector.ActivityContext;
+import com.toan_it.library.library.injector.qualifier.ActivityContext;
 
 import dagger.Module;
 import dagger.Provides;

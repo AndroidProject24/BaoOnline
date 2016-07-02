@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 
-import com.toan_it.library.library.fragment.base.BaseFragment;
+import com.toan_it.library.library.fragment.BaseFragment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +67,11 @@ public class ViewUtils {
     public static int getScreenWidth(Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return displayMetrics.widthPixels;
+    }
+    public static boolean isScreenW(int widthDp) {
+        DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
+        float screenWidth = displayMetrics.widthPixels / displayMetrics.density;
+        return screenWidth >= widthDp;
     }
 
     /**

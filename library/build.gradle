@@ -3,19 +3,26 @@ apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 apply plugin: 'com.frogermcs.androiddevmetrics'
+apply from: "$rootProject.projectDir/buildsystem/library.gradle"
+
+def configuration = ext.configuration;
+def library = ext.library;
 android {
-    compileSdkVersion rootProject.ext.compileVersion
-    buildToolsVersion rootProject.ext.buildToolVersion
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdk
-        targetSdkVersion rootProject.ext.targetSdk
-        versionName rootProject.ext.versionName
-        versionCode rootProject.ext.versionCode
+        minSdkVersion configuration.minimumSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
+        versionCode buildVersionCode()
+        versionName buildVersionName()
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
         }
     }
     compileOptions {
@@ -27,46 +34,43 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     //----- Support Libs
-    compile rootProject.ext.supportAppcompat
-    compile rootProject.ext.supportCardView
-    compile rootProject.ext.supportDesign
-    compile rootProject.ext.supportRecyclerView
-    compile rootProject.ext.supportPercent
-    compile rootProject.ext.xrecycleview
-    compile rootProject.ext.guava
+    compile  "${library.supportCompat}"
+    compile  "${library.supportDesign}"
+    compile  "${library.supportRecyclerView}"
+    compile  "${library.supportCardView}"
     //----- Rx
-    compile rootProject.ext.rxandroid
-    compile rootProject.ext.rxjava
-    compile rootProject.ext.rxbinding
+    compile  "${library.rxjava}"
+    compile  "${library.rxandroid}"
+    compile  "${library.rxbinding}"
     //----- Butterknife
-    compile rootProject.ext.butterKnife
-    apt rootProject.ext.apt_butterKnife
+    compile  "${library.butterKnife}"
+    apt      "${library.apt_butterKnife}"
     //----- Dagger
-    compile rootProject.ext.dagger
-    apt rootProject.ext.daggerCompiler
-    provided rootProject.ext.javaxannotation
+    compile  "${library.dagger}"
+    apt      "${library.daggerCompiler}"
+    provided "${library.javaxannotation}"
     //----- Retrofit
-    compile rootProject.ext.retrofitRxJavaAdapter
-    compile rootProject.ext.okHttp
-    compile rootProject.ext.okHttpLoggingInterceptor
+    compile  "${library.retrofitRxJavaAdapter}"
+    compile  "${library.okHttp}"
+    compile  "${library.okHttpLogging}"
     //----- Fresco
-    compile rootProject.ext.fresco
+    compile  "${library.fresco}"
+    compile  "${library.frescoHttp}"
     //-----TikXml
-    compile rootProject.ext.tikxml
-    compile rootProject.ext.tikxml_annotation
-    compile rootProject.ext.tikxml_core
-    apt rootProject.ext.tikxml_processor
+    compile  "${library.tikxml}"
+    compile  "${library.tikxml_annotation}"
+    compile  "${library.tikxml_core}"
+    apt      "${library.tikxml_processor}"
     //-----Network
-    compile rootProject.ext.reactivenetwork
-    /*  //---- Check Update
-      compile('com.google.apis:google-api-services-androidpublisher:v2-rev27-1.22.0') {
-          exclude module: 'httpclient'
-          exclude group: 'org.apache.httpcomponents'
-          exclude group: 'org.apache.httpcomponents', module: 'httpclient'
-      }*/
+    compile  "${library.reactivenetwork}"
+    //-----BaseAdapter
+    compile   "${library.baseRecycler}"
     //----- Testing
-    compile 'com.github.asLody:turbodex:1.1.0'
-    compile 'com.android.support:multidex:1.0.1'
+   // compile 'com.github.asLody:turbodex:1.1.0'
+   // compile 'com.android.support:multidex:1.0.1'
+
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.github.moduth:blockcanary-android:1.2.1'
     compile 'com.facebook.stetho:stetho:1.3.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'

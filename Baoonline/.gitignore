@@ -1,2 +1,6 @@
 /build
 /Baoonline.iml
+/keystore/
+/src/androidTest/
+/build/
+/null/

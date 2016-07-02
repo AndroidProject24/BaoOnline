@@ -2,24 +2,30 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.fernandocejas.frodo'
+apply from: "$rootProject.projectDir/buildsystem/library.gradle"
+apply from: "$rootProject.projectDir/buildsystem/secret.gradle"
+
+def configuration = ext.configuration;
+def library = ext.library;
+def keyConf = ext;
+
 android {
-    compileSdkVersion rootProject.ext.compileVersion
-    buildToolsVersion rootProject.ext.buildToolVersion
+    compileSdkVersion configuration.compileSdkVersion
+    buildToolsVersion configuration.buildToolsVersion
     defaultConfig {
-        applicationId rootProject.ext.packageName
-        minSdkVersion rootProject.ext.minSdk
-        targetSdkVersion rootProject.ext.targetSdk
-        versionName rootProject.ext.versionName
-        versionCode rootProject.ext.versionCode
-        multiDexEnabled true
+        applicationId configuration.applicationId
+        minSdkVersion configuration.minimumSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
+        versionCode buildVersionCode()
+        versionName buildVersionName()
     }
     signingConfigs {
         Key {
             try {
-                storeFile file("toankey.iks")
-                storePassword KEYSTORE_PASSWORD
-                keyAlias "thekey"
-                keyPassword KEY_PASSWORD
+                storeFile file(keyConf.keystore)
+                storePassword keyConf.keystorePass
+                keyAlias keyConf.alias
+                keyPassword keyConf.aliasPass
             }
             catch (ignored) {
                 throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
@@ -29,16 +35,15 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.Key
-            debuggable false
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
             debuggable true
         }
-    }
-    android.applicationVariants.all { variant ->
-        configApkFileName(variant, defaultConfig)
+        applicationVariants.all { variant ->
+            configApkFileName(variant, defaultConfig)
+        }
     }
     packagingOptions {
         exclude 'META-INF/NOTICE'
@@ -63,11 +68,6 @@ android {
                             .listFiles()
                             .each { res.srcDirs += it.path }
             ]
-            /*res.srcDirs = [
-                    'src/main/res-main',
-                    'src/main/res-screen/Home',
-                    'src/main/res-screen/ReadNews',
-            ]*/
         }
     }
     compileOptions {
@@ -101,19 +101,21 @@ def configApkFileName(variant, defaultConfig) {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':library')
+    //----- Support Libs
+    compile  "${library.supportCompat}"
     //----- Dagger
-    compile rootProject.ext.dagger
-    apt rootProject.ext.daggerCompiler
-    provided rootProject.ext.javaxannotation
+    compile  "${library.dagger}"
+    apt      "${library.daggerCompiler}"
+    provided "${library.javaxannotation}"
     //-----Jsoup
-    compile rootProject.ext.jsoup
+    compile "${library.jsoup}"
     //----- Rx
-    compile rootProject.ext.rxandroid
-    compile rootProject.ext.rxjava
-    compile rootProject.ext.rxbinding
+    compile  "${library.rxjava}"
+    compile  "${library.rxandroid}"
+    compile  "${library.rxbinding}"
     //-----TikXml
-    compile rootProject.ext.tikxml
-    compile rootProject.ext.tikxml_annotation
-    compile rootProject.ext.tikxml_core
-    apt rootProject.ext.tikxml_processor
+    compile  "${library.tikxml}"
+    compile  "${library.tikxml_annotation}"
+    compile  "${library.tikxml_core}"
+    apt      "${library.tikxml_processor}"
 }

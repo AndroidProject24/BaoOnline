@@ -1,19 +1,26 @@
 package com.toan_itc.baoonline.ui.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.toan_it.library.library.fragment.base.BaseFragment;
+import com.toan_it.library.library.fragment.BaseFragment;
+import com.toan_it.library.library.mvp.model.rss.RssFeed;
 import com.toan_itc.baoonline.R;
+import com.toan_itc.baoonline.mvp.presenter.HomePresenter;
+import com.toan_itc.baoonline.mvp.view.HomeView;
+import com.toan_itc.baoonline.ui.activity.MainActivity;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
 /**
  * Created by Toan.IT
  * Date: 25/05/2016
  */
-public class HomeFragment extends BaseFragment {
-
+public class HomeFragment extends BaseFragment implements HomeView{
+    @Inject
+    HomePresenter mHomePresenter;
     public HomeFragment() {
         // Requires empty public constructor
     }
@@ -27,25 +34,59 @@ public class HomeFragment extends BaseFragment {
         return this.getClass().getSimpleName();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_home,container,false);
-        return view;
-    }
-
     @Override
     protected int setLayoutResourceID() {
-        return 0;
+        return R.layout.fragment_home;
     }
 
     @Override
-    protected void injectData() {
+    protected void injectDependencies() {
+        ((MainActivity)getActivity()).getActivityComponent().inject(this);
+        mHomePresenter.attachView(this);
+    }
+
+    @Override
+    protected void initData() {
+        mHomePresenter.getRss_Zing();
+    }
+
+    @Override
+    protected void initViews() {
 
     }
 
     @Override
-    protected void injectViews() {
+    public void getRss(List<RssFeed> rssFeedList) {
+        Log.wtf("getRss=",rssFeedList.get(0).getChannel().toString());
+    }
+
+    @Override
+    public void showLoading(String msg) {
+        getAVLoadingIndicatorView().setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        getAVLoadingIndicatorView().setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showError(String msg, View.OnClickListener onClickListener) {
+
+    }
+
+    @Override
+    public void showEmpty(String msg, View.OnClickListener onClickListener) {
+
+    }
+
+    @Override
+    public void showEmpty(String msg, View.OnClickListener onClickListener, int imageId) {
+
+    }
+
+    @Override
+    public void showNetError(View.OnClickListener onClickListener) {
 
     }
 }

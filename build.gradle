@@ -1,11 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha2'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha4'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
         classpath "io.realm:realm-gradle-plugin:1.0.0"
@@ -28,51 +27,3 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-ext {
-    packageName     = "com.toan_itc.baoonline"
-    buildToolVersion= "23.0.3"
-    compileVersion  = 23
-    minSdk          = 15
-    targetSdk       = 19
-    versionCode     = 10
-    versionName     = "2.0"
-
-    supportLibsVersion = '23.4.0'
-    okHttpVersion = '3.2.0'
-    retrofitVersion = '2.0.2'
-    tikxmlVersion='0.5.0-SNAPSHOT'
-
-    supportAppcompat        = 'com.android.support:appcompat-v7:'+ supportLibsVersion
-    supportDesign           = 'com.android.support:design:' + supportLibsVersion
-    supportRecyclerView     = 'com.android.support:recyclerview-v7:' + supportLibsVersion
-    supportCardView         = 'com.android.support:cardview-v7:' + supportLibsVersion
-    supportPercent          = 'com.android.support:percent:'+ supportLibsVersion
-
-    tikxml                  = 'com.tickaroo.tikxml:retrofit-converter:' + tikxmlVersion
-    tikxml_annotation       = 'com.tickaroo.tikxml:annotation:' + tikxmlVersion
-    tikxml_core             = 'com.tickaroo.tikxml:core:' + tikxmlVersion
-    tikxml_processor        = 'com.tickaroo.tikxml:processor:' +tikxmlVersion
-    okHttp                  = 'com.squareup.okhttp3:okhttp:'+ okHttpVersion
-    okHttpLoggingInterceptor= 'com.squareup.okhttp3:logging-interceptor:'+ okHttpVersion
-    retrofit                = 'com.squareup.retrofit2:retrofit:' + retrofitVersion
-    retrofitXmlConverter    = 'com.squareup.retrofit2:converter-gson:' + retrofitVersion
-    retrofitRxJavaAdapter   = 'com.squareup.retrofit2:adapter-rxjava:' + retrofitVersion
-
-    junit                   = 'junit:junit:4.12'
-    guava                   = 'com.google.guava:guava:19.0'
-    logger                  = 'com.github.orhanobut:logger:1.12'
-    dagger                  = 'com.google.dagger:dagger:2.4'
-    daggerCompiler          = 'com.google.dagger:dagger-compiler:2.4'
-    javaxannotation         = 'org.glassfish:javax.annotation:10.0-b28'
-    rxandroid               = 'io.reactivex:rxandroid:1.2.0'
-    rxjava                  = 'io.reactivex:rxjava:1.1.5'
-    rxbinding               = 'com.jakewharton.rxbinding:rxbinding:0.4.0'
-    reactivenetwork         = 'com.github.pwittchen:reactivenetwork:0.2.0'
-    jsoup                   = 'org.jsoup:jsoup:1.9.1'
-    butterKnife             = 'com.jakewharton:butterknife:8.0.1'
-    apt_butterKnife         = 'com.jakewharton:butterknife-compiler:8.0.1'
-    glide                   = 'com.github.bumptech.glide:glide:3.7.0'
-    glidetransformations    = 'jp.wasabeef:glide-transformations:1.4.0'
-    fresco                  = 'com.facebook.fresco:fresco:0.10.0'
-    xrecycleview            = 'com.jcodecraeer:xrecyclerview:1.2.7'
-}

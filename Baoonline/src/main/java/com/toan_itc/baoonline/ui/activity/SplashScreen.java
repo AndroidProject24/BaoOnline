@@ -2,7 +2,7 @@ package com.toan_itc.baoonline.ui.activity;
 
 import android.os.Bundle;
 
-import com.toan_it.library.library.activity.base.BaseActivity;
+import com.toan_it.library.library.activity.BaseActivity;
 
 import rx.Subscription;
 
@@ -23,7 +23,7 @@ public class SplashScreen extends BaseActivity {
     }
 
     @Override
-    protected void injectViews() {
+    protected void initViews() {
 
     }
     @Override
@@ -32,7 +32,7 @@ public class SplashScreen extends BaseActivity {
     }
 
     @Override
-    protected void injectData() {
+    protected void initData() {
 
     }
 

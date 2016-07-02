@@ -1,6 +1,11 @@
 package com.toan_it.library.library.mvp.presenter;
 
+import android.support.annotation.NonNull;
+
 import com.toan_it.library.library.mvp.view.BaseView;
+
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Base class that implements the Presenter interface and provides a base implementation for
@@ -9,30 +14,45 @@ import com.toan_it.library.library.mvp.view.BaseView;
  */
 public class BasePresenter<T extends BaseView> implements Presenter<T> {
     private T mMvpView;
+    @NonNull
+    private CompositeSubscription subscriptionsToUnsubscribeOnUnbindView = new CompositeSubscription();
     @Override
     public void attachView(T mvpView) {
-        mMvpView = mvpView;
+        this.mMvpView = mvpView;
     }
     @Override
     public void detachView() {
-        mMvpView = null;
+        this.mMvpView = null;
+        // Unsubscribe all subscriptions that need to be unsubscribed in this lifecycle state.
+        this.subscriptionsToUnsubscribeOnUnbindView.clear();
     }
 
-    public boolean isViewAttached() {
-        return mMvpView != null;
+    private boolean isViewAttached() {
+        return this.mMvpView != null;
     }
 
     public T getMvpView() {
-        return mMvpView;
+        if(isViewAttached())
+            return this.mMvpView;
+        else
+            throw new IllegalStateException("Unexpected view!" + this.mMvpView);
     }
 
     public void checkViewAttached() {
         if (!isViewAttached()) throw new MvpViewNotAttachedException();
     }
 
-    public static class MvpViewNotAttachedException extends RuntimeException {
-        public MvpViewNotAttachedException() {
+    private static class MvpViewNotAttachedException extends RuntimeException {
+        private MvpViewNotAttachedException() {
             super("Please call Presenter.attachView(BaseView) before" + "requesting data to the Presenter");
+        }
+    }
+    //Clear
+    protected final void unsubscribeOnUnbindView(@NonNull Subscription subscription, @NonNull Subscription... subscriptions) {
+        this.subscriptionsToUnsubscribeOnUnbindView.add(subscription);
+
+        for (Subscription s : subscriptions) {
+            this.subscriptionsToUnsubscribeOnUnbindView.add(s);
         }
     }
 }

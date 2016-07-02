@@ -2,22 +2,22 @@ package com.toan_it.library.library;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
-import android.util.Log;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.moduth.blockcanary.BlockCanary;
-import com.lody.turbodex.TurboDex;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.toan_it.library.BuildConfig;
 import com.toan_it.library.library.injector.component.ApplicationComponent;
 import com.toan_it.library.library.injector.component.DaggerApplicationComponent;
 import com.toan_it.library.library.injector.module.ApplicationModule;
-import com.toan_it.library.library.utils.ToastUtils;
+import com.toan_it.library.library.injector.module.NetworkModule;
 import com.toan_it.library.library.utils.Utils;
 import com.toan_it.library.skinloader.base.SkinBaseApplication;
+
+import java.io.File;
 
 import dalvik.system.DexClassLoader;
 
@@ -30,26 +30,28 @@ public class BaseApplication extends SkinBaseApplication {
     private static BaseApplication mInstance;
     private RefWatcher refWatcher;
     private ApplicationComponent applicationComponent;
-    private static String cacheDir = "";
+    private File cacheDir =null;
     @Override
     protected void attachBaseContext(Context base) {
-        MultiDex.install(base);
-        TurboDex.enableTurboDex();
+       // MultiDex.install(base);
+      //  TurboDex.enableTurboDex();
         super.attachBaseContext(base);
     }
     @Override
     public void onCreate() {
         super.onCreate();
+        initCache();
         initInjector();
-        initdex();
-        initData();
+        initFresco();
+        //initdex();
         mInstance = this;
-        ToastUtils.init(this);
         injectDebug();
+    }
+    private void initFresco(){
+        Fresco.initialize(this);
     }
     private void injectDebug(){
         if (BuildConfig.DEBUG) {
-            Log.wtf("debug","aaa");
             AndroidDevMetrics.initWith(this);
             refWatcher = LeakCanary.install(this);
             Stetho.initializeWithDefaults(this);
@@ -59,6 +61,7 @@ public class BaseApplication extends SkinBaseApplication {
     private void initInjector(){
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
+                .networkModule(new NetworkModule(cacheDir,true))
                 .build();
     }
     private void initdex(){
@@ -69,15 +72,15 @@ public class BaseApplication extends SkinBaseApplication {
                 null,                                                      //Lib dir
                 ClassLoader.getSystemClassLoader().getParent());
     }
-    private void initData(){
+    private void initCache(){
         try {
             if (getApplicationContext().getExternalCacheDir() != null && Utils.ExistSDCard()) {
-                cacheDir = getApplicationContext().getExternalCacheDir().toString();
+                cacheDir = getApplicationContext().getExternalCacheDir();
             } else {
-                cacheDir = getApplicationContext().getCacheDir().toString();
+                cacheDir = getApplicationContext().getCacheDir();
             }
         } catch (Exception e) {
-            cacheDir = getApplicationContext().getCacheDir().toString();
+            cacheDir = getApplicationContext().getCacheDir();
         }
     }
     public static BaseApplication getInstance() {

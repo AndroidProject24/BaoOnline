@@ -1,6 +1,7 @@
 package com.toan_it.library.library.mvp.model.rss;
 /**
- * Created by subodhnijsure on 5/4/16.
+ * Created by Toan.IT
+ * Date: 29/06/2016
  */
 
 import com.tickaroo.tikxml.annotation.Element;
