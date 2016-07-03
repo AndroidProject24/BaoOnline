@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.toan_it.library.library.data.local.DatabaseRealm;
 import com.toan_it.library.library.data.local.PreferencesHelper;
 import com.toan_it.library.library.data.rxjava.RxBus;
@@ -16,7 +15,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 
 @Module
 public class ApplicationModule {
@@ -63,16 +61,7 @@ public class ApplicationModule {
   @Provides
   @NonNull
   @Singleton
-  public Fresco provideFresco(@NonNull Application application, @NonNull OkHttpClient okHttpClient) {
-    return new Picasso.Builder(application)
-            .downloader(new OkHttp3Downloader(okHttpClient))
-            .build();
-  }
-
-  @Provides
-  @NonNull
-  @Singleton
-  public ImageLoaderListener provideImageLoader() {
+  ImageLoaderListener provideImageLoader() {
     return new FrescoImageLoader();
   }
 }

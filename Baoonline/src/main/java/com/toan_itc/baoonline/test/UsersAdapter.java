@@ -9,10 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.toan_it.library.library.libs.image.ImageLoaderListener;
 import com.toan_it.library.library.mvp.model.toan;
 import com.toan_itc.baoonline.R;
 
@@ -30,15 +30,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
   private Context mContext;
   private List<toan> mUsersCollection;
   private final LayoutInflater layoutInflater;
-
+  private ImageLoaderListener mImageLoaderListener;
   private OnItemClickListener onItemClickListener;
 
   @Inject
-  public UsersAdapter(Context context) {
+  public UsersAdapter(Context context,ImageLoaderListener imageLoaderListener) {
     mContext=context;
     this.layoutInflater =
         (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     this.mUsersCollection = Collections.emptyList();
+    this.mImageLoaderListener=imageLoaderListener;
   }
 
   @Override
@@ -57,10 +58,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     final toan toanModel = this.mUsersCollection.get(position);
     holder.list_item_title_text_view.setText(toanModel.getTitle());
     holder.list_item_short_description_text_view.setText(toanModel.getShort_description());
-    Picasso.with(mContext)
+    /*Picasso.with(mContext)
             .load(toanModel.getImage_preview_url())
             .fit().centerCrop()
-            .into(holder.list_item_image_view);
+            .into(holder.list_item_image_view);*/
+    mImageLoaderListener.loadImage(toanModel.getImage_preview_url(),holder.list_item_image_view);
     holder.itemView.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
@@ -98,12 +100,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     //@BindView(R.id.list_item_short_description_text_view)
     TextView list_item_short_description_text_view;
     //@BindView(R.id.list_item_image_view)
-    ImageView list_item_image_view;
+    SimpleDraweeView list_item_image_view;
     public UserViewHolder(View itemView) {
       super(itemView);
       list_item_title_text_view=(TextView)itemView.findViewById(R.id.list_item_title_text_view);
       list_item_short_description_text_view=(TextView)itemView.findViewById(R.id.list_item_short_description_text_view);
-      list_item_image_view=(ImageView) itemView.findViewById(R.id.list_item_image_view);
+      list_item_image_view=(SimpleDraweeView) itemView.findViewById(R.id.list_item_image_view);
     }
   }
 }

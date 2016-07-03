@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.stetho.Stetho;
 import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.moduth.blockcanary.BlockCanary;
@@ -48,7 +50,10 @@ public class BaseApplication extends SkinBaseApplication {
         injectDebug();
     }
     private void initFresco(){
-        Fresco.initialize(this);
+        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
+                .newBuilder(getApplicationContext(), applicationComponent.mOkHttpClient())
+                .build();
+        Fresco.initialize(getApplicationContext(),config);
     }
     private void injectDebug(){
         if (BuildConfig.DEBUG) {

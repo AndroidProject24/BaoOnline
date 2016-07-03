@@ -4,9 +4,19 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 apply plugin: 'com.frogermcs.androiddevmetrics'
 apply from: "$rootProject.projectDir/buildsystem/library.gradle"
-
 def configuration = ext.configuration;
 def library = ext.library;
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
+
 android {
     compileSdkVersion configuration.compileSdkVersion
     buildToolsVersion configuration.buildToolsVersion
@@ -19,6 +29,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -36,7 +47,7 @@ dependencies {
     //----- Support Libs
     compile  "${library.supportCompat}"
     compile  "${library.supportDesign}"
-    compile  "${library.supportRecyclerView}"
+    //compile  "${library.supportRecyclerView}"
     compile  "${library.supportCardView}"
     //----- Rx
     compile  "${library.rxjava}"

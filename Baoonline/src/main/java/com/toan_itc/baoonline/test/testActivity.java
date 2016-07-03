@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.toan_it.library.library.BaseApplication;
 import com.toan_it.library.library.activity.BaseActivity;
 import com.toan_it.library.library.data.networking.RestData;
+import com.toan_it.library.library.libs.image.ImageLoaderListener;
 import com.toan_it.library.library.mvp.model.toan;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.injector.DaggerActivityComponent;
@@ -24,7 +25,8 @@ import rx.Subscriber;
 public class testActivity extends BaseActivity {
     @Inject
     RestData mRestData;
-
+    @Inject
+    ImageLoaderListener mImageLoaderListener;
     RecyclerView recycler;
 
     @Override
@@ -58,7 +60,7 @@ public class testActivity extends BaseActivity {
 
                     @Override
                     public void onNext(List<toan> toen) {
-                        UsersAdapter usersAdapter=new UsersAdapter(testActivity.this);
+                        UsersAdapter usersAdapter=new UsersAdapter(testActivity.this,mImageLoaderListener);
                         usersAdapter.setUsersCollection(toen);
                         recycler.setLayoutManager(new LinearLayoutManager(testActivity.this,LinearLayoutManager.VERTICAL,false));
                         recycler.setAdapter(usersAdapter);

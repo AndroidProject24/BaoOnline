@@ -11,14 +11,12 @@
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content">
-
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/list_item_image_view"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:contentDescription="Item image"
-        tools:background="#00aa00" />
-
+        android:layout_height="200dp"
+        tools:background="#00aa00"
+        />
     <TextView
         android:id="@+id/list_item_title_text_view"
         android:layout_width="match_parent"
