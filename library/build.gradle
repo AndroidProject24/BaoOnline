@@ -1,31 +1,16 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'realm-android'
-apply plugin: 'com.frogermcs.androiddevmetrics'
-apply from: "$rootProject.projectDir/buildsystem/library.gradle"
-def configuration = ext.configuration;
-def library = ext.library;
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
-}
-
-
 android {
-    compileSdkVersion configuration.compileSdkVersion
-    buildToolsVersion configuration.buildToolsVersion
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
     defaultConfig {
-        minSdkVersion configuration.minimumSdkVersion
-        targetSdkVersion configuration.targetSdkVersion
-        versionCode buildVersionCode()
-        versionName buildVersionName()
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionCode")
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -36,55 +21,29 @@ android {
             debuggable true
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'              //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    //----- Support Libs
-    compile  "${library.supportCompat}"
-    compile  "${library.supportDesign}"
-    //compile  "${library.supportRecyclerView}"
-    compile  "${library.supportCardView}"
-    //----- Rx
-    compile  "${library.rxjava}"
-    compile  "${library.rxandroid}"
-    compile  "${library.rxbinding}"
-    //----- Butterknife
-    compile  "${library.butterKnife}"
-    apt      "${library.apt_butterKnife}"
-    //----- Dagger
-    compile  "${library.dagger}"
-    apt      "${library.daggerCompiler}"
-    provided "${library.javaxannotation}"
-    //----- Retrofit
-    compile  "${library.retrofitRxJavaAdapter}"
-    compile  "${library.okHttp}"
-    compile  "${library.okHttpLogging}"
-    //----- Fresco
-    compile  "${library.fresco}"
-    compile  "${library.frescoHttp}"
-    //-----TikXml
-    compile  "${library.tikxml}"
-    compile  "${library.tikxml_annotation}"
-    compile  "${library.tikxml_core}"
-    apt      "${library.tikxml_processor}"
-    //-----Network
-    compile  "${library.reactivenetwork}"
-    //-----BaseAdapter
-    compile   "${library.baseRecycler}"
-    //----- Testing
-   // compile 'com.github.asLody:turbodex:1.1.0'
-   // compile 'com.android.support:multidex:1.0.1'
-
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.github.moduth:blockcanary-android:1.2.1'
-    compile 'com.facebook.stetho:stetho:1.3.1'
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
-    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    def supportDependencies = rootProject.ext.supportDependencies
+    compile  supportDependencies.supportCompat
+    compile  supportDependencies.supportDesign
+    compile  supportDependencies.supportCardView
 }

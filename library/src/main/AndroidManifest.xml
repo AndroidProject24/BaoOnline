@@ -1,5 +1,4 @@
 <manifest package="com.toan_it.library"
           xmlns:android="http://schemas.android.com/apk/res/android">
-    <application
-        android:name=".library.BaseApplication"/>
+
 </manifest>

@@ -1,84 +1,122 @@
-ext.version = [
-        supportLibsVersion    : "24.0.0",
-        constraintVersion     : "1.0.0-alpha2",
-        okHttpVersion         : "3.3.1",
-        retrofitVersion       : "2.1.0",
-        rxbindingVersion      : "0.4.0",
-        rxandroidVersion      : "1.2.1",
-        rxjavaVersion         : "1.1.6",
-        daggerVersion         : "2.5",
-        javaxannotation       : "10.0-b28",
-        butterKnifeVersion    : "8.0.1",
-        glideVersion          : "3.7.0",
-        frescoVersion         : "0.11.0",
-        frescoHttpVersion     : "0.11.0+",
-        reactivenetwork       : "0.2.0",
-        baseRecyclerVersion   : "v1.7.9",
-        jsoupVersion          : "1.9.2",
-        tikxmlVersion         : "0.5.2-SNAPSHOT",
-]
-
-def version = ext.version;
-
-ext.library = [
-        supportCompat          : "com.android.support:appcompat-v7:${version.supportLibsVersion}",
-        supportDesign          : "com.android.support:design:${version.supportLibsVersion}",
-        supportRecyclerView    : "com.android.support:recyclerview-v7:${version.supportLibsVersion}",
-        supportCardView        : "com.android.support:cardview-v7:${version.supportLibsVersion}",
-        constraintLayout       : "com.android.support.constraint:constraint-layout:${version.constraintVersion}",
-        rxjava                 : "io.reactivex:rxjava:${version.rxjavaVersion}",
-        rxandroid              : "io.reactivex:rxandroid:${version.rxandroidVersion}",
-        rxbinding              : "com.jakewharton.rxbinding:rxbinding:${version.rxbindingVersion}",
-        okHttp                 : "com.squareup.okhttp3:okhttp:${version.okHttpVersion}",
-        okHttpLogging          : "com.squareup.okhttp3:logging-interceptor:${version.okHttpVersion}",
-        retrofit               : "com.squareup.retrofit2:retrofit:${version.retrofitVersion}",
-        retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:${version.retrofitVersion}",
-        retrofitRxJavaAdapter  : "com.squareup.retrofit2:adapter-rxjava:${version.retrofitVersion}",
-        dagger                 : "com.google.dagger:dagger:${version.daggerVersion}",
-        daggerCompiler         : "com.google.dagger:dagger-compiler:${version.daggerVersion}",
-        javaxannotation        : "org.glassfish:javax.annotation:${version.javaxannotation}",
-        butterKnife            : "com.jakewharton:butterknife:${version.butterKnifeVersion}",
-        apt_butterKnife        : "com.jakewharton:butterknife-compiler:${version.butterKnifeVersion}",
-        reactivenetwork        : "com.github.pwittchen:reactivenetwork:${version.reactivenetwork}",
-        glide                  : "com.github.bumptech.glide:glide:${version.glideVersion}",
-        fresco                 : "com.facebook.fresco:fresco:${version.frescoVersion}",
-        frescoHttp             : "com.facebook.fresco:imagepipeline-okhttp3:${version.frescoHttpVersion}",
-        baseRecycler           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version.baseRecyclerVersion}",
-        tikxml                 : "com.tickaroo.tikxml:retrofit-converter:${version.tikxmlVersion}",
-        tikxml_annotation      : "com.tickaroo.tikxml:annotation:${version.tikxmlVersion}",
-        tikxml_core            : "com.tickaroo.tikxml:core:${version.tikxmlVersion}",
-        tikxml_processor       : "com.tickaroo.tikxml:processor:${version.tikxmlVersion}",
-        jsoup                  : "org.jsoup:jsoup:${version.jsoupVersion}",
-]
-ext.configuration = [
-        applicationId               : "com.toan_itc.baoonline",
-        versionMajor                : 0,
-        versionMinor                : 1,
-        versionPatch                : 0,
-        versionClassifier           : "",
-        minimumSdkVersion           : 15,
-        compileSdkVersion           : 24,
-        targetSdkVersion            : 23,
-        buildToolsVersion           : "23.0.3"
-]
-
-def configuration = ext.configuration;
-
-//format: <2 digits - minApi> <1 digit - reverse> <2 digits - major> <2 digits - minor> <2 digits - patch>
-ext.buildVersionCode = {
-    return configuration.minimumSdkVersion * 10000000 + configuration.versionMajor * 10000 + configuration.versionMinor * 100 + configuration.versionPatch
-}
-
-//format: major.minor.patch
-ext.buildVersionNameWithoutClassifier = {
-    return "${configuration.versionMajor}.${configuration.versionMinor}.${configuration.versionPatch}";
-}
-
-//format: major.minor.patch-Classifier
-ext.buildVersionName = {
-    String versionName = ext.buildVersionNameWithoutClassifier();
-    if (configuration.versionClassifier != null && !configuration.versionClassifier.isEmpty()) {
-        versionName = versionName + "-" + configuration.versionClassifier
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'http://oss.sonatype.org/content/repositories/snapshots'
+        }
+        maven { url "https://jitpack.io" }
     }
-    return versionName;
+}
+
+ext {
+    //KeyStore
+    keystore = "$rootProject.projectDir/buildsystem/toankey.jks"
+    keystorePass = "bambovip33"
+    alias = "toan"
+    aliasPass = "bambovip33"
+    //Android
+    androidBuildToolsVersion = "24.0.0"
+    androidMinSdkVersion = 15
+    androidTargetSdkVersion = 24
+    androidCompileSdkVersion = 24
+
+    //Libraries
+    supportLibsVersion = '24.0.0'
+    constraintVersion = '1.0.0-alpha3'
+    daggerVersion = '2.5'
+    butterKnifeVersion = '8.0.1'
+    rxJavaVersion = '1.1.6'
+    rxAndroidVersion = '1.2.1'
+    rxBindingVersion = '0.4.0'
+    javaxAnnotationVersion = '10.0-b28'
+    okHttpVersion = '3.3.1'
+    retrofitVersion ='2.1.0'
+    frescoVersion   = '0.11.0'
+    frescoHttpVersion = '0.11.0+'
+    jsoupVersion   = '1.9.2'
+    tikxmlVersion = '0.5.2-SNAPSHOT'
+    baseRecyclerVersion = 'v1.8.5'
+    reactivenetwork = '0.2.0'
+
+    //Testing
+    robolectricVersion = '3.0'
+    jUnitVersion = '4.12'
+    assertJVersion = '1.7.1'
+    mockitoVersion = '1.9.5'
+    dexmakerVersion = '1.0'
+    espressoVersion = '2.0'
+    testingSupportLibVersion = '0.1'
+    autoValue='1.2-rc1'
+
+    //Development
+    leakCanaryVersion = '1.4-beta2'
+    blockcanaryVersion = '1.2.1'
+    stethoVersion = '1.3.1'
+
+    supportDependencies = [
+            supportCompat          : "com.android.support:appcompat-v7:${supportLibsVersion}",
+            supportDesign          : "com.android.support:design:${supportLibsVersion}",
+            supportRecyclerView    : "com.android.support:recyclerview-v7:${supportLibsVersion}",
+            supportCardView        : "com.android.support:cardview-v7:${supportLibsVersion}",
+            constraintLayout       : "com.android.support.constraint:constraint-layout:${constraintVersion}",
+            butterKnife            : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            apt_butterKnife        : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            baseRecyclerView       : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${baseRecyclerVersion}",
+    ]
+
+
+    injectDependencies = [
+            dagger                 : "com.google.dagger:dagger:${daggerVersion}",
+            daggerCompiler         : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            javaxannotation        : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
+            rxjava                 : "io.reactivex:rxjava:${rxJavaVersion}",
+            rxandroid              : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            rxbinding              : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
+    ]
+
+    networkDependencies = [
+            okHttp                 : "com.squareup.okhttp3:okhttp:${okHttpVersion}",
+            okHttpLogging          : "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}",
+            retrofit               : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofitRxJavaAdapter  : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
+            reactivenetwork        : "com.github.pwittchen:reactivenetwork:${reactivenetwork}",
+            fresco                 : "com.facebook.fresco:fresco:${frescoVersion}",
+            frescoHttp             : "com.facebook.fresco:imagepipeline-okhttp3:${frescoHttpVersion}",
+    ]
+
+    appDependencies  =[
+            tikxml                 : "com.tickaroo.tikxml:retrofit-converter:${tikxmlVersion}",
+            tikxml_annotation      : "com.tickaroo.tikxml:annotation:${tikxmlVersion}",
+            tikxml_core            : "com.tickaroo.tikxml:core:${tikxmlVersion}",
+            tikxml_processor       : "com.tickaroo.tikxml:processor:${tikxmlVersion}",
+            jsoup                  : "org.jsoup:jsoup:${jsoupVersion}",
+    ]
+
+    developmentDependencies = [
+            leakCanary  : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+            blockCanary : "com.github.moduth:blockcanary-android:${blockcanaryVersion}",
+            stetho      : "com.facebook.stetho:stetho:${stethoVersion}",
+    ]
+
+    dataTestDependencies = [
+            junit:              "junit:junit:${jUnitVersion}",
+            assertj:            "org.assertj:assertj-core:${assertJVersion}",
+            mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+            robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
+    ]
+
+    domainTestDependencies = [
+            junit:              "junit:junit:${jUnitVersion}",
+            mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+    ]
+
+    presentationTestDependencies = [
+            mockito:            "org.mockito:mockito-core:${mockitoVersion}",
+            dexmaker:           "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+            dexmakerMockito:    "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+            espresso:           "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            testingSupportLib:  "com.android.support.test:testing-support-lib:${testingSupportLibVersion}",
+    ]
 }

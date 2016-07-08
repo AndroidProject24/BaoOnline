@@ -1,11 +1,11 @@
 package com.toan_itc.baoonline.mvp.presenter;
 
 import com.tickaroo.tikxml.TikXml;
-import com.toan_it.library.library.data.local.DatabaseRealm;
-import com.toan_it.library.library.data.networking.RestData;
-import com.toan_it.library.library.mvp.model.rss.RssFeed;
-import com.toan_it.library.library.mvp.presenter.BasePresenter;
-import com.toan_it.library.library.utils.Logger;
+import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
+import com.toan_itc.baoonline.library.data.networking.RestData;
+import com.toan_itc.baoonline.library.mvp.model.rss.RssFeed;
+import com.toan_itc.baoonline.library.mvp.presenter.BasePresenter;
+import com.toan_itc.baoonline.library.utils.Logger;
 import com.toan_itc.baoonline.mvp.view.HomeView;
 
 import javax.inject.Inject;
@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import okio.Buffer;
 import rx.Subscriber;
 import rx.Subscription;
+import rx.functions.Action0;
 
 /**
  * Created by Toan.IT
@@ -27,11 +28,18 @@ public class HomePresenter extends BasePresenter<HomeView> {
         this.mDatabaseRealm=databaseRealm;
     }
     public void getRss_Zing(){
-        Subscription subscription=mRestData.GetRss("http://vietnamnet.vn/rss/tin-noi-bat.rss")
+        getMvpView().showLoading();
+        Subscription subscription=mRestData.GetRss("http://www.nguoiduatin.vn/trang-chu.rss")
+                .doOnCompleted(new Action0() {
+                    @Override
+                    public void call() {
+                        Logger.e("doOnCompleted");
+                    }
+                })
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
-
+                        getMvpView().hideLoading();
                     }
 
                     @Override
@@ -43,10 +51,10 @@ public class HomePresenter extends BasePresenter<HomeView> {
                     @Override
                     public void onNext(String string) {
                         try {
-                            Logger.e(string);
+                            Logger.d(string);
                             TikXml parse= new TikXml.Builder().exceptionOnUnreadXml(false).build();
                             RssFeed rssFeed=parse.read(new Buffer().writeUtf8(string), RssFeed.class);
-                            Logger.e(rssFeed.toString());
+                            getMvpView().getRss(rssFeed);
                         }catch (Exception e){
                             e.printStackTrace();
                         }

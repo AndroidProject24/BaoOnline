@@ -2,40 +2,33 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.fernandocejas.frodo'
-apply from: "$rootProject.projectDir/buildsystem/library.gradle"
-apply from: "$rootProject.projectDir/buildsystem/secret.gradle"
 
-def configuration = ext.configuration;
-def library = ext.library;
-def keyConf = ext;
-
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-    }
+frodo {
+    enabled = true
 }
-
 android {
-    compileSdkVersion configuration.compileSdkVersion
-    buildToolsVersion configuration.buildToolsVersion
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
     defaultConfig {
-        applicationId configuration.applicationId
-        minSdkVersion configuration.minimumSdkVersion
-        targetSdkVersion configuration.targetSdkVersion
-        versionCode buildVersionCode()
-        versionName buildVersionName()
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+
+        applicationId globalConfiguration.getAt("androidApplicationId")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+        versionName globalConfiguration.getAt("androidVersionName")
+        /*testInstrumentationRunner globalConfiguration.getAt("testInstrumentationRunner")
+        testApplicationId globalConfiguration.getAt("testApplicationId")*/
     }
     signingConfigs {
         Key {
             try {
-                storeFile file(keyConf.keystore)
-                storePassword keyConf.keystorePass
-                keyAlias keyConf.alias
-                keyPassword keyConf.aliasPass
+                storeFile file(globalConfiguration.getAt("keystore"))
+                storePassword globalConfiguration.getAt("keystorePass")
+                keyAlias globalConfiguration.getAt("alias")
+                keyPassword globalConfiguration.getAt("aliasPass")
             }
             catch (ignored) {
                 throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
@@ -65,8 +58,13 @@ android {
         exclude 'META-INF/DEPENDENCIES'
     }
     lintOptions {
-        warning 'InvalidPackage'
+        quiet true
         abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'            //Some libraries have issues with this.
+        disable 'OldTargetApi'              //Lint gives this warning but SDK 20 would be Android L Beta.
+        disable 'IconDensities'             //For testing purpose. This is safe to remove.
+        disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
     }
     dexOptions {
         javaMaxHeapSize "4g"
@@ -108,28 +106,59 @@ def configApkFileName(variant, defaultConfig) {
         }
     }
 }
-
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    def supportDependencies = rootProject.ext.supportDependencies
+    def injectDependencies = rootProject.ext.injectDependencies
+    def networkDependencies = rootProject.ext.networkDependencies
+    def appDependencies = rootProject.ext.appDependencies
+    def developmentDependencies = rootProject.ext.developmentDependencies
     compile project(':library')
     //----- Support Libs
-    compile  "${library.supportCompat}"
-    compile  "${library.supportDesign}"
-    compile  "${library.supportRecyclerView}"
-    compile  "${library.supportCardView}"
+    compile supportDependencies.supportCompat
+    compile supportDependencies.supportDesign
+    compile supportDependencies.supportRecyclerView
+    compile supportDependencies.supportCardView
+    compile supportDependencies.constraintLayout
+    //----- Butterknife
+    compile supportDependencies.butterKnife
+    apt     supportDependencies.apt_butterKnife
+
     //----- Dagger
-    compile  "${library.dagger}"
-    apt      "${library.daggerCompiler}"
-    provided "${library.javaxannotation}"
+    compile injectDependencies.dagger
+    apt     injectDependencies.daggerCompiler
+    provided injectDependencies.javaxannotation
+
     //-----Jsoup
-    compile "${library.jsoup}"
+    compile appDependencies.jsoup
+
     //----- Rx
-    compile  "${library.rxjava}"
-    compile  "${library.rxandroid}"
-    compile  "${library.rxbinding}"
+    compile injectDependencies.rxjava
+    compile injectDependencies.rxandroid
+    compile injectDependencies.rxbinding
+
     //-----TikXml
-    compile  "${library.tikxml}"
-    compile  "${library.tikxml_annotation}"
-    compile  "${library.tikxml_core}"
-    apt      "${library.tikxml_processor}"
+    compile appDependencies.tikxml
+    compile appDependencies.tikxml_annotation
+    compile appDependencies.tikxml_core
+    apt     appDependencies.tikxml_processor
+
+    //----- Retrofit
+    compile networkDependencies.retrofitRxJavaAdapter
+    compile networkDependencies.okHttp
+    compile networkDependencies.okHttpLogging
+
+    //----- Fresco
+    compile networkDependencies.fresco
+    compile networkDependencies.frescoHttp
+
+    //-----Network
+    compile networkDependencies.reactivenetwork
+
+    //-----BaseAdapter
+    compile supportDependencies.baseRecyclerView
+
+    //Development
+    compile developmentDependencies.leakCanary
+    compile developmentDependencies.blockCanary
+    compile developmentDependencies.stetho
 }

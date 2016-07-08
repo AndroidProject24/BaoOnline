@@ -4,7 +4,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.toan_it.library.library.libs.image.ImageLoaderListener;
+import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+
 
 public class FrescoImageLoader implements ImageLoaderListener {
     @Override

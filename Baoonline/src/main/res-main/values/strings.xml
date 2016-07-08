@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Báo Online</string>
-    <string name="test.1">aaaaa</string>
+    <!--NETWORK-->
+    <string name="snack_action_to_setting">Setting</string>
+    <string name="snack_message_net_error">network error please to check network</string>
+    <string name="snack_message_timeout_error">time out please to check network</string>
+    <string name="snack_message_unknown_error">unknown error</string>
+    <string name="snack_message_data_error">data error</string>
 
 </resources>
