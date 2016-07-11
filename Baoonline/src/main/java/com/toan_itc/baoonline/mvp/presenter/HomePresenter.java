@@ -3,8 +3,9 @@ package com.toan_itc.baoonline.mvp.presenter;
 import com.tickaroo.tikxml.TikXml;
 import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
 import com.toan_itc.baoonline.library.data.networking.RestData;
-import com.toan_itc.baoonline.library.mvp.model.rss.RssFeed;
-import com.toan_itc.baoonline.library.mvp.presenter.BasePresenter;
+import com.toan_itc.baoonline.library.data.networking.RestError;
+import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
+import com.toan_itc.baoonline.library.basemvp.BasePresenter;
 import com.toan_itc.baoonline.library.utils.Logger;
 import com.toan_itc.baoonline.mvp.view.HomeView;
 
@@ -28,8 +29,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
         this.mDatabaseRealm=databaseRealm;
     }
     public void getRss_Zing(){
-        getMvpView().showLoading();
-        Subscription subscription=mRestData.GetRss("http://www.nguoiduatin.vn/trang-chu.rss")
+        getMvpView().showLoading(true);
+        Subscription subscription=mRestData.GetRss(mDatabaseRealm.getNews(0).getData().get(0).getUrl())
                 .doOnCompleted(new Action0() {
                     @Override
                     public void call() {
@@ -39,13 +40,13 @@ public class HomePresenter extends BasePresenter<HomeView> {
                 .subscribe(new Subscriber<String>() {
                     @Override
                     public void onCompleted() {
-                        getMvpView().hideLoading();
+                        getMvpView().showLoading(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        getMvpView().hideLoading();
-                        getMvpView().showError(e.getMessage(),null);
+                        getMvpView().showLoading(false);
+                        getMvpView().showError(new RestError(e).getAppErrorMessage(),null);
                     }
 
                     @Override

@@ -1,6 +1,6 @@
 package com.toan_itc.baoonline.library;
 
-import android.content.Context;
+import android.graphics.Color;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
@@ -10,8 +10,8 @@ import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.toan_it.library.BuildConfig;
 import com.toan_it.library.skinloader.base.SkinBaseApplication;
+import com.toan_itc.baoonline.BuildConfig;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
@@ -20,10 +20,11 @@ import com.toan_itc.baoonline.library.utils.Utils;
 
 import java.io.File;
 
-import dalvik.system.DexClassLoader;
+import jp.wasabeef.takt.Seat;
+import jp.wasabeef.takt.Takt;
 
 /**
- * Created by _SOLID
+ * Created by Toan.IT
  * Date:2016/3/30
  * Time:20:59
  */
@@ -53,6 +54,11 @@ public class BaseApplication extends SkinBaseApplication {
             refWatcher = LeakCanary.install(this);
             Stetho.initializeWithDefaults(this);
             BlockCanary.install(this, new AppBlockCanaryContext()).start();
+            Takt.stock(this)
+                    .seat(Seat.TOP_LEFT)
+                    .color(Color.RED)
+                    .size(20f)
+                    .play();
         }
     }
     private void initInjector(){
@@ -76,11 +82,15 @@ public class BaseApplication extends SkinBaseApplication {
         return mInstance;
     }
 
-    public static RefWatcher getRefWatcher(Context context) {
-        BaseApplication application = (BaseApplication) context.getApplicationContext();
-        return application.refWatcher;
+    public static RefWatcher getRefWatcher() {
+        return getInstance().refWatcher;
     }
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
+    }
+    @Override
+    public void onTerminate() {
+        Takt.finish();
+        super.onTerminate();
     }
 }

@@ -2,7 +2,7 @@ package com.toan_itc.baoonline.ui.activity;
 
 import android.os.Bundle;
 
-import com.toan_itc.baoonline.library.activity.BaseActivity;
+import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
 
 import rx.Subscription;
 

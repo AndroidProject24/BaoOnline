@@ -1,1 +1,4 @@
-include ':Baoonline', ':library'
+include ':Baoonline'
+include ':theme'
+include ':data'
+include ':domain'

@@ -5,8 +5,9 @@ import android.support.v4.app.Fragment;
 
 import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.activity.BaseActivity;
+import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
 import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
+import com.toan_itc.baoonline.ui.datafragment.AddDataFragment;
 import com.toan_itc.baoonline.ui.fragment.HomeFragment;
 
 import javax.inject.Inject;
@@ -27,7 +28,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        addFagment(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFragment);
+        addFagment(getSupportFragmentManager(), AddDataFragment.newInstance(), R.id.contentFragment);
     }
     @Override
     protected int setLayoutResourceID() {
@@ -37,7 +38,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initData() {
         mDatabaseRealm.setup();
-        mDatabaseRealm.Get_News(this);
+       // mDatabaseRealm.Set_News(this);
     }
 
     @Override

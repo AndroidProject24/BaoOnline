@@ -1,7 +1,7 @@
 package com.toan_itc.baoonline.mvp.view;
 
-import com.toan_itc.baoonline.library.mvp.model.rss.RssFeed;
-import com.toan_itc.baoonline.library.mvp.view.BaseView;
+import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
+import com.toan_itc.baoonline.library.basemvp.BaseView;
 
 /**
  * Created by Toan.IT

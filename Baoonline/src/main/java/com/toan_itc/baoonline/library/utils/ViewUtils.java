@@ -8,7 +8,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.inputmethod.InputMethodManager;
 
-import com.toan_itc.baoonline.library.fragment.BaseFragment;
+import com.toan_itc.baoonline.library.basefragment.BaseFragment;
 
 import java.util.HashMap;
 import java.util.Map;

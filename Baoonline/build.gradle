@@ -1,8 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 apply plugin: 'com.fernandocejas.frodo'
-
+apply plugin: 'com.frogermcs.androiddevmetrics'
 frodo {
     enabled = true
 }
@@ -44,6 +45,8 @@ android {
         }
         debug {
             debuggable true
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
         }
         applicationVariants.all { variant ->
             configApkFileName(variant, defaultConfig)
@@ -112,7 +115,10 @@ dependencies {
     def networkDependencies = rootProject.ext.networkDependencies
     def appDependencies = rootProject.ext.appDependencies
     def developmentDependencies = rootProject.ext.developmentDependencies
-    compile project(':library')
+
+    compile project(':data')
+    compile project(':domain')
+    compile project(':theme')
     //----- Support Libs
     compile supportDependencies.supportCompat
     compile supportDependencies.supportDesign
@@ -135,6 +141,7 @@ dependencies {
     compile injectDependencies.rxjava
     compile injectDependencies.rxandroid
     compile injectDependencies.rxbinding
+    compile injectDependencies.rxpermissions
 
     //-----TikXml
     compile appDependencies.tikxml
@@ -161,4 +168,5 @@ dependencies {
     compile developmentDependencies.leakCanary
     compile developmentDependencies.blockCanary
     compile developmentDependencies.stetho
+    compile developmentDependencies.takt
 }

@@ -7,10 +7,10 @@ import android.view.View;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
-import com.toan_itc.baoonline.library.fragment.BaseFragment;
+import com.toan_itc.baoonline.library.basefragment.BaseFragment;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
-import com.toan_itc.baoonline.library.mvp.model.rss.RssFeed;
-import com.toan_itc.baoonline.library.mvp.model.rss.RssFeedItem;
+import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
+import com.toan_itc.baoonline.mvp.model.rss.RssFeedItem;
 import com.toan_itc.baoonline.library.utils.Logger;
 import com.toan_itc.baoonline.mvp.presenter.HomePresenter;
 import com.toan_itc.baoonline.mvp.view.HomeView;
@@ -81,13 +81,8 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
     }
 
     @Override
-    public void showLoading() {
-        showLoading(true);
-    }
-
-    @Override
-    public void hideLoading() {
-        showLoading(false);
+    public void showLoading(boolean loading) {
+        ShowLoading(loading);
     }
 
     @Override
