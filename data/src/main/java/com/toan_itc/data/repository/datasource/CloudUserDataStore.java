@@ -15,9 +15,9 @@
  */
 package com.toan_itc.data.repository.datasource;
 
-import com.fernandocejas.android10.sample.data.cache.UserCache;
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
-import com.fernandocejas.android10.sample.data.net.RestApi;
+import com.toan_itc.data.cache.UserCache;
+import com.toan_itc.data.entity.UserEntity;
+import com.toan_itc.data.net.RestApi;
 
 import java.util.List;
 
@@ -51,11 +51,13 @@ class CloudUserDataStore implements UserDataStore {
 
   @Override
   public Observable<List<UserEntity>> userEntityList() {
-    return this.restApi.userEntityList();
+   // return this.restApi.userEntityList();
+    return null;
   }
 
   @Override
   public Observable<UserEntity> userEntityDetails(final int userId) {
-    return this.restApi.userEntityById(userId).doOnNext(saveToCacheAction);
+   // return this.restApi.userEntityById(userId).doOnNext(saveToCacheAction);
+    return null;
   }
 }

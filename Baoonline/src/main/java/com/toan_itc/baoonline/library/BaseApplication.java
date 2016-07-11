@@ -1,6 +1,7 @@
 package com.toan_itc.baoonline.library;
 
 import android.graphics.Color;
+import android.os.Environment;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
@@ -16,7 +17,6 @@ import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
-import com.toan_itc.baoonline.library.utils.Utils;
 
 import java.io.File;
 
@@ -69,7 +69,7 @@ public class BaseApplication extends SkinBaseApplication {
     }
     private void initCache(){
         try {
-            if (getApplicationContext().getExternalCacheDir() != null && Utils.ExistSDCard()) {
+            if (getApplicationContext().getExternalCacheDir() != null && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                 cacheDir = getApplicationContext().getExternalCacheDir();
             } else {
                 cacheDir = getApplicationContext().getCacheDir();

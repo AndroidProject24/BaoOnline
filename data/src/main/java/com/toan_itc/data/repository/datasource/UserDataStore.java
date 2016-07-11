@@ -15,7 +15,8 @@
  */
 package com.toan_itc.data.repository.datasource;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
+
+import com.toan_itc.data.entity.UserEntity;
 
 import java.util.List;
 

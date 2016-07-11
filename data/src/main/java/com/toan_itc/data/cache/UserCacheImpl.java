@@ -18,10 +18,10 @@ package com.toan_itc.data.cache;
 import android.content.Context;
 import android.util.Log;
 
-import com.fernandocejas.android10.sample.data.cache.serializer.JsonSerializer;
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
-import com.fernandocejas.android10.sample.data.exception.UserNotFoundException;
-import com.fernandocejas.android10.sample.domain.executor.ThreadExecutor;
+import com.toan_itc.data.cache.serializer.JsonSerializer;
+import com.toan_itc.data.entity.UserEntity;
+import com.toan_itc.data.exception.UserNotFoundException;
+import com.toan_itc.domain.executor.ThreadExecutor;
 
 import java.io.File;
 

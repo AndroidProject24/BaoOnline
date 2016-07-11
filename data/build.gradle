@@ -3,6 +3,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.fernandocejas.frodo'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 
 android {
     defaultPublishConfig "debug"
@@ -44,8 +45,10 @@ dependencies {
     def injectDependencies = rootProject.ext.injectDependencies
     def networkDependencies = rootProject.ext.networkDependencies
     def appDependencies = rootProject.ext.appDependencies
+    def supportDependencies = rootProject.ext.supportDependencies
 
     compile project(':domain')
+    compile supportDependencies.supportannotations
     compile injectDependencies.dagger
     apt     injectDependencies.daggerCompiler
     provided injectDependencies.javaxannotation
@@ -55,4 +58,7 @@ dependencies {
     compile networkDependencies.okHttp
     compile networkDependencies.retrofitRxJavaAdapter
     compile appDependencies.tikxml
+    compile appDependencies.tikxml_annotation
+    compile appDependencies.tikxml_core
+    apt     appDependencies.tikxml_processor
 }

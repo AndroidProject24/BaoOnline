@@ -1,13 +1,13 @@
 package com.toan_itc.baoonline.mvp.presenter;
 
 import com.tickaroo.tikxml.TikXml;
-import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
-import com.toan_itc.baoonline.library.data.networking.RestData;
-import com.toan_itc.baoonline.library.data.networking.RestError;
-import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
 import com.toan_itc.baoonline.library.basemvp.BasePresenter;
-import com.toan_itc.baoonline.library.utils.Logger;
 import com.toan_itc.baoonline.mvp.view.HomeView;
+import com.toan_itc.data.local.DatabaseRealm;
+import com.toan_itc.data.model.rss.RssFeed;
+import com.toan_itc.data.net.RestData;
+import com.toan_itc.data.net.RestError;
+import com.toan_itc.data.utils.Logger;
 
 import javax.inject.Inject;
 

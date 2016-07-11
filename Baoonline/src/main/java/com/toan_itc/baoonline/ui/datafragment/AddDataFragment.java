@@ -13,10 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
 import com.toan_itc.baoonline.library.basefragment.BaseFragment;
-import com.toan_itc.baoonline.mvp.model.news.News;
-import com.toan_itc.baoonline.library.utils.Logger;
+import com.toan_itc.data.local.DatabaseRealm;
+import com.toan_itc.data.model.news.News;
+import com.toan_itc.data.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

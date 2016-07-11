@@ -15,11 +15,11 @@
  */
 package com.toan_itc.data.repository;
 
-import com.fernandocejas.android10.sample.data.entity.mapper.UserEntityDataMapper;
-import com.fernandocejas.android10.sample.data.repository.datasource.UserDataStore;
-import com.fernandocejas.android10.sample.data.repository.datasource.UserDataStoreFactory;
-import com.fernandocejas.android10.sample.domain.User;
-import com.fernandocejas.android10.sample.domain.repository.UserRepository;
+import com.toan_itc.data.entity.mapper.UserEntityDataMapper;
+import com.toan_itc.data.repository.datasource.UserDataStore;
+import com.toan_itc.data.repository.datasource.UserDataStoreFactory;
+import com.toan_itc.domain.User;
+import com.toan_itc.domain.repository.UserRepository;
 
 import java.util.List;
 

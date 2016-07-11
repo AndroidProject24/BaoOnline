@@ -9,9 +9,9 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.library.basefragment.BaseFragment;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
-import com.toan_itc.baoonline.mvp.model.rss.RssFeed;
-import com.toan_itc.baoonline.mvp.model.rss.RssFeedItem;
-import com.toan_itc.baoonline.library.utils.Logger;
+import com.toan_itc.data.model.rss.RssFeed;
+import com.toan_itc.data.model.rss.RssFeedItem;
+import com.toan_itc.data.utils.Logger;
 import com.toan_itc.baoonline.mvp.presenter.HomePresenter;
 import com.toan_itc.baoonline.mvp.view.HomeView;
 import com.toan_itc.baoonline.ui.adapter.HomeAdapter;
@@ -87,6 +87,11 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
 
     @Override
     public void showError(String msg, View.OnClickListener onClickListener) {
+
+    }
+
+    @Override
+    public void showRetry(boolean isShow) {
 
     }
 

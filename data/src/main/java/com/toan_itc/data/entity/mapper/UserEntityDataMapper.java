@@ -15,8 +15,8 @@
  */
 package com.toan_itc.data.entity.mapper;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
-import com.fernandocejas.android10.sample.domain.User;
+import com.toan_itc.data.entity.UserEntity;
+import com.toan_itc.domain.User;
 
 import java.util.ArrayList;
 import java.util.Collection;

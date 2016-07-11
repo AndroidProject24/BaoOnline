@@ -4,11 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
-import com.toan_itc.baoonline.library.data.local.PreferencesHelper;
-import com.toan_itc.baoonline.library.data.rxjava.RxBus;
 import com.toan_itc.baoonline.library.libs.image.FrescoImageLoader;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.local.DatabaseRealm;
+import com.toan_itc.data.local.PreferencesHelper;
+import com.toan_itc.data.rxjava.RxBus;
 
 import javax.inject.Singleton;
 

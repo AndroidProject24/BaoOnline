@@ -17,10 +17,8 @@ package com.toan_itc.data.repository.datasource;
 
 import android.content.Context;
 
-import com.fernandocejas.android10.sample.data.cache.UserCache;
-import com.fernandocejas.android10.sample.data.entity.mapper.UserEntityJsonMapper;
-import com.fernandocejas.android10.sample.data.net.RestApi;
-import com.fernandocejas.android10.sample.data.net.RestApiImpl;
+import com.toan_itc.data.cache.UserCache;
+import com.toan_itc.data.entity.mapper.UserEntityJsonMapper;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -63,8 +61,9 @@ public class UserDataStoreFactory {
    */
   public UserDataStore createCloudDataStore() {
     UserEntityJsonMapper userEntityJsonMapper = new UserEntityJsonMapper();
-    RestApi restApi = new RestApiImpl(this.context, userEntityJsonMapper);
+    /*RestApi restApi = new RestApiImpl(this.context, userEntityJsonMapper);
 
-    return new CloudUserDataStore(restApi, this.userCache);
+    return new CloudUserDataStore(restApi, this.userCache);*/
+    return null;
   }
 }

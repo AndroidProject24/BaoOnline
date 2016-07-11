@@ -15,8 +15,8 @@
  */
 package com.toan_itc.data.cache.serializer;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
 import com.google.gson.Gson;
+import com.toan_itc.data.entity.UserEntity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

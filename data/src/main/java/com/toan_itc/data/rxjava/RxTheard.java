@@ -1,3 +1,4 @@
+/*
 package com.toan_itc.data.rxjava;
 
 import android.text.Editable;
@@ -16,10 +17,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
+*/
 /**
  * Created by Toan.IT
  * Date: 25/05/2016
- */
+ *//*
+
 
 public class RxTheard {
     private static BackgroundThread backgroundthread;
@@ -93,3 +96,4 @@ public class RxTheard {
     }
 
 }
+*/

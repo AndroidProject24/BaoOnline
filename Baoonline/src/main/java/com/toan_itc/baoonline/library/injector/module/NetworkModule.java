@@ -3,12 +3,9 @@ package com.toan_itc.baoonline.library.injector.module;
 import android.support.annotation.NonNull;
 
 import com.toan_it.library.BuildConfig;
-import com.toan_itc.baoonline.library.data.networking.RestApi;
-
+import com.toan_itc.data.net.RestApi;
 import java.io.File;
-
 import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;

@@ -2,11 +2,11 @@ package com.toan_itc.data.local;
 
 import android.content.Context;
 
-import com.toan_itc.baoonline.mvp.model.news.Data;
-import com.toan_itc.baoonline.mvp.model.news.ListNews;
-import com.toan_itc.baoonline.mvp.model.news.News;
-import com.toan_itc.baoonline.library.utils.Constant;
-import com.toan_itc.baoonline.library.utils.Logger;
+import com.toan_itc.data.model.news.Data;
+import com.toan_itc.data.model.news.ListNews;
+import com.toan_itc.data.model.news.News;
+import com.toan_itc.data.utils.Constant;
+import com.toan_itc.data.utils.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;

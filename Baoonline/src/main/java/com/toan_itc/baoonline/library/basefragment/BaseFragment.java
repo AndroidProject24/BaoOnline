@@ -20,7 +20,7 @@ import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
 import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.libs.loading.AVLoadingIndicatorView;
-import com.toan_itc.baoonline.library.utils.Logger;
+import com.toan_itc.data.utils.Logger;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;

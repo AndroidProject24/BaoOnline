@@ -15,7 +15,7 @@
  */
 package com.toan_itc.data.cache;
 
-import com.fernandocejas.android10.sample.data.entity.UserEntity;
+import com.toan_itc.data.entity.UserEntity;
 
 import rx.Observable;
 

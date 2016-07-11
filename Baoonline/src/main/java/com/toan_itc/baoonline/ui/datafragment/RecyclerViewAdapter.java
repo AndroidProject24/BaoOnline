@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.mvp.model.news.Data;
+import com.toan_itc.data.model.news.Data;
 
 import java.util.List;
 

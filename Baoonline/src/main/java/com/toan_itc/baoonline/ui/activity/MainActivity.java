@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment;
 import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
-import com.toan_itc.baoonline.library.data.local.DatabaseRealm;
 import com.toan_itc.baoonline.ui.datafragment.AddDataFragment;
 import com.toan_itc.baoonline.ui.fragment.HomeFragment;
+import com.toan_itc.data.local.DatabaseRealm;
 
 import javax.inject.Inject;
 

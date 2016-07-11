@@ -15,7 +15,7 @@
  */
 package com.toan_itc.data.executor;
 
-import com.fernandocejas.android10.sample.domain.executor.ThreadExecutor;
+import com.toan_itc.domain.executor.ThreadExecutor;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

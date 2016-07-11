@@ -12,7 +12,7 @@ import com.toan_it.library.skinloader.base.SkinBaseActivity;
 import com.toan_itc.baoonline.injector.ActivityComponent;
 import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
-import com.toan_itc.baoonline.library.utils.Logger;
+import com.toan_itc.data.utils.Logger;
 
 import butterknife.ButterKnife;
 
