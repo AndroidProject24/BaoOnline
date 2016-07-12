@@ -42,9 +42,6 @@ public class DefaultExecutorSupplier{
     */
     private static DefaultExecutorSupplier sInstance;
 
-    /*
-    * returns the instance of DefaultExecutorSupplier
-    */
     public static DefaultExecutorSupplier getInstance() {
         if (sInstance == null) {
             synchronized (DefaultExecutorSupplier.class) {
@@ -53,11 +50,10 @@ public class DefaultExecutorSupplier{
         }
         return sInstance;
     }
-
     /*
     * constructor for  DefaultExecutorSupplier
     */
-        private DefaultExecutorSupplier() {
+        public DefaultExecutorSupplier() {
 
             // setting the thread factory
             ThreadFactory backgroundPriorityThreadFactory = new

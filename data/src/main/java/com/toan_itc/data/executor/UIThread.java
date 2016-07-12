@@ -13,13 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.toan_itc.domain.executor;
+package com.toan_itc.data.executor;
 
-import java.util.concurrent.Executor;
+import com.toan_itc.domain.executor.PostExecutionThread;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
- * Executor implementation can be based on different frameworks or techniques of asynchronous
- * execution, but every implementation will execute the
- * out of the UI thread.
+ * MainThread (UI Thread) implementation based on a {@link rx.Scheduler}
+ * which will execute actions on the Android UI thread
  */
-public interface ThreadExecutor extends Executor {}
+@Singleton
+public class UIThread implements PostExecutionThread {
+
+  @Inject
+  public UIThread() {}
+
+  @Override
+  public Scheduler getScheduler() {
+    return AndroidSchedulers.mainThread();
+  }
+}

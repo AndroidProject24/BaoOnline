@@ -6,14 +6,16 @@ import android.support.v4.app.Fragment;
 import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
-import com.toan_itc.baoonline.ui.datafragment.AddDataFragment;
+import com.toan_itc.baoonline.library.injector.component.DaggerUserComponent;
+import com.toan_itc.baoonline.library.injector.component.UserComponent;
+import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.ui.fragment.HomeFragment;
 import com.toan_itc.data.local.DatabaseRealm;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity {
-    private BaseActivity mBaseActivity=this;
+public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
+    private UserComponent userComponent;
     @Inject
     DatabaseRealm mDatabaseRealm;
     @Override
@@ -28,7 +30,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        addFagment(getSupportFragmentManager(), AddDataFragment.newInstance(), R.id.contentFragment);
+        addFagment(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFragment);
     }
     @Override
     protected int setLayoutResourceID() {
@@ -37,13 +39,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mDatabaseRealm.setup();
-       // mDatabaseRealm.Set_News(this);
+
     }
 
     @Override
     protected void injectDependencies() {
-       getComponent().inject(this);
+        this.userComponent = DaggerUserComponent.builder()
+                .applicationComponent(getApplicationComponent())
+                .activityModule(getActivityModule())
+                .build();
     }
     protected void remove_fragment(){
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(HomeFragment.class.getName());
@@ -58,5 +62,10 @@ public class MainActivity extends BaseActivity {
         if(fragmentseach != null) {
             getSupportFragmentManager().beginTransaction().remove(fragmentseach).commit();
         }*/
+    }
+
+    @Override
+    public UserComponent getComponent() {
+        return userComponent;
     }
 }

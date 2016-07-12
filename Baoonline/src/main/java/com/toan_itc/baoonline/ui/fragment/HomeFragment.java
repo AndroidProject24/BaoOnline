@@ -6,15 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.library.basefragment.BaseFragment;
+import com.toan_itc.baoonline.library.injector.component.UserComponent;
+import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
-import com.toan_itc.data.model.rss.RssFeed;
-import com.toan_itc.data.model.rss.RssFeedItem;
-import com.toan_itc.data.utils.Logger;
+import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.mvp.presenter.HomePresenter;
 import com.toan_itc.baoonline.mvp.view.HomeView;
 import com.toan_itc.baoonline.ui.adapter.HomeAdapter;
+import com.toan_itc.data.model.rss.RssFeed;
+import com.toan_itc.data.model.rss.RssFeedItem;
+import com.toan_itc.data.utils.Logger;
 
 import javax.inject.Inject;
 
@@ -24,7 +26,7 @@ import butterknife.BindView;
  * Created by Toan.IT
  * Date: 25/05/2016
  */
-public class HomeFragment extends BaseFragment implements HomeView,OnItemClickListener{
+public class HomeFragment extends BaseFragment implements HomeView,OnItemClickListener, HasComponent<UserComponent> {
     @Inject
     HomePresenter mHomePresenter;
     @Inject
@@ -32,6 +34,7 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     private Context mContext;
+    private UserComponent userComponent;
     public HomeFragment() {
         // Requires empty public constructor
     }
@@ -58,7 +61,7 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
 
     @Override
     protected void injectDependencies() {
-        getComponent().inject(this);
+        this.getComponent(UserComponent.class).inject(this);
         mHomePresenter.attachView(this);
     }
 
@@ -98,5 +101,10 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
     @Override
     public void onItemClick(RssFeedItem rssFeedItem) {
 
+    }
+
+    @Override
+    public UserComponent getComponent() {
+        return userComponent;
     }
 }

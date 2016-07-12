@@ -1,7 +1,6 @@
 package com.toan_itc.baoonline.library.injector.component;
 
-import com.toan_itc.baoonline.injector.ActivityComponent;
-import com.toan_itc.baoonline.library.injector.module.ActivityModule;
+import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
@@ -10,6 +9,10 @@ import com.toan_itc.data.local.PreferencesHelper;
 import com.toan_itc.data.net.RestApi;
 import com.toan_itc.data.net.RestData;
 import com.toan_itc.data.rxjava.RxBus;
+import com.toan_itc.data.thread.DefaultExecutorSupplier;
+import com.toan_itc.domain.executor.PostExecutionThread;
+import com.toan_itc.domain.executor.ThreadExecutor;
+import com.toan_itc.domain.repository.UserRepository;
 
 import javax.inject.Singleton;
 
@@ -20,7 +23,7 @@ import okhttp3.OkHttpClient;
 @Component(modules = { ApplicationModule.class, NetworkModule.class})
 public interface ApplicationComponent {
 
-    ActivityComponent plus(ActivityModule module);
+    void inject(BaseActivity baseActivity);
 
     RestData mRestData();
 
@@ -35,4 +38,12 @@ public interface ApplicationComponent {
     ImageLoaderListener mImageLoader();
 
     OkHttpClient mOkHttpClient();
+
+    DefaultExecutorSupplier threadExecutorPriority();
+
+    ThreadExecutor threadExecutor();
+
+    PostExecutionThread postExecutionThread();
+
+    UserRepository userRepository();
 }

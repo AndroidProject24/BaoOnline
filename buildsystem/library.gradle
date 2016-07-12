@@ -23,7 +23,7 @@ ext {
 
     //Libraries
     supportLibsVersion = '24.0.0'
-    constraintVersion = '1.0.0-alpha3'
+    constraintVersion = '1.0.0-alpha4'
     daggerVersion = '2.5'
     butterKnifeVersion = '8.0.1'
     rxJavaVersion = '1.1.6'

@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.toan_itc.domain.executor;
-
-import java.util.concurrent.Executor;
+package com.toan_itc.baoonline.library.injector.scope;
 
 /**
- * Executor implementation can be based on different frameworks or techniques of asynchronous
- * execution, but every implementation will execute the
- * out of the UI thread.
+ * Interface representing a contract for clients that contains a component for dependency injection.
  */
-public interface ThreadExecutor extends Executor {}
+public interface HasComponent<C> {
+  C getComponent();
+}

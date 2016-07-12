@@ -30,7 +30,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
     public void getRss_Zing(){
         getMvpView().showLoading(true);
-        Subscription subscription=mRestData.GetRss(mDatabaseRealm.getNews(0).getData().get(0).getUrl())
+        Subscription subscription=mRestData.GetRss("http://www.24h.com.vn/upload/rss/tintuctrongngay.rss")
                 .doOnCompleted(new Action0() {
                     @Override
                     public void call() {

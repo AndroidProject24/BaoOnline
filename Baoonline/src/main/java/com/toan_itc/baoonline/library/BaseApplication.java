@@ -36,11 +36,16 @@ public class BaseApplication extends SkinBaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        mInstance = this;
         initCache();
         initInjector();
+        initDatabase();
         initFresco();
-        mInstance = this;
-        injectDebug();
+        initDebug();
+    }
+    private void initDatabase(){
+        applicationComponent.mDatabaseRealm().setup();
+        applicationComponent.mDatabaseRealm().Set_News(this);
     }
     private void initFresco(){
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
@@ -48,7 +53,7 @@ public class BaseApplication extends SkinBaseApplication {
                 .build();
         Fresco.initialize(getApplicationContext(),config);
     }
-    private void injectDebug(){
+    private void initDebug(){
         if (BuildConfig.DEBUG) {
             AndroidDevMetrics.initWith(this);
             refWatcher = LeakCanary.install(this);

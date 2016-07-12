@@ -9,10 +9,14 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.toan_it.library.skinloader.base.SkinBaseActivity;
-import com.toan_itc.baoonline.injector.ActivityComponent;
 import com.toan_itc.baoonline.library.BaseApplication;
+import com.toan_itc.baoonline.library.injector.component.ActivityComponent;
+import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
+import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.data.utils.Logger;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -24,6 +28,8 @@ import static dagger.internal.Preconditions.checkNotNull;
  * Date: 25/05/2016
  */
 public abstract class BaseActivity extends SkinBaseActivity {
+    @Inject
+    Navigator navigator;
     private ActivityComponent mActivityComponent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,7 @@ public abstract class BaseActivity extends SkinBaseActivity {
         ButterKnife.bind(this);
     }
     private void initbase() {
+        this.getApplicationComponent().inject(this);
         Logger.initTag(TAG);
     }
 
@@ -80,13 +87,12 @@ public abstract class BaseActivity extends SkinBaseActivity {
         transaction.replace(frameId, fragment,fragment.getClass().getName());
         transaction.commit();
     }
-    @NonNull
-    public ActivityComponent getComponent() {
-        if (mActivityComponent == null) {
-            BaseApplication baseApplication = (BaseApplication) getApplication();
-            mActivityComponent = baseApplication.getApplicationComponent().plus(new ActivityModule(this));
-        }
-        return mActivityComponent;
+    protected ApplicationComponent getApplicationComponent() {
+        return ((BaseApplication)getApplication()).getApplicationComponent();
+    }
+
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
     }
     @Override
     protected void onStart() {

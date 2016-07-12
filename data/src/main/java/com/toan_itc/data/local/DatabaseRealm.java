@@ -21,7 +21,7 @@ import io.realm.RealmConfiguration;
 @Singleton
 public class DatabaseRealm {
     private Context mContext;
-    private News news;
+    private Data news;
     @Inject
     public DatabaseRealm(Context Context){
         mContext=Context;
@@ -43,11 +43,11 @@ public class DatabaseRealm {
         realm.close();
     }
     public void Set_News(Context context){
-        getRealmInstance().executeTransactionAsync(realm -> {
+        getRealmInstance().executeTransaction(realm -> {
             InputStream stream =null;
             try {
                 stream= context.getAssets().open("baoonline.json");
-                realm.createOrUpdateObjectFromJson(ListNews.class,stream);
+                realm.createObjectFromJson(ListNews.class,stream);
             }catch (Exception e){
                e.printStackTrace();
             }finally {
@@ -61,11 +61,11 @@ public class DatabaseRealm {
             }
         });
     }
-    public News getNews(int IdNews){
+    public Data getNews(int IdNews){
         getRealmInstance().executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                news = realm.where(ListNews.class).findAll().get(IdNews).getNews().get(IdNews);
+                news = realm.where(ListNews.class).findAll().get(IdNews).getNews().get(IdNews).getData().first();
             }
         });
         return news;
@@ -73,13 +73,13 @@ public class DatabaseRealm {
     //Add data
     public void Set_Data(String title,String url){
         getRealmInstance().executeTransactionAsync(realm -> {
-            long id=0;
+            int id=0;
             Data data=realm.createObject(Data.class);
             if(realm.where(Data.class).max("Id")==null){
                 id=1;
             }else {
                 AtomicLong productPrimaryKey = new AtomicLong(realm.where(Data.class).max("Id").longValue() + 1);
-                id = productPrimaryKey.getAndIncrement();
+                id =(int) productPrimaryKey.getAndIncrement();
             }
             Logger.e(title+"url="+url);
             data.setId(id);
@@ -90,13 +90,13 @@ public class DatabaseRealm {
     }
     public void Set_News(String titlenews){
         getRealmInstance().executeTransactionAsync(realm -> {
-            long id=0;
+            int id=0;
             News news = realm.createObject(News.class);
             if(realm.where(Data.class).max("Id")==null) {
                 id=1;
             }else {
                 AtomicLong productPrimaryKey = new AtomicLong(realm.where(News.class).max("Id").longValue() + 1);
-                id = productPrimaryKey.getAndIncrement();
+                id =(int) productPrimaryKey.getAndIncrement();
             }
             news.setId(id);
             news.setTitle(titlenews);

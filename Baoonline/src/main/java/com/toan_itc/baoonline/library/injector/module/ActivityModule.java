@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 
+import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
+
 import dagger.Module;
 import dagger.Provides;
 
@@ -18,6 +20,7 @@ public class ActivityModule {
   }
 
   @Provides
+  @ActivityScope
   public Activity activity() {
     return activity;
   }

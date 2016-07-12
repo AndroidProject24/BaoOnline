@@ -6,9 +6,18 @@ import android.support.annotation.NonNull;
 
 import com.toan_itc.baoonline.library.libs.image.FrescoImageLoader;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.cache.UserCache;
+import com.toan_itc.data.cache.UserCacheImpl;
+import com.toan_itc.data.executor.JobExecutor;
+import com.toan_itc.data.executor.UIThread;
 import com.toan_itc.data.local.DatabaseRealm;
 import com.toan_itc.data.local.PreferencesHelper;
+import com.toan_itc.data.repository.UserDataRepository;
 import com.toan_itc.data.rxjava.RxBus;
+import com.toan_itc.data.thread.DefaultExecutorSupplier;
+import com.toan_itc.domain.executor.PostExecutionThread;
+import com.toan_itc.domain.executor.ThreadExecutor;
+import com.toan_itc.domain.repository.UserRepository;
 
 import javax.inject.Singleton;
 
@@ -60,5 +69,35 @@ public class ApplicationModule {
   @Singleton
   ImageLoaderListener provideImageLoader() {
     return new FrescoImageLoader();
+  }
+
+  @Provides
+  @Singleton
+  DefaultExecutorSupplier provideDefaultExecutorSupplier() {
+        return new DefaultExecutorSupplier();
+  }
+
+  @Provides
+  @Singleton
+  ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+    return jobExecutor;
+  }
+
+  @Provides
+  @Singleton
+  PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+    return uiThread;
+  }
+
+  @Provides
+  @Singleton
+  UserCache provideUserCache(UserCacheImpl userCache) {
+    return userCache;
+  }
+
+  @Provides
+  @Singleton
+  UserRepository provideUserRepository(UserDataRepository userDataRepository) {
+    return userDataRepository;
   }
 }

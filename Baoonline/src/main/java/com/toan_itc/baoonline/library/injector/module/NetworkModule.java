@@ -25,7 +25,7 @@ import rx.schedulers.Schedulers;
 public class NetworkModule {
     private File mCacheFile;
     private boolean isConnected;
-    public NetworkModule(@NonNull File cacheFile, @NonNull boolean checkConnect) {
+    public NetworkModule(@NonNull File cacheFile,boolean checkConnect) {
         this.mCacheFile = cacheFile;
         this.isConnected=checkConnect;
     }

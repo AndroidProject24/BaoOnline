@@ -10,14 +10,14 @@ import io.realm.annotations.PrimaryKey;
  */
 public class News extends RealmObject{
     @PrimaryKey
-    private long Id;
+    private int Id;
     private String Title;
     private RealmList<Data> Data = new RealmList<>();
-    public long getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         Id = id;
     }
 

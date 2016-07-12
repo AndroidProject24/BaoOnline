@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey;
  */
 public class Data extends RealmObject{
     @PrimaryKey
-    private long Id;
+    private int Id;
     private String Title;
     private String Url;
 
@@ -18,7 +18,7 @@ public class Data extends RealmObject{
      * @return
      * The id
      */
-    public long getId() {
+    public int getId() {
         return Id;
     }
 
@@ -27,7 +27,7 @@ public class Data extends RealmObject{
      * @param id
      * The id
      */
-    public void setId(long id) {
+    public void setId(int id) {
         this.Id = id;
     }
 
