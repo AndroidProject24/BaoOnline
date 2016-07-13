@@ -117,14 +117,14 @@ dependencies {
     def developmentDependencies = rootProject.ext.developmentDependencies
 
     compile project(':data')
-    compile project(':domain')
     compile project(':theme')
+
     //----- Support Libs
     compile supportDependencies.supportCompat
     compile supportDependencies.supportDesign
     compile supportDependencies.supportRecyclerView
     compile supportDependencies.supportCardView
-    compile supportDependencies.constraintLayout
+
     //----- Butterknife
     compile supportDependencies.butterKnife
     apt     supportDependencies.apt_butterKnife
@@ -168,5 +168,6 @@ dependencies {
     compile developmentDependencies.leakCanary
     compile developmentDependencies.blockCanary
     compile developmentDependencies.stetho
+    compile developmentDependencies.stethoOkHttp
     compile developmentDependencies.takt
 }

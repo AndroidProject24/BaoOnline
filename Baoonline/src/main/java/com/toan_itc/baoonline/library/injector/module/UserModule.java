@@ -16,12 +16,12 @@
 package com.toan_itc.baoonline.library.injector.module;
 
 import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
-import com.toan_itc.domain.executor.PostExecutionThread;
-import com.toan_itc.domain.executor.ThreadExecutor;
-import com.toan_itc.domain.interactor.GetUserDetails;
-import com.toan_itc.domain.interactor.GetUserList;
-import com.toan_itc.domain.interactor.UseCase;
-import com.toan_itc.domain.repository.UserRepository;
+import com.toan_itc.data.executor.PostExecutionThread;
+import com.toan_itc.data.executor.ThreadExecutor;
+import com.toan_itc.data.network.RestApi;
+import com.toan_itc.data.usecase.GetRssDetails;
+import com.toan_itc.data.usecase.GetRssList;
+import com.toan_itc.data.usecase.UseCase;
 
 import javax.inject.Named;
 
@@ -34,26 +34,27 @@ import dagger.Provides;
 @Module
 public class UserModule {
 
-  private int userId = -1;
+  private String userId = "";
 
   public UserModule() {}
 
-  public UserModule(int userId) {
+  public UserModule(String userId) {
     this.userId = userId;
   }
 
   @Provides
   @ActivityScope
   @Named("userList")
-  UseCase provideGetUserListUseCase(GetUserList getUserList) {
-    return getUserList;
+  UseCase provideGetUserListUseCase(RestApi restApi, ThreadExecutor threadExecutor,
+                                    PostExecutionThread postExecutionThread) {
+    return new GetRssList(userId, restApi, threadExecutor, postExecutionThread);
   }
 
   @Provides
   @ActivityScope
   @Named("userDetails")
-  UseCase provideGetUserDetailsUseCase(UserRepository userRepository, ThreadExecutor threadExecutor,
+  UseCase provideGetUserDetailsUseCase(RestApi restApi, ThreadExecutor threadExecutor,
                                        PostExecutionThread postExecutionThread) {
-    return new GetUserDetails(userId, userRepository, threadExecutor, postExecutionThread);
+    return new GetRssDetails(userId, restApi, threadExecutor, postExecutionThread);
   }
 }

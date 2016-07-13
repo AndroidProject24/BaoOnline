@@ -4,7 +4,7 @@ package com.toan_itc.baoonline.data.local;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import android.util.Logger;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -86,7 +86,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -117,7 +117,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -148,7 +148,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -179,7 +179,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -210,7 +210,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -241,7 +241,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }
@@ -272,7 +272,7 @@ public class News {
                 connection.close();
             }
         } catch (IOException e) {
-            Log.w("Error", "Không thể lấy dữ liệu!!!");
+            Logger.w("Error", "Không thể lấy dữ liệu!!!");
         }
         return array_list_title_tab;
     }

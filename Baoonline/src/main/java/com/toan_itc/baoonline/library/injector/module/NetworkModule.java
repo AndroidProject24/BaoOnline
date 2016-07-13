@@ -2,10 +2,15 @@ package com.toan_itc.baoonline.library.injector.module;
 
 import android.support.annotation.NonNull;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.toan_it.library.BuildConfig;
-import com.toan_itc.data.net.RestApi;
+import com.toan_itc.data.network.RestApi;
+
 import java.io.File;
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -58,8 +63,12 @@ public class NetworkModule {
             e.printStackTrace();
         }
         return new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .cache(cache)
                 .addNetworkInterceptor(interceptor)
+                .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
     }
@@ -95,7 +104,7 @@ public class NetworkModule {
                 int maxAge = 60;
                 r.addHeader("Cache-Control", "public, max-age=" + maxAge);
             } else {
-                int maxStale = 30 * 24 * 60 * 60; // 30 days
+                int maxStale = 10 * 24 * 60 * 60; // 10 days
                 r.addHeader("cache-control", "public, only-if-cached, max-stale=" + maxStale);
             }
             return chain.proceed(r.build());

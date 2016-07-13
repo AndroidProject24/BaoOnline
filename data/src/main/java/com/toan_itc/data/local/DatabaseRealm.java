@@ -5,8 +5,8 @@ import android.content.Context;
 import com.toan_itc.data.model.news.Data;
 import com.toan_itc.data.model.news.ListNews;
 import com.toan_itc.data.model.news.News;
-import com.toan_itc.data.utils.Constant;
-import com.toan_itc.data.utils.Logger;
+import com.toan_itc.data.utils.Constants;
+import com.toan_itc.data.utils.logger.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ public class DatabaseRealm {
     }
     public void setup() {
         RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(mContext)
-                .name(Constant.BaoOnline_Realm)
+                .name(Constants.BaoOnline_Realm)
                 .schemaVersion(1)
                 .deleteRealmIfMigrationNeeded()
                 .build();
@@ -47,7 +47,7 @@ public class DatabaseRealm {
             InputStream stream =null;
             try {
                 stream= context.getAssets().open("baoonline.json");
-                realm.createObjectFromJson(ListNews.class,stream);
+                realm.createOrUpdateAllFromJson(ListNews.class,stream);
             }catch (Exception e){
                e.printStackTrace();
             }finally {
@@ -109,4 +109,15 @@ public class DatabaseRealm {
         else
             return null;
     }
+    //Page Size,Page Index
+    /*public void getFromDatabase(int pageSize, int page) {
+        if (page == 1) mEntityList.clear();
+        RealmResults<RealmMoment> zcoolRealmResults = mRealm.where(RealmMoment.class).findAll();
+        int startPos = Math.max(zcoolRealmResults.size() - 1 - (page - 1) * pageSize, 0);
+        int endPos = Math.max(startPos - pageSize, 0);
+
+        for (int i = startPos; i > endPos; i--) {
+            mEntityList.add(zcoolRealmResults.get(i).toEntity());
+        }
+    }*/
 }

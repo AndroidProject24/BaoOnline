@@ -1,7 +1,9 @@
 package com.toan_itc.baoonline.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 
+import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
 
 import rx.Subscription;
@@ -28,12 +30,17 @@ public class SplashScreen extends BaseActivity {
     }
     @Override
     protected int setLayoutResourceID() {
-        return 0;
+        return R.layout.activity_splash;
     }
 
     @Override
     protected void initData() {
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                navigator.navigateToMainActivity(SplashScreen.this);
+            }
+        },2000);
     }
 
     @Override
@@ -64,8 +71,5 @@ public class SplashScreen extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (!subscription.isUnsubscribed()) {
-            subscription.unsubscribe();
-        }
     }
 }

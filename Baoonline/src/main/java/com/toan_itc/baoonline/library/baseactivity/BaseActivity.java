@@ -10,11 +10,10 @@ import android.support.v4.app.FragmentTransaction;
 import com.squareup.leakcanary.RefWatcher;
 import com.toan_it.library.skinloader.base.SkinBaseActivity;
 import com.toan_itc.baoonline.library.BaseApplication;
-import com.toan_itc.baoonline.library.injector.component.ActivityComponent;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
+import com.toan_itc.data.utils.logger.Logger;
 import com.toan_itc.baoonline.navigation.Navigator;
-import com.toan_itc.data.utils.Logger;
 
 import javax.inject.Inject;
 
@@ -29,8 +28,7 @@ import static dagger.internal.Preconditions.checkNotNull;
  */
 public abstract class BaseActivity extends SkinBaseActivity {
     @Inject
-    Navigator navigator;
-    private ActivityComponent mActivityComponent;
+    public Navigator navigator;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +45,6 @@ public abstract class BaseActivity extends SkinBaseActivity {
     }
     private void initbase() {
         this.getApplicationComponent().inject(this);
-        Logger.initTag(TAG);
     }
 
     protected String TAG = getTAG();
@@ -86,6 +83,11 @@ public abstract class BaseActivity extends SkinBaseActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(frameId, fragment,fragment.getClass().getName());
         transaction.commit();
+    }
+    protected void addFragment(int containerViewId, android.app.Fragment fragment) {
+        android.app.FragmentTransaction fragmentTransaction = this.getFragmentManager().beginTransaction();
+        fragmentTransaction.add(containerViewId, fragment);
+        fragmentTransaction.commit();
     }
     protected ApplicationComponent getApplicationComponent() {
         return ((BaseApplication)getApplication()).getApplicationComponent();

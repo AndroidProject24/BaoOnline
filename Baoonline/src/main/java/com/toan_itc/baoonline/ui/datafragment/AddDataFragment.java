@@ -16,7 +16,7 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.basefragment.BaseFragment;
 import com.toan_itc.data.local.DatabaseRealm;
 import com.toan_itc.data.model.news.News;
-import com.toan_itc.data.utils.Logger;
+import com.toan_itc.data.utils.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

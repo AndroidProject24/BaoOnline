@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 package com.toan_itc.data.executor;
-
-import com.toan_itc.domain.executor.PostExecutionThread;
-
 import javax.inject.Inject;
 import javax.inject.Singleton;
 

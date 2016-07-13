@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/BaoOnlineMVP.iml" filepath="$PROJECT_DIR$/BaoOnlineMVP.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baoonline/Baoonline.iml" filepath="$PROJECT_DIR$/Baoonline/Baoonline.iml" />
       <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
-      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/theme/theme.iml" filepath="$PROJECT_DIR$/theme/theme.iml" />
     </modules>
   </component>

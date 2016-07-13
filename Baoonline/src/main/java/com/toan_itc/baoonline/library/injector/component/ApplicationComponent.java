@@ -1,18 +1,18 @@
 package com.toan_itc.baoonline.library.injector.component;
 
+import android.content.Context;
+
 import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.executor.PostExecutionThread;
+import com.toan_itc.data.executor.ThreadExecutor;
 import com.toan_itc.data.local.DatabaseRealm;
 import com.toan_itc.data.local.PreferencesHelper;
-import com.toan_itc.data.net.RestApi;
-import com.toan_itc.data.net.RestData;
+import com.toan_itc.data.network.RestApi;
 import com.toan_itc.data.rxjava.RxBus;
 import com.toan_itc.data.thread.DefaultExecutorSupplier;
-import com.toan_itc.domain.executor.PostExecutionThread;
-import com.toan_itc.domain.executor.ThreadExecutor;
-import com.toan_itc.domain.repository.UserRepository;
 
 import javax.inject.Singleton;
 
@@ -25,7 +25,9 @@ public interface ApplicationComponent {
 
     void inject(BaseActivity baseActivity);
 
-    RestData mRestData();
+    Context context();
+
+    //RestData mRestData();
 
     RxBus mRxBus();
 
@@ -44,6 +46,4 @@ public interface ApplicationComponent {
     ThreadExecutor threadExecutor();
 
     PostExecutionThread postExecutionThread();
-
-    UserRepository userRepository();
 }

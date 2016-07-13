@@ -47,18 +47,20 @@ dependencies {
     def appDependencies = rootProject.ext.appDependencies
     def supportDependencies = rootProject.ext.supportDependencies
 
-    compile project(':domain')
-    compile supportDependencies.supportannotations
-    compile injectDependencies.dagger
-    apt     injectDependencies.daggerCompiler
+    compile  supportDependencies.supportannotations
+
+    compile  injectDependencies.dagger
+    apt      injectDependencies.daggerCompiler
     provided injectDependencies.javaxannotation
-    compile injectDependencies.rxjava
-    compile injectDependencies.rxandroid
-    compile networkDependencies.gson
-    compile networkDependencies.okHttp
-    compile networkDependencies.retrofitRxJavaAdapter
-    compile appDependencies.tikxml
-    compile appDependencies.tikxml_annotation
-    compile appDependencies.tikxml_core
-    apt     appDependencies.tikxml_processor
+    compile  injectDependencies.rxjava
+    compile  injectDependencies.rxandroid
+
+    compile  networkDependencies.gson
+    compile  networkDependencies.okHttp
+    compile  networkDependencies.retrofitRxJavaAdapter
+
+    compile  appDependencies.tikxml
+    compile  appDependencies.tikxml_annotation
+    compile  appDependencies.tikxml_core
+    apt      appDependencies.tikxml_processor
 }

@@ -26,7 +26,7 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
 public interface UserComponent extends ActivityComponent {
 
-    void inject(HomeFragment userListFragment);
+    void inject(HomeFragment homeFragment);
 
     //void inject(UserDetailsFragment userDetailsFragment);
 }

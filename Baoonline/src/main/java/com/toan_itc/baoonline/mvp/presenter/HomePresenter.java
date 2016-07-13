@@ -1,71 +1,59 @@
 package com.toan_itc.baoonline.mvp.presenter;
 
-import com.tickaroo.tikxml.TikXml;
+import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.toan_itc.baoonline.library.basemvp.BasePresenter;
+import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
 import com.toan_itc.baoonline.mvp.view.HomeView;
+import com.toan_itc.data.exception.NetworkError;
 import com.toan_itc.data.local.DatabaseRealm;
-import com.toan_itc.data.model.rss.RssFeed;
-import com.toan_itc.data.net.RestData;
-import com.toan_itc.data.net.RestError;
-import com.toan_itc.data.utils.Logger;
+import com.toan_itc.data.model.rss.RssChannel;
+import com.toan_itc.data.usecase.DefaultSubscriber;
+import com.toan_itc.data.usecase.UseCase;
 
 import javax.inject.Inject;
-
-import okio.Buffer;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.functions.Action0;
+import javax.inject.Named;
 
 /**
  * Created by Toan.IT
  * Date: 06/06/2016
  */
+@ActivityScope
 public class HomePresenter extends BasePresenter<HomeView> {
-    private RestData mRestData;
     private DatabaseRealm mDatabaseRealm;
+    private final UseCase getRssListUseCase;
     @Inject
-    HomePresenter(RestData restData, DatabaseRealm databaseRealm){
-        this.mRestData=restData;
+    HomePresenter(@Named("userList") UseCase getRssListUseCase, DatabaseRealm databaseRealm){
+        this.getRssListUseCase=getRssListUseCase;
         this.mDatabaseRealm=databaseRealm;
     }
     public void getRss_Zing(){
+        getMvpView().showRetry(false);
         getMvpView().showLoading(true);
-        Subscription subscription=mRestData.GetRss("http://www.24h.com.vn/upload/rss/tintuctrongngay.rss")
-                .doOnCompleted(new Action0() {
-                    @Override
-                    public void call() {
-                        Logger.e("doOnCompleted");
-                    }
-                })
-                .subscribe(new Subscriber<String>() {
-                    @Override
-                    public void onCompleted() {
-                        getMvpView().showLoading(false);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        getMvpView().showLoading(false);
-                        getMvpView().showError(new RestError(e).getAppErrorMessage(),null);
-                    }
-
-                    @Override
-                    public void onNext(String string) {
-                        try {
-                            Logger.d(string);
-                            TikXml parse= new TikXml.Builder().exceptionOnUnreadXml(false).build();
-                            RssFeed rssFeed=parse.read(new Buffer().writeUtf8(string), RssFeed.class);
-                            getMvpView().getRss(rssFeed);
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                    }
-                });
-        unsubscribeOnUnbindView(subscription);
+        this.getRssListUseCase.execute(new UserListSubscriber());
     }
+    @RxLogSubscriber
+    private final class UserListSubscriber extends DefaultSubscriber<RssChannel> {
 
+        @Override
+        public void onCompleted() {
+            getMvpView().showLoading(false);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            getMvpView().showLoading(false);
+            getMvpView().showError(new NetworkError(e).getAppErrorMessage(),null);
+            getMvpView().showRetry(true);
+        }
+
+        @Override
+        public void onNext(RssChannel rssChannel) {
+            getMvpView().getRss(rssChannel);
+        }
+    }
     @Override
     public void detachView() {
         super.detachView();
+        getRssListUseCase.unsubscribe();
     }
 }

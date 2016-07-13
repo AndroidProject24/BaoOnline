@@ -14,5 +14,4 @@ public interface BaseView {
     void showError(String msg, View.OnClickListener onClickListener);
 
     void showRetry(boolean isShow);
-
 }

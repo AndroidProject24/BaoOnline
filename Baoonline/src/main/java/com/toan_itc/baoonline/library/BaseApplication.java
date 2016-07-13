@@ -52,6 +52,7 @@ public class BaseApplication extends SkinBaseApplication {
                 .newBuilder(getApplicationContext(), applicationComponent.mOkHttpClient())
                 .build();
         Fresco.initialize(getApplicationContext(),config);
+        Fresco.initialize(this);
     }
     private void initDebug(){
         if (BuildConfig.DEBUG) {

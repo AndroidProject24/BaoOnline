@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 package com.toan_itc.data.executor;
-
-import com.toan_itc.domain.executor.ThreadExecutor;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;

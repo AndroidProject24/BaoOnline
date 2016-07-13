@@ -17,7 +17,7 @@ import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.library.libs.loading.AVLoadingIndicatorView;
-import com.toan_itc.data.utils.Logger;
+import com.toan_itc.data.utils.logger.Logger;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -71,7 +71,7 @@ public abstract class BaseFragment extends SkinBaseFragment{
     }
     protected abstract int setLayoutResourceID();
     private void initBase() {
-        Logger.initTag(TAG);
+
     }
     protected abstract void injectDependencies();
     protected abstract void initViews();

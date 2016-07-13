@@ -10,13 +10,13 @@ import com.toan_itc.baoonline.library.basefragment.BaseFragment;
 import com.toan_itc.baoonline.library.injector.component.UserComponent;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.utils.logger.Logger;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.mvp.presenter.HomePresenter;
 import com.toan_itc.baoonline.mvp.view.HomeView;
 import com.toan_itc.baoonline.ui.adapter.HomeAdapter;
-import com.toan_itc.data.model.rss.RssFeed;
+import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
-import com.toan_itc.data.utils.Logger;
 
 import javax.inject.Inject;
 
@@ -76,11 +76,11 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
     }
 
     @Override
-    public void getRss(RssFeed rssFeed) {
-        HomeAdapter homeAdapter=new HomeAdapter(mContext,rssFeed.getChannel().getItem(),mImageLoaderListener,this);
+    public void getRss(RssChannel rssChannel) {
+        HomeAdapter homeAdapter=new HomeAdapter(mContext,rssChannel.getItem(),mImageLoaderListener,this);
         recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerview.setAdapter(homeAdapter);
-        Logger.e(rssFeed.getChannel().toString());
+        Logger.json(rssChannel.toString());
     }
 
     @Override
@@ -106,5 +106,11 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
     @Override
     public UserComponent getComponent() {
         return userComponent;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mHomePresenter.detachView();
     }
 }

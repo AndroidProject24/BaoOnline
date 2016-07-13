@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.toan_it.library.skinloader.load.SkinManager;
-import com.toan_it.library.skinloader.util.L;
 
 /**
  * Created by _SOLID
