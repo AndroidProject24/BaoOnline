@@ -16,7 +16,7 @@ public class UsingThreadPool {
      */
 
     public void doSomeTaskAtHighPriority(){
-        DefaultExecutorSupplier.getInstance().forBackgroundTasks()
+        DefaultExecutorSupplier.getInstance().forBackgroundPriorityTasks()
                 .submit(new PriorityRunnable(Priority.HIGH) {
                     @Override
                     public void run() {

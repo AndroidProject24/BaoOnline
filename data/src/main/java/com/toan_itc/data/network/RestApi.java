@@ -11,7 +11,7 @@ import rx.Observable;
  */
 
 public interface RestApi {
-    String BaoOnline = "https://raw.githubusercontent.com/artem-zinnatullin/qualitymatters/master/rest_api/";
+    String BaoOnline = "https://medium.com/";
     @GET()
     Observable<ResponseBody> GetRss(@Url String url);
 }

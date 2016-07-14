@@ -2,7 +2,6 @@ package com.toan_itc.baoonline.library.injector.module;
 
 import android.support.annotation.NonNull;
 
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.toan_it.library.BuildConfig;
 import com.toan_itc.data.network.RestApi;
 
@@ -68,7 +67,7 @@ public class NetworkModule {
                 .readTimeout(30, TimeUnit.SECONDS)
                 .cache(cache)
                 .addNetworkInterceptor(interceptor)
-                .addNetworkInterceptor(new StethoInterceptor())
+               // .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(httpLoggingInterceptor)
                 .build();
     }

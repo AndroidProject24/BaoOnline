@@ -2,7 +2,7 @@ package com.toan_itc.baoonline.library.injector.component;
 
 import android.content.Context;
 
-import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
+import com.toan_itc.baoonline.library.base.BaseActivity;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;

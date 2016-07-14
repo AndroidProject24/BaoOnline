@@ -45,14 +45,13 @@ public class BaseApplication extends SkinBaseApplication {
     }
     private void initDatabase(){
         applicationComponent.mDatabaseRealm().setup();
-        applicationComponent.mDatabaseRealm().Set_News(this);
+        //applicationComponent.mDatabaseRealm().Set_News(this);
     }
     private void initFresco(){
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
                 .newBuilder(getApplicationContext(), applicationComponent.mOkHttpClient())
                 .build();
         Fresco.initialize(getApplicationContext(),config);
-        Fresco.initialize(this);
     }
     private void initDebug(){
         if (BuildConfig.DEBUG) {

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
+import com.toan_itc.baoonline.library.base.BaseActivity;
 
 import rx.Subscription;
 

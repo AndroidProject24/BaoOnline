@@ -134,20 +134,11 @@ dependencies {
     apt     injectDependencies.daggerCompiler
     provided injectDependencies.javaxannotation
 
-    //-----Jsoup
-    compile appDependencies.jsoup
-
     //----- Rx
     compile injectDependencies.rxjava
     compile injectDependencies.rxandroid
     compile injectDependencies.rxbinding
     compile injectDependencies.rxpermissions
-
-    //-----TikXml
-    compile appDependencies.tikxml
-    compile appDependencies.tikxml_annotation
-    compile appDependencies.tikxml_core
-    apt     appDependencies.tikxml_processor
 
     //----- Retrofit
     compile networkDependencies.retrofitRxJavaAdapter

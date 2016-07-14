@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Báo Online</string>
+    <string name="app_name">Test RxJava</string>
     <!--NETWORK-->
     <string name="snack_action_to_setting">Setting</string>
     <string name="snack_message_net_error">network error please to check network</string>

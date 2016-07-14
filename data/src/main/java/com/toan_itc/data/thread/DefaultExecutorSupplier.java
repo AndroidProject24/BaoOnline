@@ -80,8 +80,8 @@ public class DefaultExecutorSupplier{
 
             // setting the thread pool executor for mForLightWeightBackgroundTasks;
             mForLightWeightBackgroundTasks = new ThreadPoolExecutor(
-                    NUMBER_OF_CORES * 2,
-                    NUMBER_OF_CORES * 2,
+                    NUMBER_OF_CORES ,
+                    NUMBER_OF_CORES ,
                     60L,
                     TimeUnit.SECONDS,
                     new LinkedBlockingQueue<Runnable>(),
@@ -92,6 +92,12 @@ public class DefaultExecutorSupplier{
             mMainThreadExecutor = new MainThreadExecutor();
         }
 
+    /*
+    * returns the thread pool executor for backgroundPriority task
+    */
+    public PriorityThreadPoolExecutor forBackgroundPriorityTasks() {
+        return mForBackgroundPriorityTasks;
+    }
     /*
     * returns the thread pool executor for background task
     */

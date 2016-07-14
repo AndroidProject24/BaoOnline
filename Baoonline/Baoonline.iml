@@ -178,9 +178,9 @@
     <orderEntry type="library" exported="" name="retrofit-2.1.0" level="project" />
     <orderEntry type="library" exported="" name="aspectjrt-1.8.8" level="project" />
     <orderEntry type="library" exported="" name="gson-2.7" level="project" />
-    <orderEntry type="library" exported="" name="retrofit-converter-0.5.2-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-24.0.0" level="project" />
     <orderEntry type="library" exported="" name="rxandroid-1.2.1" level="project" />
+    <orderEntry type="library" exported="" name="retrofit-converter-0.5.2-SNAPSHOT" level="project" />
     <orderEntry type="library" exported="" name="support-vector-drawable-24.0.0" level="project" />
     <orderEntry type="library" exported="" name="BaseRecyclerViewAdapterHelper-v1.8.5" level="project" />
     <orderEntry type="library" exported="" name="rxbinding-0.4.0" level="project" />

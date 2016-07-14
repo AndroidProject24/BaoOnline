@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.toan_itc.data.usecase;
+package com.toan_itc.data.executor;
 
 import rx.Subscriber;
 

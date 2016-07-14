@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.basefragment;
+package com.toan_itc.baoonline.library.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -42,21 +42,13 @@ public abstract class BaseFragment extends SkinBaseFragment{
     protected String TAG = getTAG();
     protected abstract String getTAG();
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Logger.d(TAG);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.d(TAG);
         injectDependencies();
     }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Logger.d(TAG);
         if (null == mContentView) {
             mContentView = inflater.inflate(setLayoutResourceID(),container, false);
         }
@@ -125,7 +117,7 @@ public abstract class BaseFragment extends SkinBaseFragment{
         return componentType.cast(((HasComponent<C>) getActivity())
                 .getComponent());
     }
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
         Logger.d(TAG);
@@ -148,7 +140,7 @@ public abstract class BaseFragment extends SkinBaseFragment{
         super.onStop();
         Logger.d(TAG);
     }
-
+*/
     @Override
     public void onDestroyView() {
         super.onDestroyView();

@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 
 import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.baseactivity.BaseActivity;
+import com.toan_itc.baoonline.library.base.BaseActivity;
 import com.toan_itc.baoonline.library.injector.component.DaggerUserComponent;
 import com.toan_itc.baoonline.library.injector.component.UserComponent;
 import com.toan_itc.baoonline.library.injector.module.UserModule;
@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
         this.userComponent = DaggerUserComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
-                .userModule(new UserModule("http://www.24h.com.vn/upload/rss/tintuctrongngay.rss"))
+                .userModule(new UserModule("http://vnexpress.net/rss/tin-moi-nhat.rss"))
                 .build();
     }
     protected void remove_fragment(){

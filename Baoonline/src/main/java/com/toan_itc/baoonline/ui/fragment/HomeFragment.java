@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.basefragment.BaseFragment;
+import com.toan_itc.baoonline.library.base.BaseFragment;
 import com.toan_itc.baoonline.library.injector.component.UserComponent;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
@@ -80,7 +80,7 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
         HomeAdapter homeAdapter=new HomeAdapter(mContext,rssChannel.getItem(),mImageLoaderListener,this);
         recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerview.setAdapter(homeAdapter);
-        Logger.json(rssChannel.toString());
+        Logger.e(rssChannel.toString());
     }
 
     @Override

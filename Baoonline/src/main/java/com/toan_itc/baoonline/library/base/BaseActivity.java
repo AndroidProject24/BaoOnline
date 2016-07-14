@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.baseactivity;
+package com.toan_itc.baoonline.library.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -96,7 +96,8 @@ public abstract class BaseActivity extends SkinBaseActivity {
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }
-    @Override
+
+   /* @Override
     protected void onStart() {
         super.onStart();
         Logger.d(TAG);
@@ -124,7 +125,7 @@ public abstract class BaseActivity extends SkinBaseActivity {
     protected void onPause() {
         super.onPause();
         Logger.d(TAG);
-    }
+    }*/
     @Override
     protected void onDestroy() {
         super.onDestroy();

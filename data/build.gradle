@@ -59,6 +59,9 @@ dependencies {
     compile  networkDependencies.okHttp
     compile  networkDependencies.retrofitRxJavaAdapter
 
+    //-----Jsoup
+    compile appDependencies.jsoup
+
     compile  appDependencies.tikxml
     compile  appDependencies.tikxml_annotation
     compile  appDependencies.tikxml_core

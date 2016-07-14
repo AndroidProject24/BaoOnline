@@ -1,13 +1,13 @@
 package com.toan_itc.baoonline.mvp.presenter;
 
 import com.fernandocejas.frodo.annotation.RxLogSubscriber;
-import com.toan_itc.baoonline.library.basemvp.BasePresenter;
+import com.toan_itc.baoonline.library.base.presenter.BasePresenter;
 import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
 import com.toan_itc.baoonline.mvp.view.HomeView;
 import com.toan_itc.data.exception.NetworkError;
 import com.toan_itc.data.local.DatabaseRealm;
 import com.toan_itc.data.model.rss.RssChannel;
-import com.toan_itc.data.usecase.DefaultSubscriber;
+import com.toan_itc.data.executor.DefaultSubscriber;
 import com.toan_itc.data.usecase.UseCase;
 
 import javax.inject.Inject;
@@ -27,8 +27,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
         this.mDatabaseRealm=databaseRealm;
     }
     public void getRss_Zing(){
-        getMvpView().showRetry(false);
-        getMvpView().showLoading(true);
+        getView().hideError();
+        getView().showLoading();
         this.getRssListUseCase.execute(new UserListSubscriber());
     }
     @RxLogSubscriber
@@ -36,19 +36,18 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
         @Override
         public void onCompleted() {
-            getMvpView().showLoading(false);
+            getView().hideLoading();
         }
 
         @Override
         public void onError(Throwable e) {
-            getMvpView().showLoading(false);
-            getMvpView().showError(new NetworkError(e).getAppErrorMessage(),null);
-            getMvpView().showRetry(true);
+            getView().showLoading();
+            getView().showError(new NetworkError(e).getAppErrorMessage(),null);
         }
 
         @Override
         public void onNext(RssChannel rssChannel) {
-            getMvpView().getRss(rssChannel);
+            getView().getRss(rssChannel);
         }
     }
     @Override

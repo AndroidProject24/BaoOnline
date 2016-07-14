@@ -1,6 +1,8 @@
-package com.toan_itc.baoonline.library.basemvp;
+package com.toan_itc.baoonline.library.base.presenter;
 
 import android.support.annotation.NonNull;
+
+import com.toan_itc.baoonline.library.base.view.BaseView;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -15,7 +17,7 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
     @NonNull
     private CompositeSubscription subscriptionsToUnsubscribeOnUnbindView = new CompositeSubscription();
     @Override
-    public void attachView(T mvpView) {
+    public void attachView(@NonNull T mvpView) {
         this.mMvpView = mvpView;
     }
     @Override
@@ -29,7 +31,7 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
         return this.mMvpView != null;
     }
 
-    public T getMvpView() {
+    public T getView() {
         if(isViewAttached())
             return this.mMvpView;
         else

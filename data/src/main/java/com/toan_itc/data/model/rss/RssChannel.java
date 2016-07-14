@@ -12,6 +12,13 @@ import java.util.List;
 
 @Xml(name = "channel")
 public class RssChannel{
+
+    @PropertyElement
+    private String generator;
+
+    @Element(name = "item")
+    List<RssFeedItem> mItem;
+
     public void setGenerator(String generator) {
         this.generator = generator;
     }
@@ -20,19 +27,16 @@ public class RssChannel{
         mItem = item;
     }
 
-    @PropertyElement
-    private String generator;
-
     public List<RssFeedItem> getItem() {
+        for (RssFeedItem rssFeedItem : mItem) {
+            rssFeedItem.extractDescription();
+        }
         return mItem;
     }
 
     public String getGenerator() {
         return generator;
     }
-
-    @Element(name = "item")
-    List<RssFeedItem> mItem;
     @Override
     public String toString() {
         return "channel{" +

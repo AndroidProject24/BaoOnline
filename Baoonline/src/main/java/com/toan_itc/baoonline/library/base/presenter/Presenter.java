@@ -1,4 +1,6 @@
-package com.toan_itc.baoonline.library.basemvp;
+package com.toan_itc.baoonline.library.base.presenter;
+
+import com.toan_itc.baoonline.library.base.view.BaseView;
 
 /**
  * Every presenter in the app must either implement this interfaceListener or extend Presenter

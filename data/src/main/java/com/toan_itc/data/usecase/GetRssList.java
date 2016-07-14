@@ -6,6 +6,7 @@ import com.toan_itc.data.executor.ThreadExecutor;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeed;
 import com.toan_itc.data.network.RestApi;
+import com.toan_itc.data.utils.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class GetRssList extends UseCase {
                     try {
                         TikXml parse = new TikXml.Builder().exceptionOnUnreadXml(false).build();
                         rssChannel = parse.read(new Buffer().writeUtf8(parse(responseBody)), RssFeed.class).getChannel();
+                        Logger.e(rssChannel.getItem().toString());
                     }catch (Exception e){
                         e.printStackTrace();
                     }
