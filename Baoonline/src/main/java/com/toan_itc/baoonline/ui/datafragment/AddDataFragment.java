@@ -60,11 +60,6 @@ public class AddDataFragment extends BaseFragment {
     }
 
     @Override
-    protected String getTAG() {
-        return this.getClass().getSimpleName();
-    }
-
-    @Override
     protected int setLayoutResourceID() {
         return R.layout.fragment_data;
     }

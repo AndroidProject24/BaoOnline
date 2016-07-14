@@ -6,12 +6,11 @@ import android.support.annotation.NonNull;
 
 import com.toan_itc.baoonline.library.libs.image.FrescoImageLoader;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.data.executor.JobExecutor;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
 import com.toan_itc.data.executor.UIThread;
-import com.toan_itc.data.local.DatabaseRealm;
-import com.toan_itc.data.local.PreferencesHelper;
 import com.toan_itc.data.rxjava.RxBus;
 import com.toan_itc.data.thread.DefaultExecutorSupplier;
 
@@ -20,7 +19,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module(includes = RealmModule.class)
 public class ApplicationModule {
 
   protected final Application application;
@@ -45,21 +44,15 @@ public class ApplicationModule {
   @Provides
   @NonNull
   @Singleton
-  RxBus mRxBus() {
-    return new RxBus();
-  }
-
-  @Provides
-  @NonNull
-  PreferencesHelper mPreferencesHelper() {
-    return new PreferencesHelper(application);
+  Navigator provideNavigator() {
+    return new Navigator();
   }
 
   @Provides
   @NonNull
   @Singleton
-  DatabaseRealm mDatabaseRealm() {
-    return new DatabaseRealm(application);
+  RxBus mRxBus() {
+    return new RxBus();
   }
 
   @Provides

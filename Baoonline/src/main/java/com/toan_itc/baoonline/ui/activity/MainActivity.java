@@ -6,26 +6,18 @@ import android.support.v4.app.Fragment;
 
 import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.base.BaseActivity;
-import com.toan_itc.baoonline.library.injector.component.DaggerUserComponent;
-import com.toan_itc.baoonline.library.injector.component.UserComponent;
-import com.toan_itc.baoonline.library.injector.module.UserModule;
-import com.toan_itc.baoonline.library.injector.scope.HasComponent;
+import com.toan_itc.baoonline.library.base.BaseToolbar;
+import com.toan_itc.baoonline.library.injector.component.DaggerRssComponent;
+import com.toan_itc.baoonline.library.injector.component.RssComponent;
+import com.toan_itc.baoonline.library.injector.module.ListRssModule;
 import com.toan_itc.baoonline.ui.fragment.HomeFragment;
 import com.toan_itc.data.local.DatabaseRealm;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity implements HasComponent<UserComponent> {
-    private UserComponent userComponent;
+public class MainActivity extends BaseToolbar<RssComponent> {
     @Inject
     DatabaseRealm mDatabaseRealm;
-
-    @Override
-    protected String getTAG() {
-        return this.getClass().getSimpleName();
-    }
-
 
     public static Intent getCallingIntent(Context context) {
         return new Intent(context, MainActivity.class);
@@ -33,7 +25,7 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
 
     @Override
     protected void initViews() {
-        addFagment(getSupportFragmentManager(), HomeFragment.newInstance(), R.id.contentFragment);
+        addFagment(R.id.contentFragment, HomeFragment.newInstance());
     }
     @Override
     protected int setLayoutResourceID() {
@@ -46,11 +38,11 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
     }
 
     @Override
-    protected void injectDependencies() {
-        this.userComponent = DaggerUserComponent.builder()
+    protected RssComponent injectDependencies() {
+        return DaggerRssComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
-                .userModule(new UserModule("http://vnexpress.net/rss/tin-moi-nhat.rss"))
+                .listRssModule(new ListRssModule("http://vnexpress.net/rss/tin-moi-nhat.rss"))
                 .build();
     }
     protected void remove_fragment(){
@@ -67,9 +59,13 @@ public class MainActivity extends BaseActivity implements HasComponent<UserCompo
             getSupportFragmentManager().beginTransaction().remove(fragmentseach).commit();
         }*/
     }
+    @Override
+    protected int getToolbarResId() {
+        return 0;
+    }
 
     @Override
-    public UserComponent getComponent() {
-        return userComponent;
+    protected int getToolbarTitleResId() {
+        return 0;
     }
 }

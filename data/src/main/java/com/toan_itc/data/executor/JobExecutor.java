@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package com.toan_itc.data.executor;
+
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
 
 /**
  * Decorated {@link java.util.concurrent.ThreadPoolExecutor}

@@ -16,15 +16,15 @@
 package com.toan_itc.baoonline.library.injector.component;
 
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
-import com.toan_itc.baoonline.library.injector.module.UserModule;
+import com.toan_itc.baoonline.library.injector.module.ListRssModule;
 import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
 import com.toan_itc.baoonline.ui.fragment.HomeFragment;
 
 import dagger.Component;
 
 @ActivityScope
-@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, UserModule.class})
-public interface UserComponent extends ActivityComponent {
+@Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, ListRssModule.class})
+public interface RssComponent extends ActivityComponent {
 
     void inject(HomeFragment homeFragment);
 

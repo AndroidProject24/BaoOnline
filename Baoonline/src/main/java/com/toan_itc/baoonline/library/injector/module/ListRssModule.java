@@ -32,13 +32,13 @@ import dagger.Provides;
  * Dagger module that provides user related collaborators.
  */
 @Module
-public class UserModule {
+public class ListRssModule {
 
   private String userId = "";
 
-  public UserModule() {}
+  public ListRssModule() {}
 
-  public UserModule(String userId) {
+  public ListRssModule(String userId) {
     this.userId = userId;
   }
 

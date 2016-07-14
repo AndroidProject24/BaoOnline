@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseActivity;
+import com.toan_itc.baoonline.library.injector.component.RssComponent;
 
 import rx.Subscription;
 
@@ -12,17 +13,13 @@ import rx.Subscription;
  * Created by Toan.IT
  * Date: 22/05/2016
  */
-public class SplashScreen extends BaseActivity {
+public class SplashScreen extends BaseActivity<RssComponent> {
     Subscription subscription;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected String getTAG() {
-        return this.getClass().getSimpleName();
-    }
 
     @Override
     protected void initViews() {
@@ -38,14 +35,14 @@ public class SplashScreen extends BaseActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                navigator.navigateToMainActivity(SplashScreen.this);
+                getNavigator().navigateToMainActivity(SplashScreen.this);
             }
         },2000);
     }
 
     @Override
-    protected void injectDependencies() {
-
+    protected RssComponent injectDependencies() {
+        return null;
     }
 
     @Override
