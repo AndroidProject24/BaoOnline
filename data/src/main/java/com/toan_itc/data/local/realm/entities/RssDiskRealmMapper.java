@@ -25,7 +25,7 @@ public class RssDiskRealmMapper implements Mapper<RssFeedItem, RssDiskRealm>{
         RssDiskRealm rssDiskRealm = new RssDiskRealm();
         rssDiskRealm.setImage(model.getImage());
         rssDiskRealm.setDescription(model.getDescription());
-        rssDiskRealm.setPubDate(model.getPublicationDate());
+        rssDiskRealm.setPubDate(model.getPubDate());
         rssDiskRealm.setLink(model.getLink());
         return rssDiskRealm;
     }

@@ -1,7 +1,7 @@
 package com.toan_itc.baoonline.library.injector.component;
 
-import com.toan_itc.data.local.DatabaseRealm;
 import com.toan_itc.data.local.PreferencesHelper;
+import com.toan_itc.data.local.realm.RealmManager;
 
 /**
  * Created by Toan.IT
@@ -15,5 +15,5 @@ public interface RealmComponent {
 
     PreferencesHelper mPreferencesHelper();
 
-    DatabaseRealm mDatabaseRealm();
+    RealmManager mDatabaseRealm();
 }

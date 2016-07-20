@@ -1,4 +1,3 @@
-/*
 package com.toan_itc.data.network;
 
 import com.fernandocejas.frodo.annotation.RxLogObservable;
@@ -18,12 +17,11 @@ import okio.Buffer;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-*/
-/**
+/*
+*
  * Created by toan.it
  * Date: 25/05/2016
- *//*
+ */
 
 @Singleton
 public class RestData {
@@ -67,4 +65,3 @@ public class RestData {
         return sb.toString();
     }
 }
-*/

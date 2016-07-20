@@ -22,9 +22,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
     private DatabaseRealm mDatabaseRealm;
     private final UseCase getRssListUseCase;
     @Inject
-    HomePresenter(@Named("userList") UseCase getRssListUseCase, DatabaseRealm databaseRealm){
+    HomePresenter(@Named("news") UseCase getRssListUseCase){
         this.getRssListUseCase=getRssListUseCase;
-        this.mDatabaseRealm=databaseRealm;
+        //this.mDatabaseRealm=databaseRealm;
     }
     public void getRss_Zing(){
         getView().hideError();

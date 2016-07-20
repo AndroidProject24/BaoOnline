@@ -121,7 +121,6 @@ dependencies {
 
     //----- Support Libs
     compile supportDependencies.supportCompat
-    compile supportDependencies.supportDesign
     compile supportDependencies.supportRecyclerView
     compile supportDependencies.supportCardView
 
@@ -161,4 +160,6 @@ dependencies {
     compile developmentDependencies.stetho
     compile developmentDependencies.stethoOkHttp
     compile developmentDependencies.takt
+    //BoomMenu
+    compile appDependencies.boomMenu
 }

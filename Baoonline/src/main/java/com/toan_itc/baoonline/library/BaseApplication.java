@@ -50,6 +50,7 @@ public class BaseApplication extends SkinBaseApplication {
         initDebug();
     }
     private void initDatabase(){
+        getApplicationComponent().inject(this);
         realmManager.initialize();
     }
     private void initFresco(){

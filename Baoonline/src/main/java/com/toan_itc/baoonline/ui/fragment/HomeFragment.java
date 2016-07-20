@@ -54,7 +54,8 @@ public class HomeFragment extends BaseFragment implements HomeView,OnItemClickLi
 
     @Override
     protected void injectDependencies() {
-        getComponent(RssComponent.class).inject(this);
+        getComponent(RssComponent.class)
+                .inject(this);
     }
 
     @Override

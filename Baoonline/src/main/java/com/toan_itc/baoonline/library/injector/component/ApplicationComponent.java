@@ -11,6 +11,8 @@ import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
+import com.toan_itc.data.network.RestApi;
+import com.toan_itc.data.network.RestData;
 import com.toan_itc.data.rxjava.RxBus;
 import com.toan_itc.data.thread.DefaultExecutorSupplier;
 
@@ -34,6 +36,10 @@ public interface ApplicationComponent extends RealmComponent{
     Navigator navigator();
 
     RxBus mRxBus();
+
+    RestApi mRestApi();
+
+    RestData mRestData();
 
     ImageLoaderListener mImageLoader();
 

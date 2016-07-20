@@ -6,5 +6,5 @@
     <string name="snack_message_timeout_error">time out please to check network</string>
     <string name="snack_message_unknown_error">unknown error</string>
     <string name="snack_message_data_error">data error</string>
-
+    <string name="just_now">Just Now</string>
 </resources>

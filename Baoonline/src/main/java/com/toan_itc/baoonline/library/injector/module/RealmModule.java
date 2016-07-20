@@ -3,8 +3,8 @@ package com.toan_itc.baoonline.library.injector.module;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.toan_itc.data.local.DatabaseRealm;
 import com.toan_itc.data.local.PreferencesHelper;
+import com.toan_itc.data.local.realm.RealmManager;
 
 import javax.inject.Singleton;
 
@@ -32,8 +32,8 @@ public class RealmModule {
     @Provides
     @NonNull
     @Singleton
-    DatabaseRealm mDatabaseRealm() {
-        return new DatabaseRealm(context);
+    RealmManager mRealmManager() {
+        return new RealmManager(context);
     }
 
 /*

@@ -13,6 +13,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
+import com.toan_itc.baoonline.utils.RelativeTimeTextView;
 import com.toan_itc.data.model.rss.RssFeedItem;
 
 import java.util.ArrayList;
@@ -70,9 +71,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             RssFeedItem rssFeedItem=mRssFeedItems.get(position);
             if(rssFeedItem!=null) {
                 viewHolder.txt_title.setText(rssFeedItem.getTitle());
-                viewHolder.txt_description.setText(rssFeedItem.getDescription());
-                viewHolder.txt_time.setText(rssFeedItem.getPublicationDate());
-                imageLoaderListener.loadImage("http://media.karaokecuatui.vn/image/2016/06/29/f/d/fd5efd1963414797906be50536384bd9_460_230.jpg",viewHolder.img_news);
+                viewHolder.txt_description.setText(rssFeedItem.getArticle());
+                viewHolder.txt_time.setReferenceTime(rssFeedItem.getPubDate());
+                imageLoaderListener.loadImage(rssFeedItem.getImage(),viewHolder.img_news);
                 viewHolder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(rssFeedItem));
             }
             }catch (Exception e){
@@ -91,7 +92,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         @BindView(R.id.txt_description)
         TextView txt_description;
         @BindView(R.id.txt_time)
-        TextView txt_time;
+        RelativeTimeTextView txt_time;
         @BindView(R.id.img_news)
         SimpleDraweeView img_news;
         public ViewHolder(View itemView) {

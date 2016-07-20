@@ -34,27 +34,27 @@ import dagger.Provides;
 @Module
 public class ListRssModule {
 
-  private String userId = "";
+  private String rss = "";
 
   public ListRssModule() {}
 
-  public ListRssModule(String userId) {
-    this.userId = userId;
+  public ListRssModule(String rss) {
+    this.rss = rss;
   }
 
   @Provides
   @ActivityScope
-  @Named("userList")
+  @Named("news")
   UseCase provideGetUserListUseCase(RestApi restApi, ThreadExecutor threadExecutor,
                                     PostExecutionThread postExecutionThread) {
-    return new GetRssList(userId, restApi, threadExecutor, postExecutionThread);
+    return new GetRssList(rss, restApi, threadExecutor, postExecutionThread);
   }
 
   @Provides
   @ActivityScope
-  @Named("userDetails")
+  @Named("newsDetails")
   UseCase provideGetUserDetailsUseCase(RestApi restApi, ThreadExecutor threadExecutor,
                                        PostExecutionThread postExecutionThread) {
-    return new GetRssDetails(userId, restApi, threadExecutor, postExecutionThread);
+    return new GetRssDetails(rss, restApi, threadExecutor, postExecutionThread);
   }
 }

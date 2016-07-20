@@ -4,11 +4,17 @@ package com.toan_itc.data.model.rss;
  * Date: 29/06/2016
  */
 
+import android.annotation.SuppressLint;
+
 import com.tickaroo.tikxml.annotation.PropertyElement;
 import com.tickaroo.tikxml.annotation.Xml;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Xml(name = "item")
 public class RssFeedItem{
@@ -47,8 +53,16 @@ public class RssFeedItem{
         return description;
     }
 
-    public String getPublicationDate() {
-        return pubDate;
+    @SuppressLint("SimpleDateFormat")
+    public long getPubDate() {
+        SimpleDateFormat f = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+        Date d = null;
+        try {
+            d = f.parse(pubDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return d.getTime();
     }
 
     public String getLink() {
@@ -82,13 +96,6 @@ public class RssFeedItem{
 
     public RssFeedItem() {}
 
-    public boolean isEqualTo(RssFeedItem o) {
-        if (o.getTitle().equals(title) && o.getDescription().equals(description) && o.getPublicationDate().equals(pubDate)) {
-            return true;
-        }
-        else
-            return false;
-    }
     public boolean hasImage() {
         return this.getImage() != null && !getImage().isEmpty();
     }
@@ -97,7 +104,7 @@ public class RssFeedItem{
         Document html = Jsoup.parse(HTMLSTring);
         setArticle(html.body().text());
         setImage(html.getElementsByTag("img").first().attr("src"));
-        setArticleLink(html.getElementsByTag("a").first().attr("href"));
+       // setArticleLink(html.getElementsByTag("a").first().attr("href"));
         return this;
     }
 }

@@ -16,13 +16,13 @@ ext {
     alias = "toan"
     aliasPass = "bambovip33"
     //Android
-    androidBuildToolsVersion = "24.0.0"
-    androidMinSdkVersion = 16
+    androidBuildToolsVersion = "24.0.1"
+    androidMinSdkVersion = 21
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
 
     //Libraries
-    supportLibsVersion = '24.0.0'
+    supportLibsVersion = '24.1.0'
     constraintVersion = '1.0.0-alpha4'
     daggerVersion = '2.5'
     butterKnifeVersion = '8.2.1'
@@ -41,7 +41,7 @@ ext {
     baseRecyclerVersion = 'v1.8.5'
     reactivenetwork = '0.2.0'
     autoValue       = '1.2'
-
+    bommenuVersion  ='1.0.9'
     //Testing
     robolectricVersion = '3.0'
     jUnitVersion = '4.12'
@@ -100,6 +100,7 @@ ext {
             tikxml_core            : "com.tickaroo.tikxml:core:${tikxmlVersion}",
             tikxml_processor       : "com.tickaroo.tikxml:processor:${tikxmlVersion}",
             jsoup                  : "org.jsoup:jsoup:${jsoupVersion}",
+            boomMenu               : "com.nightonke:boommenu:${bommenuVersion}",
     ]
 
     developmentDependencies = [

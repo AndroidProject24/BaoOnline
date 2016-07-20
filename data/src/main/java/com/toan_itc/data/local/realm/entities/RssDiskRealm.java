@@ -14,7 +14,7 @@ public class RssDiskRealm extends RealmObject {
     @PrimaryKey
     private int id;
     private String title;
-    private String pubDate;
+    private long pubDate;
     private String link;
     private String description;
     private String image;
@@ -43,11 +43,11 @@ public class RssDiskRealm extends RealmObject {
         this.title = title;
     }
 
-    public String getPubDate() {
+    public long getPubDate() {
         return pubDate;
     }
 
-    public void setPubDate(String pubDate) {
+    public void setPubDate(long pubDate) {
         this.pubDate = pubDate;
     }
 
