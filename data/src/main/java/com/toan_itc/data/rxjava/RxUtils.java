@@ -29,4 +29,12 @@ public class RxUtils {
         }
         this.mCompositeSubscription.add(s);
     }
+
+    public static CompositeSubscription getNewCompositeSubIfUnsubscribed(CompositeSubscription subscription) {
+        if (subscription == null || subscription.isUnsubscribed()) {
+            return new CompositeSubscription();
+        }
+
+        return subscription;
+    }
 }

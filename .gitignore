@@ -1,5 +1,6 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Android template
+# Created by https://www.gitignore.io/api/android
+
+### Android ###
 # Built application files
 *.apk
 *.ap_
@@ -36,12 +37,10 @@ captures/
 
 # Intellij
 *.iml
+.idea/
 
 # Keystore files
 *.jks
 
-.gitignore
-/gradlew
-/gradlew.bat
-/gradle/
-/.idea/
+### Android Patch ###
+gen-external-apklibs

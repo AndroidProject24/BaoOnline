@@ -125,4 +125,23 @@ public class PreferencesHelper {
     public String getSongSinger() {
         return mPref.getString(SONG_SINGER,"");
     }
+
+
+   /* public void createUser(User user) {
+        String serializedUser = gson.toJson(user);
+        sharedPreferences.edit().putString(KEY_SERIALIZED_USER, serializedUser).apply();
+    }
+
+    public void clearUser() {
+        sharedPreferences.edit().remove(KEY_SERIALIZED_USER).apply();
+    }
+
+    public User getUser() {
+        String serializedUser = sharedPreferences.getString(KEY_SERIALIZED_USER, null);
+        if (!TextUtils.isEmpty(serializedUser)) {
+            return gson.fromJson(serializedUser, User.class);
+        }
+
+        return null;
+    }*/
 }

@@ -28,7 +28,7 @@ public class LargeHeap {
         appendNumber(sb, "Requests: ", mPerfListener.getOutstandingRequests(), " outsdng ");
         appendNumber(sb, "", mPerfListener.getCancelledRequests(), " cncld\n");*/
         final String message = sb.toString();
-    //    Timber.e(message);
+    //    Timber.e(layout_error);
     }
 
     private static void appendSize(StringBuilder sb, long bytes) {

@@ -10,11 +10,6 @@ import retrofit2.adapter.rxjava.HttpException;
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 
 public class NetworkError extends Throwable {
-    protected String DEFAULT_ERROR_MESSAGE = "Something went wrong! Please try again.";
-    protected String NETWORK_ERROR_MESSAGE = "No Internet Connection!";
-    protected String JSON_ERROR_MESSAGE = "Parse json error.";
-    protected String TIMEOUT_ERROR_MESSAGE = "Connect timeout.";
-    protected String ERROR_MESSAGE_HEADER = "Error-Message";
     private final Throwable error;
 
     public NetworkError(Throwable e) {
@@ -36,33 +31,13 @@ public class NetworkError extends Throwable {
     }
 
     public String getAppErrorMessage() {
-        if (this.error instanceof IOException) return NETWORK_ERROR_MESSAGE;
-        if ((this.error instanceof JSONException)) return JSON_ERROR_MESSAGE;
-        if ((this.error instanceof TimeoutException)) return TIMEOUT_ERROR_MESSAGE;
-        if (!(this.error instanceof HttpException)) return DEFAULT_ERROR_MESSAGE;
-      /*  retrofit2.Response<?> response = ((HttpException) this.error).response();
-        if (response != null) {
-            String status = getJsonStringFromResponse(response);
-            if (!TextUtils.isEmpty(status)) return status;
-
-            Map<String, List<String>> headers = response.headers().toMultimap();
-            if (headers.containsKey(ERROR_MESSAGE_HEADER))
-                return headers.get(ERROR_MESSAGE_HEADER).get(0);
-        }*/
-        return DEFAULT_ERROR_MESSAGE;
+        if (this.error instanceof IOException) return "No Internet Connection!";
+        if (this.error instanceof JSONException) return "Parse json error.";
+        if (this.error instanceof TimeoutException) return "Connect timeout.";
+        if (this.error instanceof HttpException) return "Something went wrong! Please try again.";
+        if (this.error instanceof Exception) return "There is no internet connection";
+        return "Error-Connect";
     }
-    /*
-   private String getJsonStringFromResponse(final retrofit2.Response<?> response) {
-        try {
-            String jsonString = response.errorBody().string();
-            Response errorResponse = new Gson().fromJson(jsonString, Response.class);
-            return errorResponse.status;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-    */
-
     public Throwable getError() {
         return error;
     }

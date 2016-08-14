@@ -1,16 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: 'buildsystem/library.gradle'
 apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/signing.gradle'
 buildscript {
     repositories {
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0-alpha6'
+        classpath 'com.android.tools.build:gradle:2.2.0-beta1'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
-        classpath "io.realm:realm-gradle-plugin:1.1.0"
+        classpath "io.realm:realm-gradle-plugin:1.1.1"
         classpath "com.fernandocejas.frodo:frodo-plugin:0.8.3"
         classpath 'com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:0.3.1'
     }

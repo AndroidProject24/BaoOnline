@@ -1,60 +1,32 @@
-/**
- * Copyright (C) 2015 Fernando Cejas Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.toan_itc.baoonline.navigation;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
-import com.toan_itc.baoonline.ui.activity.MainActivity;
+public interface Navigator {
+    String EXTRA_ARGS = "_args";
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+    void startActivity(@NonNull Intent intent);
+    void startActivity(@NonNull String action);
+    void startActivity(@NonNull String action, @NonNull Uri uri);
+    void startActivity(@NonNull Class<? extends Activity> activityClass);
+    void startActivity(@NonNull Class<? extends Activity> activityClass, Bundle args);
+    void startActivity(@NonNull Class<? extends Activity> activityClass, Parcelable args);
 
-/**
- * Class used to navigate through the application.
- */
-@Singleton
-public class Navigator {
+    void replaceFragment(@IdRes int containerId, @NonNull Fragment fragment, Bundle args);
+    void replaceFragment(@IdRes int containerId, @NonNull Fragment fragment, @NonNull String fragmentTag, Bundle args);
+    void replaceFragmentAndAddToBackStack(@IdRes int containerId, @NonNull Fragment fragment, Bundle args, String backstackTag);
+    void replaceFragmentAndAddToBackStack(@IdRes int containerId, @NonNull Fragment fragment, @NonNull String fragmentTag, Bundle args, String backstackTag);
 
-  @Inject
-  public Navigator() {
-    //empty
-  }
+    void replaceChildFragment(@IdRes int containerId, @NonNull Fragment fragment, Bundle args);
+    void replaceChildFragment(@IdRes int containerId, @NonNull Fragment fragment, @NonNull String fragmentTag, Bundle args);
+    void replaceChildFragmentAndAddToBackStack(@IdRes int containerId, @NonNull Fragment fragment, Bundle args, String backstackTag);
+    void replaceChildFragmentAndAddToBackStack(@IdRes int containerId, @NonNull Fragment fragment, @NonNull String fragmentTag, Bundle args, String backstackTag);
 
-  /**
-   * Goes to the user list screen.
-   *
-   * @param context A Context needed to open the destiny activity.
-   */
-  public void navigateToMainActivity(Context context) {
-    if (context != null) {
-      Intent intentToLaunch = MainActivity.getCallingIntent(context);
-      context.startActivity(intentToLaunch);
-    }
-  }
-
-  /**
-   * Goes to the user details screen.
-   *
-   * @param context A Context needed to open the destiny activity.
-   */
-  public void navigateToLinkRss(Context context, String linkRss) {
-    if (context != null) {
-      Intent intentToLaunch = MainActivity.getCallingIntent(context, linkRss);
-      context.startActivity(intentToLaunch);
-    }
-  }
 }

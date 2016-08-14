@@ -16,12 +16,14 @@ import android.view.ViewGroup;
 import com.squareup.leakcanary.RefWatcher;
 import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.library.BaseApplication;
+import com.toan_itc.baoonline.library.base.view.EmptyView;
+import com.toan_itc.baoonline.library.base.view.ErrorView;
+import com.toan_itc.baoonline.library.base.view.LoadView;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
+import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.baoonline.navigation.Navigator;
+import com.toan_itc.baoonline.library.libs.view.VaryViewHelperController;
 import com.toan_itc.data.utils.logger.Logger;
-
-import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -32,14 +34,11 @@ import static dagger.internal.Preconditions.checkNotNull;
  * Created by Toan.IT
  * Date:22/5/2016
  */
-public abstract class BaseFragment extends SkinBaseFragment{
-
-    @Inject
-    Navigator navigator;
+public abstract class BaseFragment extends SkinBaseFragment implements LoadView,ErrorView,EmptyView {
     private Snackbar snackbar;
-    private View mContentView;
     private Context mContext;
     private Unbinder unbinder;
+    private VaryViewHelperController mVaryViewHelperController = null;
     protected String TAG = BaseFragment.class.getSimpleName();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,28 +49,31 @@ public abstract class BaseFragment extends SkinBaseFragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        if (null == mContentView) {
-            mContentView = inflater.inflate(setLayoutResourceID(),container, false);
+        if (setLayoutResourceID() != 0) {
+            return inflater.inflate(setLayoutResourceID(), container,false);
+        } else {
+            return super.onCreateView(inflater, container, savedInstanceState);
         }
-        unbinder = ButterKnife.bind(this, mContentView);
-        mContext = getContext();
-        return mContentView;
     }
+
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        unbinder = ButterKnife.bind(this, view);
+        mContext = getContext();
+        if (null != getLoadingTargetView()) {
+            mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
+        }
         injectDependencies();
         initViews();
         initData();
     }
+
     protected abstract @LayoutRes int setLayoutResourceID();
     protected abstract void injectDependencies();
     protected abstract void initViews();
     protected abstract void initData();
-    protected View getContentView() {
-        return mContentView;
-    }
-
+    protected abstract View getLoadingTargetView();
     private Context getmContext() {
         return mContext;
     }
@@ -94,11 +96,15 @@ public abstract class BaseFragment extends SkinBaseFragment{
     protected ApplicationComponent getApplicationComponent() {
         return ((BaseActivity)getActivity()).getApplicationComponent();
     }
+
+    protected FragmentModule getFragmentModule() {
+        return new FragmentModule(this);
+    }
+
     @SuppressWarnings("unchecked")
     protected <C> C getComponent(Class<C> componentType) {
         return componentType.cast(((HasComponent<C>) getActivity()).getComponent());
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -121,7 +127,10 @@ public abstract class BaseFragment extends SkinBaseFragment{
     }
 
     protected Snackbar snackbarBuild(String message){
-        snackbar = Snackbar.make(mContentView, message, Snackbar.LENGTH_LONG);
+        if(getLoadingTargetView()==null){
+            throw new RuntimeException("This getLoadingTargetView not view!");
+        }
+        snackbar = Snackbar.make(getLoadingTargetView(), message, Snackbar.LENGTH_LONG);
         return snackbar;
     }
 
@@ -130,5 +139,76 @@ public abstract class BaseFragment extends SkinBaseFragment{
             snackbar.dismiss();
         }
         snackbar = null;
+    }
+    protected void toggleShowLoading(boolean toggle) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for loading");
+        }
+        if (toggle) {
+            mVaryViewHelperController.showLoading();
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleShowEmpty(boolean toggle, String msg, View.OnClickListener onClickListener) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for Empty");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showEmpty(msg, onClickListener);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleShowError(boolean toggle, String msg, View.OnClickListener onClickListener) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for Error");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showError(msg, onClickListener);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    protected void toggleNetworkError(boolean toggle, View.OnClickListener onClickListener) {
+        if (null == mVaryViewHelperController) {
+            throw new IllegalArgumentException("You must return a right target view for NetworkError");
+        }
+
+        if (toggle) {
+            mVaryViewHelperController.showNetworkError(onClickListener);
+        } else {
+            mVaryViewHelperController.restore();
+        }
+    }
+
+    @Override
+    public void showEmptyView(String message) {
+        toggleShowEmpty(true,message,null);
+    }
+
+    @Override
+    public void showError(String message) {
+        toggleShowError(true, message, null);
+    }
+
+    @Override
+    public void showNetworkError() {
+        toggleNetworkError(true, null);
+    }
+
+    @Override
+    public void showLoading() {
+        toggleShowLoading(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        toggleShowLoading(false);
     }
 }

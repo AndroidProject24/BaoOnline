@@ -1,13 +1,13 @@
 package com.toan_itc.baoonline.library.base.view;
 
-import android.view.View;
-
 /**
- * Created by policante on 1/19/16.
+ * Created by Toan.IT
+ * Date: 14/08/2016
+ * Email: huynhvantoan.itc@gmail.com
  */
 public interface ErrorView {
 
-    void showError(String message, View.OnClickListener onClickListener);
+    void showError(String message);
 
-    void hideError();
+    void showNetworkError();
 }

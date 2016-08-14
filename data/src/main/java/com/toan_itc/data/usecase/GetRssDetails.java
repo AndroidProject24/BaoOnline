@@ -2,7 +2,7 @@ package com.toan_itc.data.usecase;
 
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
-import com.toan_itc.data.network.RestApi;
+import com.toan_itc.data.repository.Repository;
 
 import javax.inject.Inject;
 
@@ -11,17 +11,17 @@ import rx.Observable;
 public class GetRssDetails extends UseCase {
 
   private final String userId;
-  private final RestApi mRestApi;
+  private final Repository mRepository;
 
   @Inject
-  public GetRssDetails(String userId, RestApi restApi, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+  public GetRssDetails(String userId, Repository repository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
     this.userId = userId;
-    this.mRestApi = restApi;
+    this.mRepository = repository;
   }
 
   @Override
   protected Observable buildUseCaseObservable() {
-    return this.mRestApi.GetRss(this.userId);
+    return this.mRepository.GetRss(this.userId);
   }
 }

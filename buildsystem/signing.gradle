@@ -1,0 +1,6 @@
+ext{
+    keystore = "$rootProject.projectDir/buildsystem/toankey.jks"
+    keystorePass = "bambovip33"
+    alias = "toan"
+    aliasPass = "bambovip33"
+}

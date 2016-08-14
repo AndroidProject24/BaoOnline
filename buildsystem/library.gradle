@@ -10,28 +10,23 @@ allprojects {
 }
 
 ext {
-    //KeyStore
-    keystore = "$rootProject.projectDir/buildsystem/toankey.jks"
-    keystorePass = "bambovip33"
-    alias = "toan"
-    aliasPass = "bambovip33"
     //Android
     androidBuildToolsVersion = "24.0.1"
-    androidMinSdkVersion = 21
+    androidMinSdkVersion = 16
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
 
     //Libraries
     supportLibsVersion = '24.1.0'
     constraintVersion = '1.0.0-alpha4'
-    daggerVersion = '2.5'
+    daggerVersion = '2.6'
     butterKnifeVersion = '8.2.1'
     rxJavaVersion = '1.1.6'
     rxAndroidVersion = '1.2.1'
     rxBindingVersion = '0.4.0'
     rxPermissionsVersion ='0.7.0@aar'
     javaxAnnotationVersion = '10.0-b28'
-    okHttpVersion = '3.3.1'
+    okHttpVersion = '3.4.1'
     retrofitVersion ='2.1.0'
     gsonVersion     ='2.7'
     frescoVersion   = '0.11.0'

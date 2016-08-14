@@ -1,11 +1,13 @@
 package com.toan_itc.baoonline.library.injector.module;
 
-import android.app.Activity;
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 
-import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
+import com.toan_itc.baoonline.library.injector.qualifier.ActivityContext;
+import com.toan_itc.baoonline.library.injector.scope.PerActivity;
+import com.toan_itc.baoonline.navigation.ActivityNavigator;
+import com.toan_itc.baoonline.navigation.Navigator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,25 +15,23 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-  private AppCompatActivity activity;
+  private final AppCompatActivity mActivity;
 
   public ActivityModule(AppCompatActivity activity) {
-    this.activity = activity;
+    mActivity = activity;
   }
 
   @Provides
-  @ActivityScope
-  public Activity activity() {
-    return activity;
-  }
+  @PerActivity
+  @ActivityContext
+  Context provideActivityContext() { return mActivity; }
 
   @Provides
-  public Context context() {
-    return activity;
-  }
+  @PerActivity
+  FragmentManager provideFragmentManager() { return mActivity.getSupportFragmentManager(); }
 
   @Provides
-  LayoutInflater layoutInflater() {
-    return activity.getLayoutInflater();
-  }
+  @PerActivity
+  Navigator provideNavigator() { return new ActivityNavigator(mActivity); }
+
 }

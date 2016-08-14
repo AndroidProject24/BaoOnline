@@ -1,18 +1,15 @@
 package com.toan_itc.baoonline.library.injector.component;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-
-import com.toan_itc.baoonline.library.BaseApplication;
+import com.toan_itc.baoonline.library.base.BaseActivity;
 import com.toan_itc.baoonline.library.base.BaseFragment;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
+import com.toan_itc.baoonline.library.injector.module.DataModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
+import com.toan_itc.baoonline.library.injector.module.ThreadingModule;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
-import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
-import com.toan_itc.data.network.RestApi;
-import com.toan_itc.data.network.RestData;
+import com.toan_itc.data.repository.Repository;
 import com.toan_itc.data.rxjava.RxBus;
 import com.toan_itc.data.thread.DefaultExecutorSupplier;
 
@@ -22,24 +19,16 @@ import dagger.Component;
 import okhttp3.OkHttpClient;
 
 @Singleton
-@Component(modules = { ApplicationModule.class, NetworkModule.class})
-public interface ApplicationComponent extends RealmComponent{
+@Component(modules = {ApplicationModule.class, NetworkModule.class, DataModule.class, ThreadingModule.class})
+public interface ApplicationComponent{
 
-    void inject(BaseApplication application);
-
-    void inject(AppCompatActivity activity);
+    void inject(BaseActivity activity);
 
     void inject(BaseFragment fragment);
 
-    Context context();
-
-    Navigator navigator();
-
     RxBus mRxBus();
 
-    RestApi mRestApi();
-
-    RestData mRestData();
+    Repository mRepository();
 
     ImageLoaderListener mImageLoader();
 

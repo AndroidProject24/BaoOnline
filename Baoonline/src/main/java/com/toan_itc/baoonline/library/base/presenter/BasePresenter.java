@@ -3,6 +3,7 @@ package com.toan_itc.baoonline.library.base.presenter;
 import android.support.annotation.NonNull;
 
 import com.toan_itc.baoonline.library.base.view.BaseView;
+import com.toan_itc.data.utils.logger.Logger;
 
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -14,12 +15,16 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class BasePresenter<T extends BaseView> implements Presenter<T> {
     private T mMvpView;
+    private static final String TAG = BasePresenter.class.getSimpleName();
+
     @NonNull
     private CompositeSubscription subscriptionsToUnsubscribeOnUnbindView = new CompositeSubscription();
+
     @Override
     public void attachView(@NonNull T mvpView) {
         this.mMvpView = mvpView;
     }
+
     @Override
     public void detachView() {
         this.mMvpView = null;
@@ -27,15 +32,15 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
         this.subscriptionsToUnsubscribeOnUnbindView.clear();
     }
 
-    private boolean isViewAttached() {
-        return this.mMvpView != null;
+    public T getView() {
+        if(this.mMvpView == null) {
+            Logger.wtf(TAG, "This presenter does not set view!");
+            throw new RuntimeException("This presenter does not set view!");
+        }return this.mMvpView;
     }
 
-    public T getView() {
-        if(isViewAttached())
-            return this.mMvpView;
-        else
-            throw new IllegalStateException("Unexpected view!" + this.mMvpView);
+    private boolean isViewAttached() {
+        return this.mMvpView != null;
     }
 
     public void checkViewAttached() {
@@ -47,8 +52,8 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
             super("Please call Presenter.attachView(BaseView) before" + "requesting data to the Presenter");
         }
     }
-    //Clear
-    protected final void unsubscribeOnUnbindView(@NonNull Subscription subscription, @NonNull Subscription... subscriptions) {
+
+    protected final void addSubscribe(@NonNull Subscription subscription, @NonNull Subscription... subscriptions) {
         this.subscriptionsToUnsubscribeOnUnbindView.add(subscription);
 
         for (Subscription s : subscriptions) {

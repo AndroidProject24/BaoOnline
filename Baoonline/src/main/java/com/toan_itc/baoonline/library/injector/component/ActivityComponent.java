@@ -1,14 +1,17 @@
 package com.toan_itc.baoonline.library.injector.component;
 
-import android.app.Activity;
-
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
-import com.toan_itc.baoonline.library.injector.scope.ActivityScope;
+import com.toan_itc.baoonline.library.injector.scope.PerActivity;
+import com.toan_itc.baoonline.ui.details.activity.DetailsActivity;
+import com.toan_itc.baoonline.ui.home.activity.MainActivity;
 
 import dagger.Component;
 
-@ActivityScope
+@PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-    Activity activity();
+
+    void inject(MainActivity mainActivity);
+
+    void inject(DetailsActivity detailsActivity);
 }

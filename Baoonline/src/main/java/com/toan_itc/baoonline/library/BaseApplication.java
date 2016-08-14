@@ -17,12 +17,8 @@ import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
-import com.toan_itc.baoonline.library.injector.module.RealmModule;
-import com.toan_itc.data.local.realm.RealmManager;
 
 import java.io.File;
-
-import javax.inject.Inject;
 
 import jp.wasabeef.takt.Seat;
 import jp.wasabeef.takt.Takt;
@@ -37,8 +33,6 @@ public class BaseApplication extends SkinBaseApplication {
     private RefWatcher refWatcher;
     private ApplicationComponent applicationComponent;
     private File cacheDir =null;
-    @Inject
-    RealmManager realmManager;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,11 +41,11 @@ public class BaseApplication extends SkinBaseApplication {
         initInjector();
         initDatabase();
         initFresco();
-        initDebug();
+        //initDebug();
     }
     private void initDatabase(){
-        getApplicationComponent().inject(this);
-        realmManager.initialize();
+        /*getApplicationComponent().inject(this);
+        realmManager.initialize();*/
     }
     private void initFresco(){
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
@@ -73,10 +67,10 @@ public class BaseApplication extends SkinBaseApplication {
         }
     }
     private void initInjector(){
+        if(applicationComponent==null)
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(cacheDir,true))
-                .realmModule(new RealmModule(this))
                 .build();
     }
     private void initCache(){

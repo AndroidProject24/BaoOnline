@@ -13,7 +13,7 @@
 package com.toan_itc.baoonline.library.performance;
 
 /**
- * Collects wait times and holds image loading stats.
+ * Collects wait times and holds image layout_loading stats.
  */
 public class PerfListener {
   private long mSumOfWaitTime;

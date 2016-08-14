@@ -33,12 +33,14 @@ public class NetworkModule {
         this.mCacheFile = cacheFile;
         this.isConnected=checkConnect;
     }
+
     @Singleton
     @NonNull
     @Provides
     RestApi sRestClient(Retrofit retrofit) {
         return retrofit.create(RestApi.class);
     }
+
     @Singleton
     @NonNull
     @Provides
@@ -49,8 +51,8 @@ public class NetworkModule {
                // .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(rxJavaCallAdapter)
                 .build();
-
     }
+
     @Singleton
     @NonNull
     @Provides
@@ -78,6 +80,14 @@ public class NetworkModule {
         GsonBuilder builder = new GsonBuilder();
         builder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
         return builder.create();
+    }
+
+     private Gson provideGson() {
+        final GsonBuilder builder = new GsonBuilder()
+                .setExclusionStrategies(new RealmExclusionStrategy())
+                .registerTypeAdapter(new TypeToken<RealmList<RealmString>>() {
+                }.getType(), new RealmStringListAdapter());
+        return builder.create();
     }*/
     @Singleton
     @NonNull
@@ -85,6 +95,7 @@ public class NetworkModule {
     RxJavaCallAdapterFactory providesRxJavaCallAdapterFactory() {
         return RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
     }
+
     @Singleton
     @NonNull
     @Provides
@@ -93,6 +104,7 @@ public class NetworkModule {
         logging.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BODY : HttpLoggingInterceptor.Level.NONE);
         return logging;
     }
+
     @Singleton
     @NonNull
     @Provides

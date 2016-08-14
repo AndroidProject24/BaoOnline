@@ -3,14 +3,12 @@ package com.toan_itc.baoonline.library.base;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import com.toan_itc.baoonline.library.injector.component.ActivityComponent;
-
 /**
  * Created by Toan.IT
  * Date: 14/07/2016
  */
 
-public abstract class BaseToolbar <C extends ActivityComponent> extends BaseActivity<C> {
+public abstract class BaseToolbar extends BaseActivity {
 
     private Toolbar toolbar = null;
 

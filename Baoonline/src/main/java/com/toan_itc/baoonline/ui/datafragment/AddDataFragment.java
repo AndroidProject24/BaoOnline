@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
-import com.toan_itc.data.local.DatabaseRealm;
+import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.model.news.News;
 import com.toan_itc.data.utils.logger.Logger;
 
@@ -44,7 +44,7 @@ public class AddDataFragment extends BaseFragment {
     String item;
     private RecyclerViewAdapter rcAdapter;
     private Context mContext;
-    private DatabaseRealm databaseRealm;
+    private RealmManager mRealmManager;
     public AddDataFragment() {
         // Requires empty public constructor
     }
@@ -73,14 +73,20 @@ public class AddDataFragment extends BaseFragment {
     protected void initData() {
 
     }
+
+    @Override
+    protected View getLoadingTargetView() {
+        return null;
+    }
+
     @OnClick(R.id.btn_add)
     public void btn_add(){
         Toast.makeText(mContext,mEditTitle.getText().toString().trim()+"mEditLink="+mEditLink.getText().toString().trim(), Toast.LENGTH_LONG).show();
-        databaseRealm.Set_Data(mEditTitle.getText().toString().trim(),mEditLink.getText().toString().trim());
+        mRealmManager.Set_Data(mEditTitle.getText().toString().trim(),mEditLink.getText().toString().trim());
         new Handler().postDelayed(new Runnable() {
                                       @Override
                                       public void run() {
-                                          News news = databaseRealm.getnews(item);
+                                          News news = mRealmManager.getnews(item);
                                           Logger.e(news.getData().toString());
                                           if(news!=null) {
                                               txt_id.setText(String.valueOf(news.getId()));
@@ -94,7 +100,7 @@ public class AddDataFragment extends BaseFragment {
     }
     @Override
     protected void initViews() {
-        databaseRealm=new DatabaseRealm(mContext);
+        mRealmManager=new RealmManager(mContext);
         List<String> languages = new ArrayList<String>();
         languages.add("TinHot");
         languages.add("VnExpress");
@@ -106,7 +112,7 @@ public class AddDataFragment extends BaseFragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 item = parent.getItemAtPosition(position).toString();
-                databaseRealm.Set_News(item);
+                mRealmManager.Set_News(item);
                 Toast.makeText(parent.getContext(), "Android Simple Spinner Example Output..." + item, Toast.LENGTH_LONG).show();
             }
 

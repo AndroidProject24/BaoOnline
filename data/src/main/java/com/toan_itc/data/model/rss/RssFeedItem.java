@@ -12,10 +12,6 @@ import com.tickaroo.tikxml.annotation.Xml;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Xml(name = "item")
 public class RssFeedItem{
 
@@ -55,14 +51,15 @@ public class RssFeedItem{
 
     @SuppressLint("SimpleDateFormat")
     public long getPubDate() {
-        SimpleDateFormat f = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
+       /* SimpleDateFormat f = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
         Date d = null;
         try {
             d = f.parse(pubDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return d.getTime();
+        return d.getTime();*/
+        return 0;
     }
 
     public String getLink() {
