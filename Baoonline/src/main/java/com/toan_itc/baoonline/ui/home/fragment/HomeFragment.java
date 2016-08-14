@@ -7,21 +7,25 @@ import android.view.View;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
+import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
-import com.toan_itc.baoonline.mvp.presenter.HomePresenter;
-import com.toan_itc.baoonline.mvp.view.HomeView;
+import com.toan_itc.baoonline.navigation.Navigator;
+import com.toan_itc.baoonline.ui.details.activity.DetailsActivity;
 import com.toan_itc.baoonline.ui.home.adapter.HomeAdapter;
 import com.toan_itc.baoonline.ui.home.di.DaggerListRssComponent;
 import com.toan_itc.baoonline.ui.home.di.ListRssComponent;
 import com.toan_itc.baoonline.ui.home.di.ListRssModule;
+import com.toan_itc.baoonline.ui.home.mvp.HomePresenter;
+import com.toan_itc.baoonline.ui.home.mvp.HomeView;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
 import com.toan_itc.data.utils.Constants;
 import com.toan_itc.data.utils.logger.Logger;
 
 import javax.inject.Inject;
+import javax.inject.Provider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +39,8 @@ public class HomeFragment extends BaseFragment implements HasComponent<ListRssCo
     HomePresenter mHomePresenter;
     @Inject
     ImageLoaderListener mImageLoaderListener;
+    @Inject
+    Provider<Navigator> navigator;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     private Context mContext;
@@ -86,12 +92,13 @@ public class HomeFragment extends BaseFragment implements HasComponent<ListRssCo
     }
     @Override
     public void onItemClick(RssFeedItem rssFeedItem) {
-
+        navigator.get().startActivity(DetailsActivity.class);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mListRssComponent=null;
         mHomePresenter.detachView();
     }
 
@@ -100,6 +107,7 @@ public class HomeFragment extends BaseFragment implements HasComponent<ListRssCo
         if(mListRssComponent == null) {
             mListRssComponent = DaggerListRssComponent.builder()
                     .applicationComponent(getApplicationComponent())
+                    .fragmentModule(new FragmentModule(this))
                     .listRssModule(new ListRssModule(Constants.url[1]))
                     .build();
         }

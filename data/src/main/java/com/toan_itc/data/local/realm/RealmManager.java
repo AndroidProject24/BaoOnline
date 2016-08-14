@@ -2,6 +2,8 @@ package com.toan_itc.data.local.realm;
 
 import android.content.Context;
 
+import com.toan_itc.data.local.realm.cache.CacheObject;
+import com.toan_itc.data.local.realm.cache.CacheService;
 import com.toan_itc.data.local.realm.help.Migration;
 import com.toan_itc.data.model.news.Data;
 import com.toan_itc.data.model.news.ListNews;
@@ -17,12 +19,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
+import rx.Observable;
 
 /**
  * Created by Toan.IT
  * Date: 14/07/2016
  */
-public class RealmManager {
+public class RealmManager implements CacheService {
     private final Context context;
     private Data news;
     public RealmManager(Context context){
@@ -38,6 +41,52 @@ public class RealmManager {
                 .build();
 
         Realm.setDefaultConfiguration(realmConfiguration);
+    }
+
+    @Override
+    public <T, E extends RealmObject & CacheObject<T>> void set(final Class<E> clazz, T model) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.createObject(clazz).map(model));
+        realm.close();
+    }
+
+    @Override
+    public <T, E extends RealmObject & CacheObject<T>> Observable<T> get(final Class<E> clazz) {
+        return Observable.create(subscriber -> {
+            Realm realm = Realm.getDefaultInstance();
+            for (E result : realm.where(clazz).findAll()) {
+                subscriber.onNext(result.map());
+            }
+            subscriber.onCompleted();
+            realm.close();
+        });
+    }
+
+    @Override
+    public <T, E extends RealmObject & CacheObject<T>> long count(Class<E> clazz) {
+        Realm realm = Realm.getDefaultInstance();
+        long count = realm.where(clazz).count();
+        realm.close();
+        return count;
+    }
+
+    @Override
+    public <T, E extends RealmObject & CacheObject<T>> void deleteAll(Class<E> clazz) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> realm1.delete(clazz));
+        realm.close();
+    }
+
+    public <T extends RealmObject> T add(T model) {
+        Realm realm = getRealmInstance();
+        realm.beginTransaction();
+        realm.copyToRealm(model);
+        realm.commitTransaction();
+        return model;
+    }
+
+    public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
+        return getRealmInstance().where(clazz).findAll();
     }
 
     private Realm getRealmInstance() {
@@ -127,17 +176,5 @@ public class RealmManager {
             mEntityList.add(zcoolRealmResults.get(i).toEntity());
         }
     }*/
-
-    public <T extends RealmObject> T add(T model) {
-        Realm realm = getRealmInstance();
-        realm.beginTransaction();
-        realm.copyToRealm(model);
-        realm.commitTransaction();
-        return model;
-    }
-
-    public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
-        return getRealmInstance().where(clazz).findAll();
-    }
 
 }

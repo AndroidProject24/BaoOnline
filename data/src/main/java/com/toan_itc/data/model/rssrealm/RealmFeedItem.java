@@ -1,4 +1,4 @@
-package com.toan_itc.data.model.rss;
+package com.toan_itc.data.model.rssrealm;
 /**
  * Created by Toan.IT
  * Date: 29/06/2016
@@ -13,7 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 @Xml(name = "item")
-public class RssFeedItem{
+public class RealmFeedItem {
 
     @PropertyElement
     String title;
@@ -91,12 +91,12 @@ public class RssFeedItem{
         this.articleLink = articleLink;
     }
 
-    public RssFeedItem() {}
+    public RealmFeedItem() {}
 
     public boolean hasImage() {
         return this.getImage() != null && !getImage().isEmpty();
     }
-    RssFeedItem extractDescription() {
+    RealmFeedItem extractDescription() {
         String HTMLSTring = this.getDescription();
         Document html = Jsoup.parse(HTMLSTring);
         setArticle(html.body().text());

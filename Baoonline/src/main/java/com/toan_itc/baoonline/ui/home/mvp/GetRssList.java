@@ -1,8 +1,9 @@
-package com.toan_itc.data.usecase;
+package com.toan_itc.baoonline.ui.home.mvp;
 
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
 import com.toan_itc.data.repository.Repository;
+import com.toan_itc.data.usecase.UseCase;
 
 import javax.inject.Inject;
 

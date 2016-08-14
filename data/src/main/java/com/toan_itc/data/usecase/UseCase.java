@@ -38,7 +38,7 @@ public abstract class UseCase {
 
   private Subscription subscription = Subscriptions.empty();
 
-  UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+  public UseCase(ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
     this.threadExecutor = threadExecutor;
     this.postExecutionThread = postExecutionThread;
   }
@@ -61,7 +61,19 @@ public abstract class UseCase {
         .observeOn(postExecutionThread.getScheduler())
         .subscribe(UseCaseSubscriber);
   }
-
+  /**
+   * Executes the current db use case. Only for StorIOSQLite db operation
+   * StorIOSQLite is used Scheduler.io as default, so no need to set subscribeOn scheduler.
+   *
+   * @param useCaseSubscriber The guy who will be listen to the observable build
+   * with {@link #buildUseCaseObservable)}.
+   */
+  @SuppressWarnings("unchecked")
+  public void executeDb(Subscriber useCaseSubscriber){
+    this.subscription = this.buildUseCaseObservable()
+            .observeOn(postExecutionThread.getScheduler())
+            .subscribe(useCaseSubscriber);
+  }
   /**
    * Unsubscribes from current {@link Subscription}.
    */

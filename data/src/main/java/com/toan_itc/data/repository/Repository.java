@@ -4,9 +4,11 @@ import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.tickaroo.tikxml.TikXml;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
+import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeed;
 import com.toan_itc.data.network.RestApi;
+import com.toan_itc.data.utils.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import javax.inject.Singleton;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import rx.Observable;
+import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,11 +32,13 @@ public class Repository {
     private final RestApi mRestApi;
     private final ThreadExecutor mThreadExecutor;
     private final PostExecutionThread mPostExecutionThread;
+    private final RealmManager mRealmManager;
     @Inject
-    Repository(RestApi restApi, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+    Repository(RestApi restApi, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread,RealmManager realmManager) {
         this.mRestApi = restApi;
         this.mThreadExecutor=threadExecutor;
         this.mPostExecutionThread=postExecutionThread;
+        this.mRealmManager=realmManager;
     }
     @RxLogObservable
     public Observable<RssChannel> GetRss(String url) {
@@ -47,6 +52,13 @@ public class Repository {
                         e.printStackTrace();
                     }
                     return rssChannel;
+                })
+                .doOnNext(new Action1<RssChannel>() {
+                    @Override
+                    public void call(RssChannel rssChannel) {
+                        //mRealmManager.set(RealmChannel.class,rssChannel);
+                        Logger.wtf("GetRss","doOnNext");
+                    }
                 })
                 .subscribeOn(Schedulers.from(mThreadExecutor))
                 .observeOn(mPostExecutionThread.getScheduler());

@@ -1,5 +1,6 @@
 package com.toan_itc.baoonline.library.injector.component;
 
+import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.base.BaseActivity;
 import com.toan_itc.baoonline.library.base.BaseFragment;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
@@ -22,9 +23,11 @@ import okhttp3.OkHttpClient;
 @Component(modules = {ApplicationModule.class, NetworkModule.class, DataModule.class, ThreadingModule.class})
 public interface ApplicationComponent{
 
-    void inject(BaseActivity activity);
+    void inject(BaseApplication baseApplication);
 
-    void inject(BaseFragment fragment);
+    void inject(BaseActivity baseActivity);
+
+    void inject(BaseFragment baseFragment);
 
     RxBus mRxBus();
 

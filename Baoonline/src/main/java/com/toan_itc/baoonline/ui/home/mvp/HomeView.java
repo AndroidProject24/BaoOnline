@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.mvp.view;
+package com.toan_itc.baoonline.ui.home.mvp;
 
 import com.toan_itc.baoonline.library.base.view.BaseView;
 import com.toan_itc.baoonline.library.base.view.ErrorView;

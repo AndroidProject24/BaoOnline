@@ -160,6 +160,5 @@ dependencies {
     compile developmentDependencies.takt
     //BoomMenu
     compile appDependencies.boomMenu
-    compile 'com.github.ybq:Android-SpinKit:1.0.5'
     //compile 'com.android.support:multidex:1.0.1'
 }
