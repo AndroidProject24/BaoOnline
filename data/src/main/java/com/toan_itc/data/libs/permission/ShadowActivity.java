@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.libs.permission;
+package com.toan_itc.data.libs.permission;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

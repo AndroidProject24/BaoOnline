@@ -22,7 +22,7 @@ import com.toan_itc.baoonline.library.base.view.LoadView;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.baoonline.library.libs.view.VaryViewHelperController;
+import com.toan_itc.data.libs.view.VaryViewHelperController;
 import com.toan_itc.data.utils.logger.Logger;
 
 import butterknife.ButterKnife;

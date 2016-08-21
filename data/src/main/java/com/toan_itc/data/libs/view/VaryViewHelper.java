@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.libs.view;
+package com.toan_itc.data.libs.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;

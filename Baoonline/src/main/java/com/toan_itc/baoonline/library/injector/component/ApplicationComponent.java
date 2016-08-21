@@ -7,7 +7,7 @@ import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.DataModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
 import com.toan_itc.baoonline.library.injector.module.ThreadingModule;
-import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
 import com.toan_itc.data.repository.Repository;

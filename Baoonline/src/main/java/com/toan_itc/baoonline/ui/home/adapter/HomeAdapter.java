@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.utils.RelativeTimeTextView;
 import com.toan_itc.data.model.rss.RssFeedItem;

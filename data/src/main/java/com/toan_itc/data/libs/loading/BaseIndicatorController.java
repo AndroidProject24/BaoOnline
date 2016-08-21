@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.libs.loading;
+package com.toan_itc.data.libs.loading;
 
 import android.animation.Animator;
 import android.graphics.Canvas;

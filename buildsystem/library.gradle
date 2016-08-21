@@ -5,6 +5,9 @@ allprojects {
         maven {
             url 'http://oss.sonatype.org/content/repositories/snapshots'
         }
+        maven {
+            url 'https://github.com/eikaramba/stetho-realm/raw/master/maven-repo'
+        }
         maven { url "https://jitpack.io" }
     }
 }
@@ -12,25 +15,25 @@ allprojects {
 ext {
     //Android
     androidBuildToolsVersion = "24.0.1"
-    androidMinSdkVersion = 16
+    androidMinSdkVersion = 21
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
 
     //Libraries
-    supportLibsVersion = '24.1.0'
+    supportLibsVersion = '24.2.0'
     constraintVersion = '1.0.0-alpha4'
     daggerVersion = '2.6'
     butterKnifeVersion = '8.2.1'
-    rxJavaVersion = '1.1.6'
+    rxJavaVersion = '1.1.9'
     rxAndroidVersion = '1.2.1'
     rxBindingVersion = '0.4.0'
     rxPermissionsVersion ='0.7.0@aar'
-    javaxAnnotationVersion = '10.0-b28'
+    javaxAnnotationVersion = '1.0'
     okHttpVersion = '3.4.1'
     retrofitVersion ='2.1.0'
     gsonVersion     ='2.7'
-    frescoVersion   = '0.11.0'
-    frescoHttpVersion = '0.11.0+'
+    frescoVersion   = '0.13.0'
+    frescoHttpVersion = '0.13.0+'
     jsoupVersion   = '1.9.2'
     tikxmlVersion = '0.5.2-SNAPSHOT'
     baseRecyclerVersion = 'v1.8.5'
@@ -51,6 +54,7 @@ ext {
     leakCanaryVersion = '1.4-beta2'
     blockcanaryVersion = '1.2.1'
     stethoVersion = '1.3.1'
+    realmStethoVersion='0.9.0'
     taktVersion   = '1.0.2'
 
     supportDependencies = [
@@ -69,7 +73,7 @@ ext {
     injectDependencies = [
             dagger                 : "com.google.dagger:dagger:${daggerVersion}",
             daggerCompiler         : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            javaxannotation        : "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
+            javaxannotation        : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             rxjava                 : "io.reactivex:rxjava:${rxJavaVersion}",
             rxandroid              : "io.reactivex:rxandroid:${rxAndroidVersion}",
             rxbinding              : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
@@ -102,6 +106,7 @@ ext {
             leakCanary  : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
             blockCanary : "com.github.moduth:blockcanary-android:${blockcanaryVersion}",
             stetho      : "com.facebook.stetho:stetho:${stethoVersion}",
+            realmStetho : "com.uphyca:stetho_realm:${realmStethoVersion}",
             stethoOkHttp: "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",
             takt        : "jp.wasabeef:takt:${taktVersion}",
     ]

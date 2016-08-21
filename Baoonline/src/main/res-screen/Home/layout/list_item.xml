@@ -3,14 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    style="@style/style_base_height_wrap"
     android:elevation="3dp"
     app:cardCornerRadius="4dp"
     tools:ignore="UnusedAttribute">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/style_base_height_wrap"
         android:orientation="horizontal">
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/img_news"
@@ -19,13 +17,11 @@
             android:contentDescription="@null"
             android:layout_margin="10dp"/>
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_base_height_wrap"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/txt_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_base"
                 android:padding="5dp"
                 android:textColor="@color/material_black"
                 android:textSize="18sp"
@@ -33,16 +29,14 @@
 
             <TextView
                 android:id="@+id/txt_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_base"
                 android:padding="5dp"
                 android:textColor="@color/material_black"
                 android:textSize="16sp"/>
 
             <com.toan_itc.baoonline.utils.RelativeTimeTextView
                 android:id="@+id/txt_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/style_base"
                 android:padding="5dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="13sp"

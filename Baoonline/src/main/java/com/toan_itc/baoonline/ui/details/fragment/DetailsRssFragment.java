@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
-import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.ui.home.adapter.HomeAdapter;
 import com.toan_itc.baoonline.ui.home.mvp.HomePresenter;

@@ -35,15 +35,7 @@ public class MainActivity extends BaseToolbar implements HasComponent<ActivityCo
     @BindView(R.id.boomMenu)
     BoomMenuButton mBoomMenuButton;
     private ActivityComponent mActivityComponent;
-    private static final String INTENT_EXTRA_PARAM_RSS = "com.toan_itc.BaoOnline.RSS";
-    public static Intent getCallingIntent(Context context) {
-        return new Intent(context, MainActivity.class);
-    }
-    public static Intent getCallingIntent(Context context,String linkRss) {
-        Intent callingIntent = new Intent(context, MainActivity.class);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_RSS, linkRss);
-        return callingIntent;
-    }
+
     @Override
     protected void initViews() {
         addFagment(R.id.contentFragment, HomeFragment.newInstance());

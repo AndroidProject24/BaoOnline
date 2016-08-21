@@ -58,7 +58,9 @@ dependencies {
     compile  networkDependencies.gson
     compile  networkDependencies.okHttp
     compile  networkDependencies.retrofitRxJavaAdapter
-
+    //----- Fresco
+    compile networkDependencies.fresco
+    compile networkDependencies.frescoHttp
     //-----Jsoup
     compile appDependencies.jsoup
 

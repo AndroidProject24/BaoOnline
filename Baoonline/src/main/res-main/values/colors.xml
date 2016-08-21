@@ -5,7 +5,4 @@
     <color name="colorAccent">#FF4081</color>
     <color name="windowBackground">#fafafa</color>
 
-
-    <color name="base_bg">#ffeeeeee</color>
-    <color name="base_msg_color">#ff999999</color>
 </resources>

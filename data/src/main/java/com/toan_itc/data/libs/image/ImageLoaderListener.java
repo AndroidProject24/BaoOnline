@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.libs.image;
+package com.toan_itc.data.libs.image;
 
 import android.support.annotation.NonNull;
 

@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.library.libs.loading;
+package com.toan_itc.data.libs.loading;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.support.annotation.IntDef;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.toan_itc.baoonline.R;
+import com.toan_itc.data.R;
 
 public class AVLoadingIndicatorView extends View {
     private static final int BallSpinFadeLoader=22;

@@ -10,7 +10,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.toan_itc.baoonline.library.performance;
+package com.toan_itc.data.performance;
 
 /**
  * Collects wait times and holds image layout_loading stats.

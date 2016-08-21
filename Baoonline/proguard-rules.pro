@@ -199,3 +199,7 @@
 -dontwarn okio.**
 -dontwarn javax.annotation.**
 -dontwarn com.android.volley.toolbox.**
+
+#Stetho
+-keep class com.facebook.stetho.** { *; }
+-keep class com.uphyca.** { *; }

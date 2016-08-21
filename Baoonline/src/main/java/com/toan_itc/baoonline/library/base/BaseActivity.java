@@ -14,7 +14,7 @@ import com.toan_itc.baoonline.library.base.view.ErrorView;
 import com.toan_itc.baoonline.library.base.view.LoadView;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
-import com.toan_itc.baoonline.library.libs.view.VaryViewHelperController;
+import com.toan_itc.data.libs.view.VaryViewHelperController;
 import com.toan_itc.data.utils.logger.Logger;
 
 import butterknife.ButterKnife;

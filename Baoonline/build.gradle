@@ -62,6 +62,7 @@ android {
         quiet true
         abortOnError false
         ignoreWarnings true
+        disable 'MissingTranslation'
         disable 'InvalidPackage'            //Some libraries have issues with this.
         disable 'OldTargetApi'              //Lint gives this warning but SDK 20 would be Android L Beta.
         disable 'IconDensities'             //For testing purpose. This is safe to remove.
@@ -142,10 +143,6 @@ dependencies {
     compile networkDependencies.okHttp
     compile networkDependencies.okHttpLogging
 
-    //----- Fresco
-    compile networkDependencies.fresco
-    compile networkDependencies.frescoHttp
-
     //-----Network
     compile networkDependencies.reactivenetwork
 
@@ -157,6 +154,7 @@ dependencies {
     compile developmentDependencies.blockCanary
     compile developmentDependencies.stetho
     compile developmentDependencies.stethoOkHttp
+    compile developmentDependencies.realmStetho
     compile developmentDependencies.takt
     //BoomMenu
     compile appDependencies.boomMenu

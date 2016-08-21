@@ -1,11 +1,11 @@
-package com.toan_itc.baoonline.library.libs.view;
+package com.toan_itc.data.libs.view;
 
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.toan_itc.baoonline.R;
+import com.toan_itc.data.R;
 import com.toan_itc.data.utils.CommonUtils;
 
 
@@ -18,7 +18,7 @@ public class VaryViewHelperController {
         this(new VaryViewHelper(view));
     }
 
-    public VaryViewHelperController(IVaryViewHelper helper) {
+    private VaryViewHelperController(IVaryViewHelper helper) {
         super();
         this.helper = helper;
     }

@@ -2,19 +2,16 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/card_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    style="@style/style_base"
     card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="8dp"
     android:layout_marginBottom="16dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        style="@style/style_base_fill">
         <TextView
             android:id="@+id/id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_base_height_wrap"
             android:textSize="13sp"
             android:textColor="@color/material_black"
             android:gravity="center"
@@ -22,8 +19,7 @@
             android:paddingTop="8dp"/>
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_base_height_wrap"
             android:textSize="13sp"
             android:textColor="@color/material_black"
             android:gravity="center"
@@ -32,8 +28,7 @@
             android:paddingTop="8dp"/>
         <TextView
             android:id="@+id/url"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/style_base_height_wrap"
             android:textSize="13sp"
             android:textColor="@color/material_black"
             android:gravity="center"

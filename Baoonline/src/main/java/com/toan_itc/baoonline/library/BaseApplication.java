@@ -13,12 +13,15 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.toan_it.library.skinloader.base.SkinBaseApplication;
 import com.toan_itc.baoonline.BuildConfig;
+import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
 import com.toan_itc.baoonline.library.injector.module.DataModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
+import com.toan_itc.data.exception.CrashException;
 import com.toan_itc.data.local.realm.RealmManager;
+import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.io.File;
 
@@ -52,6 +55,7 @@ public class BaseApplication extends SkinBaseApplication {
     private void initDatabase(){
         getApplicationComponent().inject(this);
         mRealmManager.initialize();
+        mRealmManager.Set_News(this);
     }
     private void initFresco(){
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
@@ -60,11 +64,15 @@ public class BaseApplication extends SkinBaseApplication {
         Fresco.initialize(getApplicationContext(),config);
     }
     private void initDebug(){
+        CrashException.init(this, getString(R.string.app_name)).setAppend(true).setSimple(false);
         if (BuildConfig.DEBUG) {
             AndroidDevMetrics.initWith(this);
             refWatcher = LeakCanary.install(this);
-            Stetho.initializeWithDefaults(this);
             BlockCanary.install(this, new AppBlockCanaryContext()).start();
+            Stetho.initialize(Stetho.newInitializerBuilder(this)
+                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                    .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+                    .build());
             Takt.stock(this)
                     .seat(Seat.TOP_LEFT)
                     .color(Color.RED)

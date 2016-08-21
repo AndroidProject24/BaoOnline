@@ -3,8 +3,8 @@ package com.toan_itc.baoonline.library.injector.module;
 import android.app.Application;
 import android.support.annotation.NonNull;
 
-import com.toan_itc.baoonline.library.libs.image.FrescoImageLoader;
-import com.toan_itc.baoonline.library.libs.image.ImageLoaderListener;
+import com.toan_itc.data.libs.image.FrescoImageLoader;
+import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.rxjava.RxBus;
 
 import javax.inject.Singleton;

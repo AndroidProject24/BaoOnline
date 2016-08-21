@@ -125,7 +125,7 @@ public class RealmManager implements CacheService {
             }
         });
         return news;
-    };
+    }
     //Add data
     public void Set_Data(String title,String url){
         getRealmInstance().executeTransactionAsync(realm -> {
