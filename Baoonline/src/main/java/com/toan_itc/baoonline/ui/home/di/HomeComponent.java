@@ -1,9 +1,10 @@
 package com.toan_itc.baoonline.ui.home.di;
 
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
+import com.toan_itc.baoonline.library.injector.module.DataFragmentModule;
 import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.PerFragment;
-import com.toan_itc.baoonline.ui.home.fragment.ListNewsFragment;
+import com.toan_itc.baoonline.ui.home.fragment.HomeFragment;
 
 import dagger.Component;
 
@@ -14,9 +15,9 @@ import dagger.Component;
  */
 
 @PerFragment
-@Component(dependencies = ApplicationComponent.class, modules = {FragmentModule.class, ListRssModule.class})
-public interface ListRssComponent {
+@Component(dependencies = ApplicationComponent.class, modules = {FragmentModule.class, DataFragmentModule.class})
+public interface HomeComponent {
 
-    void inject(ListNewsFragment listNewsFragment);
+    void inject(HomeFragment homeFragment);
 
 }

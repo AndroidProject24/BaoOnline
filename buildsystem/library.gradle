@@ -18,6 +18,7 @@ ext {
     androidMinSdkVersion = 21
     androidTargetSdkVersion = 24
     androidCompileSdkVersion = 24
+    java8 = true
 
     //Libraries
     supportLibsVersion = '24.2.0'

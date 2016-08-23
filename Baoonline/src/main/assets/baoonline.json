@@ -1,157 +1,437 @@
-{
-  "News": [
+[{
+  "Id" :"1",
+  "Title": "TinHot",
+  "Tinhot": [
     {
-      "Id" :"1",
-      "Title": "TinHot",
-      "Data": [
-        {
-          "Id": "1",
-          "Title": "Zing News",
-          "Url": "http://news.zing.vn/rss/trang-chu.rss"
-        },
-        {
-          "Id": "2",
-          "Title": "Việt Nam Net",
-          "Url": "http://vietnamnet.vn/rss/tin-noi-bat.rss"
-        },
-        {
-          "Id": "3",
-          "Title": "Người Đưa Tin",
-          "Url": "http://www.nguoIduatin.vn/trang-chu.rss"
-        },
-        {
-          "Id": "4",
-          "Title": "24h",
-          "Url": "http://www.24h.com.vn/upload/rss/tintuctrongngay.rss"
-        },
-        {
-          "Id": "5",
-          "Title": "Tinh Tế",
-          "Url": "https://www.tinhte.vn/rss"
-        },
-        {
-          "Id": "6",
-          "Title": "Công An ND",
-          "Url": "http://cand.com.vn/rss/trang-chu/"
-        }
-      ]
+      "Id": "1",
+      "Title": "Zing News",
+      "Url": "http://news.zing.vn/rss/trang-chu.rss"
     },
     {
-      "Id" :"2",
-      "Title": "VnExpress",
-      "Data": [
-        {
-          "Id": "1",
-          "Title": "Tin mới nhất",
-          "Url": "http://vnexpress.net/rss/tin-moi-nhat.rss"
-        },
-        {
-          "Id": "2",
-          "Title": "Thời sự",
-          "Url": "http://vnexpress.net/rss/thoi-su.rss"
-        },
-        {
-          "Id": "3",
-          "Title": "Thế giới",
-          "Url": "http://vnexpress.net/rss/the-gioi.rss"
-        },
-        {
-          "Id": "4",
-          "Title": "Kinh doanh",
-          "Url": "http://vnexpress.net/rss/kinh-doanh.rss"
-        },
-        {
-          "Id": "5",
-          "Title": "Giải trí",
-          "Url": "http://vnexpress.net/rss/giai-tri.rss"
-        },
-        {
-          "Id": "6",
-          "Title": "Thể thao",
-          "Url": "http://vnexpress.net/rss/the-thao.rss"
-        },
-        {
-          "Id": "7",
-          "Title": "Pháp luật",
-          "Url": "http://vnexpress.net/rss/phap-luat.rss"
-        },
-        {
-          "Id": "8",
-          "Title": "Khoa học",
-          "Url": "http://vnexpress.net/rss/khoa-hoc.rss"
-        },
-        {
-          "Id": "9",
-          "Title": "Đời sống",
-          "Url": "http://vnexpress.net/rss/doi-song.rss"
-        },
-        {
-          "Id": "10",
-          "Title": "Tâm sự",
-          "Url": "http://vnexpress.net/rss/tam-su.rss"
-        },
-        {
-          "Id": "11",
-          "Title": "Cười",
-          "Url": "http://vnexpress.net/rss/cuoi.rss"
-        }
-      ]
+      "Id": "2",
+      "Title": "Việt Nam Net",
+      "Url": "http://vietnamnet.vn/rss/tin-noi-bat.rss"
     },
     {
-      "Id" :"3",
-      "Title": "Dân trí",
-      "Data": [
-        {
-          "Id": "1",
-          "Title": "Xã hội",
-          "Url": "http://dantri.com.vn/xa-hoi.rss"
-        },
-        {
-          "Id": "2",
-          "Title": "Tình Yêu-Giới tính",
-          "Url": "http://dantri.com.vn/tinhyeu-gioitinh.rss"
-        },
-        {
-          "Id": "3",
-          "Title": "Sức mạnh trí thức",
-          "Url": "http://dantri.com.vn/suc-manh-tri-thuc.rss"
-        },
-        {
-          "Id": "4",
-          "Title": "Thế giới",
-          "Url": "http://dantri.com.vn/Thegioi.rss"
-        },
-        {
-          "Id": "5",
-          "Title": "Thể thao",
-          "Url": "http://dantri.com.vn/The-Thao.rss"
-        },
-        {
-          "Id": "6",
-          "Title": "Giáo dục",
-          "Url": "http://dantri.com.vn/giaoduc-khuyenhoc.rss"
-        },
-        {
-          "Id": "7",
-          "Title": "Kinh doanh",
-          "Url": "http://dantri.com.vn/kinhdoanh.rss"
-        },
-        {
-          "Id": "8",
-          "Title": "Văn hóa",
-          "Url": "http://dantri.com.vn/van-hoa.rss"
-        },
-        {
-          "Id": "9",
-          "Title": "Giải trí",
-          "Url": "http://dantri.com.vn/giaitri.rss"
-        },
-        {
-          "Id": "10",
-          "Title": "Pháp luật",
-          "Url": "http://dantri.com.vn/skphapluat.rss"
-        }
-      ]
+      "Id": "3",
+      "Title": "Người Đưa Tin",
+      "Url": "http://www.nguoIduatin.vn/trang-chu.rss"
+    },
+    {
+      "Id": "4",
+      "Title": "24h",
+      "Url": "http://www.24h.com.vn/upload/rss/tintuctrongngay.rss"
+    },
+    {
+      "Id": "5",
+      "Title": "Tinh Tế",
+      "Url": "https://www.tinhte.vn/rss"
+    },
+    {
+      "Id": "6",
+      "Title": "Công An ND",
+      "Url": "http://cand.com.vn/rss/trang-chu/"
     }
   ]
-}
+},
+  {
+    "Id" :"2",
+    "Title": "VnExpress",
+    "Vnexpress": [
+      {
+        "Id": "1",
+        "Title": "Tin mới nhất",
+        "Url": "http://vnexpress.net/rss/tin-moi-nhat.rss"
+      },
+      {
+        "Id": "2",
+        "Title": "Thời sự",
+        "Url": "http://vnexpress.net/rss/thoi-su.rss"
+      },
+      {
+        "Id": "3",
+        "Title": "Thế giới",
+        "Url": "http://vnexpress.net/rss/the-gioi.rss"
+      },
+      {
+        "Id": "4",
+        "Title": "Kinh doanh",
+        "Url": "http://vnexpress.net/rss/kinh-doanh.rss"
+      },
+      {
+        "Id": "5",
+        "Title": "Giải trí",
+        "Url": "http://vnexpress.net/rss/giai-tri.rss"
+      },
+      {
+        "Id": "6",
+        "Title": "Thể thao",
+        "Url": "http://vnexpress.net/rss/the-thao.rss"
+      },
+      {
+        "Id": "7",
+        "Title": "Pháp luật",
+        "Url": "http://vnexpress.net/rss/phap-luat.rss"
+      },
+      {
+        "Id": "8",
+        "Title": "Khoa học",
+        "Url": "http://vnexpress.net/rss/khoa-hoc.rss"
+      },
+      {
+        "Id": "9",
+        "Title": "Đời sống",
+        "Url": "http://vnexpress.net/rss/doi-song.rss"
+      },
+      {
+        "Id": "10",
+        "Title": "Tâm sự",
+        "Url": "http://vnexpress.net/rss/tam-su.rss"
+      },
+      {
+        "Id": "11",
+        "Title": "Cười",
+        "Url": "http://vnexpress.net/rss/cuoi.rss"
+      }
+    ]
+  },
+  {
+    "Id" :"3",
+    "Title": "Dân trí",
+    "Dantri": [
+      {
+        "Id": "1",
+        "Title": "Xã hội",
+        "Url": "http://dantri.com.vn/xa-hoi.rss"
+      },
+      {
+        "Id": "2",
+        "Title": "Tình Yêu-Giới tính",
+        "Url": "http://dantri.com.vn/tinhyeu-gioitinh.rss"
+      },
+      {
+        "Id": "3",
+        "Title": "Sức mạnh trí thức",
+        "Url": "http://dantri.com.vn/suc-manh-tri-thuc.rss"
+      },
+      {
+        "Id": "4",
+        "Title": "Thế giới",
+        "Url": "http://dantri.com.vn/Thegioi.rss"
+      },
+      {
+        "Id": "5",
+        "Title": "Thể thao",
+        "Url": "http://dantri.com.vn/The-Thao.rss"
+      },
+      {
+        "Id": "6",
+        "Title": "Giáo dục",
+        "Url": "http://dantri.com.vn/giaoduc-khuyenhoc.rss"
+      },
+      {
+        "Id": "7",
+        "Title": "Kinh doanh",
+        "Url": "http://dantri.com.vn/kinhdoanh.rss"
+      },
+      {
+        "Id": "8",
+        "Title": "Văn hóa",
+        "Url": "http://dantri.com.vn/van-hoa.rss"
+      },
+      {
+        "Id": "9",
+        "Title": "Giải trí",
+        "Url": "http://dantri.com.vn/giaitri.rss"
+      },
+      {
+        "Id": "10",
+        "Title": "Pháp luật",
+        "Url": "http://dantri.com.vn/skphapluat.rss"
+      }
+    ]
+  },
+  {
+    "Id" :"4",
+    "Title": "Đời Sống Pháp Luật",
+    "Dspl": [
+      {
+        "Id": "1",
+        "Title": "Trang Chủ",
+        "Url": "http://www.doisongphapluat.com/trang-chu.rss"
+      },
+      {
+        "Id": "2",
+        "Title": "Tin Tức",
+        "Url": "http://www.doisongphapluat.com/rss/tin-tuc.rss"
+      },
+      {
+        "Id": "3",
+        "Title": "Pháp Luật",
+        "Url": "http://www.doisongphapluat.com/rss/phap-luat.rss"
+      },
+      {
+        "Id": "4",
+        "Title": "Đời Sống",
+        "Url": "http://www.doisongphapluat.com/rss/doi-song.rss"
+      },
+      {
+        "Id": "5",
+        "Title": "Thế Giới",
+        "Url": "http://www.doisongphapluat.com/rss/the-gioi.rss"
+      },
+      {
+        "Id": "6",
+        "Title": "Kinh Doanh",
+        "Url": "http://www.doisongphapluat.com/rss/kinh-doanh.rss"
+      },
+      {
+        "Id": "7",
+        "Title": "Giải Trí",
+        "Url": "http://www.doisongphapluat.com/rss/giai-tri.rss"
+      },
+      {
+        "Id": "8",
+        "Title": "Giáo Dục",
+        "Url": "http://www.doisongphapluat.com/rss/giao-duc.rss"
+      },
+      {
+        "Id": "9",
+        "Title": "Thể Thao",
+        "Url": "http://www.doisongphapluat.com/rss/the-thao.rss"
+      },
+      {
+        "Id": "10",
+        "Title": "An Ninh TV",
+        "Url": "http://www.doisongphapluat.com/rss/an-ninh-tv.rss"
+      },
+      {
+        "Id": "11",
+        "Title": "Công Nghệ",
+        "Url": "http://www.doisongphapluat.com/rss/cong-nghe.rss"
+      },
+      {
+        "Id": "12",
+        "Title": "Thời Trang",
+        "Url": "http://www.doisongphapluat.com/rss/thoi-trang.rss"
+      },
+      {
+        "Id": "13",
+        "Title": "Cần Biết",
+        "Url": "http://www.doisongphapluat.com/rss/can-biet.rss"
+      },
+      {
+        "Id": "14",
+        "Title": "Từ Thiện",
+        "Url": "http://www.doisongphapluat.com/rss/tu-thien.rss"
+      },
+      {
+        "Id": "15",
+        "Title": "Video",
+        "Url": "http://www.doisongphapluat.com/rss/video.rss"
+      }
+    ]
+  },
+  {
+    "Id" :"5",
+    "Title": "Ngôi Sao",
+    "Ngoisao": [
+      {
+        "Id": "1",
+        "Title": "Sao",
+        "Url": "http://ngoisao.net/rss/hau-truong.rss"
+      },
+      {
+        "Id": "2",
+        "Title": "Showbiz-Việt",
+        "Url": "http://ngoisao.net/rss/showbiz-viet.rss"
+      },
+      {
+        "Id": "3",
+        "Title": "Châu Á",
+        "Url": "http://ngoisao.net/rss/chau-a.rss"
+      },
+      {
+        "Id": "4",
+        "Title": "Hollywood",
+        "Url": "http://ngoisao.net/rss/hollywood.rss"
+      },
+      {
+        "Id": "5",
+        "Title": "24h",
+        "Url": "http://ngoisao.net/rss/24h.rss"
+      },
+      {
+        "Id": "6",
+        "Title": "Thể Thao",
+        "Url": "http://ngoisao.net/rss/the-thao.rss"
+      },
+      {
+        "Id": "7",
+        "Title": "Thời Trang",
+        "Url": "http://ngoisao.net/rss/thoi-trang.rss"
+      },
+      {
+        "Id": "8",
+        "Title": "Làm Đẹp",
+        "Url": "http://ngoisao.net/rss/lam-dep.rss"
+      },
+      {
+        "Id": "9",
+        "Title": "Khỏe Đẹp",
+        "Url": "http://ngoisao.net/rss/khoe-dep.rss"
+      },
+      {
+        "Id": "10",
+        "Title": "Phong Cách",
+        "Url": "http://ngoisao.net/rss/phong-cach.rss"
+      },
+      {
+        "Id": "11",
+        "Title": "Hình Sự",
+        "Url": "http://ngoisao.net/rss/hinh-su.rss"
+      },
+      {
+        "Id": "12",
+        "Title": "Cẩm Nang",
+        "Url": "http://ngoisao.net/rss/cam-nang.rss"
+      },
+      {
+        "Id": "13",
+        "Title": "Cưới",
+        "Url": "http://ngoisao.net/rss/cuoi-hoi.rss"
+      },
+      {
+        "Id": "14",
+        "Title": "Ảnh Cưới",
+        "Url": "http://ngoisao.net/rss/anh-cuoi.rss"
+      },
+      {
+        "Id": "15",
+        "Title": "Chuyện Lạ",
+        "Url": "http://ngoisao.net/rss/chuyen-la.rss"
+      },
+      {
+        "Id": "16",
+        "Title": "Thương Trường",
+        "Url": "http://ngoisao.net/rss/thuong-truong.rss"
+      },
+      {
+        "Id": "17",
+        "Title": "Dân Chơi",
+        "Url": "http://ngoisao.net/rss/dan-choi.rss"
+      },
+      {
+        "Id": "18",
+        "Title": "Ăn Chơi",
+        "Url": "http://ngoisao.net/rss/an-choi.rss"
+      },
+      {
+        "Id": "19",
+        "Title": "Tâm Tình",
+        "Url": "http://ngoisao.net/rss/tam-tinh.rss"
+      },
+      {
+        "Id": "20",
+        "Title": "Trắc Nghiệm",
+        "Url": "http://ngoisao.net/rss/trac-nghiem.rss"
+      },
+      {
+        "Id": "21",
+        "Title": "Góc Độc Giả",
+        "Url": "http://ngoisao.net/rss/goc-doc-gia.rss"
+      },
+      {
+        "Id": "22",
+        "Title": "Thư Giãn",
+        "Url": "http://ngoisao.net/rss/thu-gian.rss"
+      },
+      {
+        "Id": "23",
+        "Title": "Cười",
+        "Url": "http://ngoisao.net/rss/cuoi.rss"
+      }
+    ]
+  },
+  {
+    "Id" :"6",
+    "Title": "Kênh 14",
+    "Kenh14": [
+      {
+        "Id": "1",
+        "Title": "Home",
+        "Url": "http://kenh14.vn/home.rss"
+      },
+      {
+        "Id": "2",
+        "Title": "Music",
+        "Url": "http://kenh14.vn/musik.rss"
+      },
+      {
+        "Id": "3",
+        "Title": "Cine",
+        "Url": "http://kenh14.vn/cine.rss"
+      },
+      {
+        "Id": "4",
+        "Title": "Đời Sống",
+        "Url": "http://kenh14.vn/doi-song.rss"
+      },
+      {
+        "Id": "5",
+        "Title": "Xã Hội",
+        "Url": "http://kenh14.vn/xa-hoi.rss"
+      },
+      {
+        "Id": "6",
+        "Title": "Thế Giới",
+        "Url": "http://kenh14.vn/the-gioi.rss"
+      },
+      {
+        "Id": "7",
+        "Title": "Thể Thao",
+        "Url": "http://kenh14.vn/sport.rss"
+      },
+      {
+        "Id": "8",
+        "Title": "Star",
+        "Url": "http://kenh14.vn/star.rss"
+      },
+      {
+        "Id": "9",
+        "Title": "Sức khỏe-Giới tính",
+        "Url": "http://kenh14.vn/suc-khoe-gioi-tinh.rss"
+      },
+      {
+        "Id": "10",
+        "Title": "Fashion",
+        "Url": "http://kenh14.vn/fashion.rss"
+      },
+      {
+        "Id": "11",
+        "Title": "2-tek",
+        "Url": "http://kenh14.vn/2-tek.rss"
+      },
+      {
+        "Id": "12",
+        "Title": "Khám phá",
+        "Url": "http://kenh14.vn/kham-pha.rss"
+      },
+      {
+        "Id": "13",
+        "Title": "Cool",
+        "Url": "http://kenh14.vn/cool.rss"
+      },
+      {
+        "Id": "13",
+        "Title": "Góc trái tim",
+        "Url": "http://kenh14.vn/goc-trai-tim.rss"
+      },
+      {
+        "Id": "15",
+        "Title": "Học đường",
+        "Url": "http://kenh14.vn/hoc-duong.rss"
+      }
+    ]
+  }
+]

@@ -1,72 +1,10 @@
 -keepattributes SourceFile,LineNumberTable,Exceptions
 -keepnames class * extends java.lang.Throwable
 
-# ----------------------------------------
-# RxJava
-# ----------------------------------------
--keep class rx.schedulers.Schedulers {
-    public static <methods>;
-}
--keep class rx.schedulers.ImmediateScheduler {
-    public <methods>;
-}
--keep class rx.schedulers.TestScheduler {
-    public <methods>;
-}
--keep class rx.schedulers.Schedulers {
-    public static ** test();
-}
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-    long producerIndex;
-    long consumerIndex;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    long producerNode;
-    long consumerNode;
-}
 
-# ----------------------------------------
-# Android Support Library
-# ----------------------------------------
--dontwarn android.support.**
--keep class android.support.** { *; }
-
-
-# ----------------------------------------
-# Retrofit and ExoOKHttp
-# ----------------------------------------
-# OKHttp 3
--keep class okhttp3.** { *; }
--keepattributes Signature
--keepattributes *Annotation*
--keep class okhttp3.** { *; }
--keep interface okhttp3.** { *; }
--dontwarn okhttp3.**
-# Retrofit 2
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Signature
--keepattributes Exceptions
--keepclasseswithmembers class * {
-    @retrofit2.http.* <methods>;
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
 }
-
-
-# ----------------------------------------
-# Dagger 2
-# ----------------------------------------
-#
--keepclassmembers,allowobfuscation class * {
-    @javax.inject.* *;
-    @dagger.* *;
-    <init>();
-}
--keep class javax.inject.** { *; }
--keep class **$$ModuleAdapter
--keep class **$$InjectAdapter
--keep class **$$StaticInjection
--keep class dagger.** { *; }
--dontwarn dagger.internal.codegen.**
 
 
 # ----------------------------------------
@@ -154,22 +92,6 @@
 -dontwarn okio.**
 -keep class rx.**{ *; }
 -dontwarn rx.**
-
-
-# ----------------------------------------
-# Android and Java
-# ----------------------------------------
--optimizationpasses 5
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontskipnonpubliclibraryclassmembers
--dontpreverify
--verbose
--dump class_files.txt
--printseeds seeds.txt
--printusage unused.txt
--printmapping mapping.txt
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
 #TikXML
 -keep class com.tickaroo.tikxml.** { *; }

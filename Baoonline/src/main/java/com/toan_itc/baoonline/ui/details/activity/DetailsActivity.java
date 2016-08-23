@@ -46,7 +46,7 @@ public class DetailsActivity extends BaseToolbar implements HasComponent<Activit
     }
     @Override
     protected void initViews() {
-        addFagment(R.id.contentFragment, HomeFragment.newInstance());
+        addFagment(R.id.content_main, HomeFragment.newInstance());
     }
 
     @Override
@@ -86,7 +86,7 @@ public class DetailsActivity extends BaseToolbar implements HasComponent<Activit
                     @Override
                     public void onClick(int buttonIndex) {
                         Toast.makeText(DetailsActivity.this, "On click " + Constants.url[buttonIndex], Toast.LENGTH_SHORT).show();
-                        replaceFagment(R.id.contentFragment,null);
+                        replaceFagment(R.id.content_main,null);
                     }
                 })
                 .init(mBoomMenuButton),1);

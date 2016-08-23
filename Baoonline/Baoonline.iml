@@ -182,9 +182,9 @@
     <orderEntry type="library" exported="" name="drawee-0.13.0" level="project" />
     <orderEntry type="library" exported="" name="relinker-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="fresco-0.13.0" level="project" />
-    <orderEntry type="library" exported="" name="realm-annotations-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="realm-annotations-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="bolts-tasks-1.4.0" level="project" />
-    <orderEntry type="library" exported="" name="realm-android-library-1.1.1" level="project" />
+    <orderEntry type="library" exported="" name="realm-android-library-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.2.1" level="project" />
     <orderEntry type="library" exported="" name="fbcore-0.13.0" level="project" />
     <orderEntry type="library" exported="" name="annotation-0.5.2-SNAPSHOT" level="project" />

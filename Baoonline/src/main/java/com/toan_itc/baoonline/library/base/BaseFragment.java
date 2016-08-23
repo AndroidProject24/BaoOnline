@@ -74,7 +74,7 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
     protected abstract void initViews();
     protected abstract void initData();
     protected abstract View getLoadingTargetView();
-    private Context getmContext() {
+    public Context getContext() {
         return mContext;
     }
 

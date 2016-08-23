@@ -16,7 +16,6 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
 import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.model.news.News;
-import com.toan_itc.data.utils.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,11 +86,11 @@ public class AddDataFragment extends BaseFragment {
                                       @Override
                                       public void run() {
                                           News news = mRealmManager.getnews(item);
-                                          Logger.e(news.getData().toString());
+                                         // Logger.e(news.getData().toString());
                                           if(news!=null) {
                                               txt_id.setText(String.valueOf(news.getId()));
                                               txt_title.setText(news.getTitle());
-                                              rcAdapter = new RecyclerViewAdapter(news.getData());
+                                              //rcAdapter = new RecyclerViewAdapter(news.getData());
                                               recyclerview.setAdapter(rcAdapter);
                                           }
                                       }

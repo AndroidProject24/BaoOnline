@@ -39,7 +39,11 @@ android {
             signingConfig signingConfigs.Key
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro',
+                    'proguard-square.pro',
+                    'proguard-support.pro',
+                    'proguard-rx.pro'
         }
         debug {
             debuggable true

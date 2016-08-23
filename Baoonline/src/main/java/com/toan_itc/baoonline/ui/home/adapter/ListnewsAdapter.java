@@ -26,12 +26,12 @@ import butterknife.ButterKnife;
  * Created by Toan.IT
  * Date: 22/05/2016
  */
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHolder> {
     private Context mContext;
     private List<RssFeedItem> mRssFeedItems=new ArrayList<>();
     private ImageLoaderListener imageLoaderListener;
     private OnItemClickListener onItemClickListener;
-    public HomeAdapter(@NonNull Context context, List<RssFeedItem> mRssFeedItems, ImageLoaderListener imageLoaderListener, OnItemClickListener onItemClickListener) {
+    public ListnewsAdapter(@NonNull Context context, List<RssFeedItem> mRssFeedItems, ImageLoaderListener imageLoaderListener, OnItemClickListener onItemClickListener) {
        try {
            if (mRssFeedItems == null) {
                throw new IllegalArgumentException("articles cannot be null");

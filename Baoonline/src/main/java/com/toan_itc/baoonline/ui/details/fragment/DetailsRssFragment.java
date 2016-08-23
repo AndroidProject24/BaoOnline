@@ -9,7 +9,7 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
 import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
-import com.toan_itc.baoonline.ui.home.adapter.HomeAdapter;
+import com.toan_itc.baoonline.ui.home.adapter.ListnewsAdapter;
 import com.toan_itc.baoonline.ui.home.mvp.HomePresenter;
 import com.toan_itc.baoonline.ui.home.mvp.HomeView;
 import com.toan_itc.data.model.rss.RssChannel;
@@ -48,7 +48,7 @@ public class DetailsRssFragment extends BaseFragment implements HomeView,OnItemC
 
     @Override
     protected int setLayoutResourceID() {
-        return R.layout.fragment_home;
+        return R.layout.home_fragment;
     }
 
     @Override
@@ -75,9 +75,9 @@ public class DetailsRssFragment extends BaseFragment implements HomeView,OnItemC
 
     @Override
     public void getRss(RssChannel rssChannel) {
-        HomeAdapter homeAdapter=new HomeAdapter(mContext,rssChannel.getItem(),mImageLoaderListener,this);
+        ListnewsAdapter listnewsAdapter =new ListnewsAdapter(mContext,rssChannel.getItem(),mImageLoaderListener,this);
         recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerview.setAdapter(homeAdapter);
+        recyclerview.setAdapter(listnewsAdapter);
         Logger.e(rssChannel.toString());
     }
 

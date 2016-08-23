@@ -1,65 +1,52 @@
 package com.toan_itc.baoonline.ui.home.fragment;
 
-import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
-import com.toan_itc.baoonline.library.injector.module.FragmentModule;
+import com.toan_itc.baoonline.library.injector.module.DataFragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.baoonline.listener.OnItemClickListener;
-import com.toan_itc.baoonline.navigation.Navigator;
-import com.toan_itc.baoonline.ui.details.activity.DetailsActivity;
-import com.toan_itc.baoonline.ui.home.adapter.HomeAdapter;
-import com.toan_itc.baoonline.ui.home.di.DaggerListRssComponent;
-import com.toan_itc.baoonline.ui.home.di.ListRssComponent;
-import com.toan_itc.baoonline.ui.home.di.ListRssModule;
-import com.toan_itc.baoonline.ui.home.mvp.HomePresenter;
-import com.toan_itc.baoonline.ui.home.mvp.HomeView;
-import com.toan_itc.data.libs.image.ImageLoaderListener;
-import com.toan_itc.data.model.rss.RssChannel;
-import com.toan_itc.data.model.rss.RssFeedItem;
-import com.toan_itc.data.utils.Constants;
+import com.toan_itc.baoonline.ui.home.adapter.TabPageAdapter;
+import com.toan_itc.baoonline.ui.home.di.DaggerHomeComponent;
+import com.toan_itc.baoonline.ui.home.di.HomeComponent;
+import com.toan_itc.data.local.realm.RealmManager;
+import com.toan_itc.data.model.news.Tinhot;
+import com.toan_itc.data.performance.PerformanceLog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 
 /**
  * Created by Toan.IT
  * Date: 25/05/2016
  */
-public class HomeFragment extends BaseFragment implements HasComponent<ListRssComponent>,HomeView,OnItemClickListener{
+public class HomeFragment extends BaseFragment implements HasComponent<HomeComponent> {
     @Inject
-    HomePresenter mHomePresenter;
-    @Inject
-    ImageLoaderListener mImageLoaderListener;
-    @Inject
-    Provider<Navigator> navigator;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
-    private Context mContext;
-    private ListRssComponent mListRssComponent;
+    RealmManager mRealmManager;
+    private HomeComponent mHomeComponent;
+    @BindView(R.id.tabs)
+    TabLayout mTabLayout;
+    @BindView(R.id.viewPager)
+    ViewPager mViewPager;
     public HomeFragment() {
         setRetainInstance(true);
     }
+
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mContext=context;
-    }
-
-    @Override
     protected int setLayoutResourceID() {
-        return R.layout.fragment_home;
+        return R.layout.home_fragment;
     }
 
     @Override
@@ -69,47 +56,40 @@ public class HomeFragment extends BaseFragment implements HasComponent<ListRssCo
 
     @Override
     protected void initData() {
-        mHomePresenter.getRss_Zing();
+
     }
 
     @Override
     protected View getLoadingTargetView() {
-        return ButterKnife.findById(getActivity(),R.id.recyclerview);
+        return mViewPager;
     }
 
     @Override
     protected void initViews() {
-        mHomePresenter.attachView(this);
+        PerformanceLog.stop("stop:initViews");
+        PerformanceLog.start("start:initViews");
+        List<Fragment> fragmentList=new ArrayList<>();
+        List<String> listTitle=new ArrayList<>();
+        for(int i = 0; i<mRealmManager.size(Tinhot.class); i++){
+            fragmentList.add(ListNewsFragment.newInstance(mRealmManager.findAll(Tinhot.class).get(i).getUrl()));
+            listTitle.add(mRealmManager.findAll(Tinhot.class).get(i).getTitle());
+        }
+        TabPageAdapter tabPageAdapter=new TabPageAdapter(getFragmentManager(),fragmentList,listTitle);
+        mViewPager.setAdapter(tabPageAdapter);
+        mViewPager.setOffscreenPageLimit(0);
+        mTabLayout.setupWithViewPager(mViewPager);
+        PerformanceLog.stop("stop11:initViews");
     }
 
     @Override
-    public void getRss(RssChannel rssChannel) {
-        HomeAdapter homeAdapter=new HomeAdapter(mContext,rssChannel.getItem(),mImageLoaderListener,this);
-        recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
-        recyclerview.setAdapter(homeAdapter);
-       // Logger.e(rssChannel.toString());
-    }
-    @Override
-    public void onItemClick(RssFeedItem rssFeedItem) {
-        navigator.get().startActivity(DetailsActivity.class);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mListRssComponent=null;
-        mHomePresenter.detachView();
-    }
-
-    @Override
-    public ListRssComponent getComponent() {
-        if(mListRssComponent == null) {
-            mListRssComponent = DaggerListRssComponent.builder()
+    public HomeComponent getComponent() {
+        if(mHomeComponent == null) {
+            mHomeComponent = DaggerHomeComponent.builder()
                     .applicationComponent(getApplicationComponent())
-                    .fragmentModule(new FragmentModule(this))
-                    .listRssModule(new ListRssModule(Constants.url[1]))
+                    .fragmentModule(getFragmentModule())
+                    .dataFragmentModule(new DataFragmentModule(getContext()))
                     .build();
         }
-        return mListRssComponent;
+        return mHomeComponent;
     }
 }

@@ -6,4 +6,5 @@ package com.toan_itc.baoonline.ui.splash.di;
  */
 
 public class test {
+
 }

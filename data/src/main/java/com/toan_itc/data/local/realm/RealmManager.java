@@ -6,7 +6,6 @@ import com.toan_itc.data.local.realm.cache.CacheObject;
 import com.toan_itc.data.local.realm.cache.CacheService;
 import com.toan_itc.data.local.realm.help.Migration;
 import com.toan_itc.data.model.news.Data;
-import com.toan_itc.data.model.news.ListNews;
 import com.toan_itc.data.model.news.News;
 import com.toan_itc.data.utils.Constants;
 import com.toan_itc.data.utils.logger.Logger;
@@ -27,7 +26,6 @@ import rx.Observable;
  */
 public class RealmManager implements CacheService {
     private final Context context;
-    private Data news;
     public RealmManager(Context context){
         this.context = context;
     }
@@ -89,6 +87,10 @@ public class RealmManager implements CacheService {
         return getRealmInstance().where(clazz).findAll();
     }
 
+    public <T extends RealmObject> long size(Class<T> clazz) {
+        return getRealmInstance().where(clazz).count();
+    }
+
     private Realm getRealmInstance() {
         return Realm.getDefaultInstance();
     }
@@ -103,7 +105,7 @@ public class RealmManager implements CacheService {
             InputStream stream =null;
             try {
                 stream= context.getAssets().open("baoonline.json");
-                realm.createOrUpdateAllFromJson(ListNews.class,stream);
+                realm.createOrUpdateAllFromJson(News.class,stream);
             }catch (Exception e){
                 e.printStackTrace();
             }finally {
@@ -116,15 +118,6 @@ public class RealmManager implements CacheService {
                 }
             }
         });
-    }
-    public Data getNews(int IdNews){
-        getRealmInstance().executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                news = realm.where(ListNews.class).findAll().get(IdNews).getNews().get(IdNews).getData().first();
-            }
-        });
-        return news;
     }
     //Add data
     public void Set_Data(String title,String url){
