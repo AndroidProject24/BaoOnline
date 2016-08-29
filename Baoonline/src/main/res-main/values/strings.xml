@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">ARxJava</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">Báo Online</string>
+    <string name="msg_exit">Please press back again to exit</string>
     <!--NETWORK-->
     <string name="snack_action_to_setting">Setting</string>
     <string name="snack_message_net_error">network error please to check network</string>
@@ -9,5 +8,13 @@
     <string name="snack_message_unknown_error">unknown error</string>
     <string name="snack_message_data_error">data error</string>
     <string name="just_now">Just Now</string>
+    <string name="menu_dspl"><![CDATA[Đời Sống & Pháp Luật]]></string>
+    <string name="menu_kenh14">Kênh 14</string>
+    <string name="menu_ngoisao">Ngôi Sao</string>
+    <string name="menu_dantri">Dân Trí</string>
+    <string name="menu_vnexpress">Vnexpress</string>
+    <string name="menu_tinhot">Tin Hot</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_about">About</string>
 
 </resources>

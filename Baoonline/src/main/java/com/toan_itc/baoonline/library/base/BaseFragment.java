@@ -23,7 +23,10 @@ import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.data.libs.view.VaryViewHelperController;
+import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.utils.logger.Logger;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -35,6 +38,8 @@ import static dagger.internal.Preconditions.checkNotNull;
  * Date:22/5/2016
  */
 public abstract class BaseFragment extends SkinBaseFragment implements LoadView,ErrorView,EmptyView {
+    @Inject
+    RealmManager mRealmManager;
     private Snackbar snackbar;
     private Context mContext;
     private Unbinder unbinder;
@@ -185,6 +190,10 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
         } else {
             mVaryViewHelperController.restore();
         }
+    }
+
+    public RealmManager getRealmManager(){
+        return mRealmManager;
     }
 
     @Override

@@ -3,37 +3,19 @@ package com.toan_itc.baoonline.ui.details.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Eases.EaseType;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.ClickEffectType;
-import com.nightonke.boommenu.Types.DimType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseToolbar;
 import com.toan_itc.baoonline.library.injector.component.ActivityComponent;
-import com.toan_itc.baoonline.library.injector.component.DaggerActivityComponent;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.baoonline.ui.home.fragment.HomeFragment;
-import com.toan_itc.data.utils.Constants;
 
 import java.util.Random;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class DetailsActivity extends BaseToolbar implements HasComponent<ActivityComponent> {
   /*  @Inject
     DatabaseRealm mDatabaseRealm;*/
-    @BindView(R.id.boomMenu)
-    BoomMenuButton mBoomMenuButton;
     private ActivityComponent mActivityComponent;
     private static final String INTENT_EXTRA_PARAM_RSS = "com.toan_itc.BaoOnline.RSS";
     public static Intent getCallingIntent(Context context) {
@@ -45,8 +27,8 @@ public class DetailsActivity extends BaseToolbar implements HasComponent<Activit
         return callingIntent;
     }
     @Override
-    protected void initViews() {
-        addFagment(R.id.content_main, HomeFragment.newInstance());
+    protected void initViews(Bundle savedInstanceState) {
+        //addFagment(R.id.content_main, HomeFragment.newInstance());
     }
 
     @Override
@@ -56,7 +38,7 @@ public class DetailsActivity extends BaseToolbar implements HasComponent<Activit
 
     @Override
     protected void initData() {
-        final int[][] subButtonColors = new int[3][2];
+        /*final int[][] subButtonColors = new int[3][2];
         for (int i = 0; i<3; i++) {
             subButtonColors[i][1] = GetRandomColor();
             subButtonColors[i][0] = Util.getInstance().getPressedColor(subButtonColors[i][1]);
@@ -89,7 +71,7 @@ public class DetailsActivity extends BaseToolbar implements HasComponent<Activit
                         replaceFagment(R.id.content_main,null);
                     }
                 })
-                .init(mBoomMenuButton),1);
+                .init(mBoomMenuButton),1);*/
     }
 
     @Override
@@ -99,15 +81,15 @@ public class DetailsActivity extends BaseToolbar implements HasComponent<Activit
 
     @Override
     protected View getLoadingTargetView() {
-        return ButterKnife.findById(this, R.id.coordinatorLayout);
+        return null;
     }
 
     @Override
     public ActivityComponent getComponent() {
         if(mActivityComponent == null) {
-            mActivityComponent =DaggerActivityComponent.builder()
+           /* mActivityComponent =DaggerActivityComponent.builder()
                     .applicationComponent(getApplicationComponent())
-                    .build();
+                    .build();*/
         }
         return mActivityComponent;
     }

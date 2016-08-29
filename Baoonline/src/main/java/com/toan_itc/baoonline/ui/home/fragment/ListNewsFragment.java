@@ -21,6 +21,7 @@ import com.toan_itc.baoonline.ui.home.mvp.HomeView;
 import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
+import com.toan_itc.data.utils.Constants;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -42,14 +43,13 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListR
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     private ListRssComponent mListRssComponent;
-    public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     public ListNewsFragment() {
         setRetainInstance(true);
     }
     public static ListNewsFragment newInstance(String linkUrl) {
         ListNewsFragment fragment = new ListNewsFragment();
         Bundle bdl = new Bundle(1);
-        bdl.putString(EXTRA_MESSAGE, linkUrl);
+        bdl.putString(Constants.BUNLDE, linkUrl);
         fragment.setArguments(bdl);
         return fragment;
     }
@@ -100,11 +100,11 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListR
 
     @Override
     public ListRssComponent getComponent() {
-        if(mListRssComponent == null&&getArguments().getString(EXTRA_MESSAGE)!=null) {
+        if(mListRssComponent == null&&getArguments().getString(Constants.BUNLDE)!=null) {
             mListRssComponent = DaggerListRssComponent.builder()
                     .applicationComponent(getApplicationComponent())
                     .fragmentModule(new FragmentModule(this))
-                    .listRssModule(new ListRssModule(getArguments().getString(EXTRA_MESSAGE)))
+                    .listRssModule(new ListRssModule(getArguments().getString(Constants.BUNLDE)))
                     .build();
         }
         return mListRssComponent;

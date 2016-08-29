@@ -2,7 +2,6 @@ package com.toan_itc.data.libs.view;
 
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.toan_itc.data.R;
@@ -28,8 +27,8 @@ public class VaryViewHelperController {
         TextView textView = (TextView) layout.findViewById(R.id.message_info);
         textView.setText(helper.getContext().getResources().getString(R.string.common_no_network_msg));
 
-        ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
-        imageView.setImageResource(R.drawable.ic_exception);
+       /* ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
+        imageView.setImageResource(R.drawable.ic_exception);*/
 
         if (null != onClickListener) {
             layout.setOnClickListener(onClickListener);
@@ -47,8 +46,8 @@ public class VaryViewHelperController {
             textView.setText(helper.getContext().getResources().getString(R.string.common_error_msg));
         }
 
-        ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
-        imageView.setImageResource(R.drawable.ic_error);
+       /* ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
+        imageView.setImageResource(R.drawable.ic_error);*/
 
         if (null != onClickListener) {
             layout.setOnClickListener(onClickListener);
@@ -66,9 +65,9 @@ public class VaryViewHelperController {
             textView.setText(helper.getContext().getResources().getString(R.string.common_empty_msg));
         }
 
-        ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
+       /* ImageView imageView = (ImageView) layout.findViewById(R.id.message_icon);
         imageView.setImageResource(R.drawable.ic_exception);
-
+*/
         if (null != onClickListener) {
             layout.setOnClickListener(onClickListener);
         }

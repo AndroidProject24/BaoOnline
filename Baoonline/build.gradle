@@ -160,7 +160,9 @@ dependencies {
     compile developmentDependencies.stethoOkHttp
     compile developmentDependencies.realmStetho
     compile developmentDependencies.takt
-    //BoomMenu
-    compile appDependencies.boomMenu
+    //Drawer
+    compile (appDependencies.drawer) {
+        transitive = true
+    }
     //compile 'com.android.support:multidex:1.0.1'
 }

@@ -41,7 +41,10 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
         @Override
         public void onNext(RssChannel rssChannel) {
-            getView().getRss(rssChannel);
+            if(rssChannel.getItem().size()>0)
+                getView().getRss(rssChannel);
+            else
+                getView().showEmptyView("");
         }
     }
     @Override

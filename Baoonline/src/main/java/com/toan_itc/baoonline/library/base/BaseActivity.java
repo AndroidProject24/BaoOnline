@@ -4,10 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.squareup.leakcanary.RefWatcher;
-import com.toan_it.library.skinloader.base.SkinBaseActivity;
 import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.base.view.EmptyView;
 import com.toan_itc.baoonline.library.base.view.ErrorView;
@@ -15,7 +15,10 @@ import com.toan_itc.baoonline.library.base.view.LoadView;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
 import com.toan_itc.data.libs.view.VaryViewHelperController;
+import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.utils.logger.Logger;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -26,17 +29,18 @@ import static dagger.internal.Preconditions.checkNotNull;
  * Created by Toan.IT
  * Date: 25/05/2016
  */
-public abstract class BaseActivity extends SkinBaseActivity implements LoadView,ErrorView,EmptyView {
-    /*@Inject
-    Navigator1 navigator;*/
+public abstract class BaseActivity extends AppCompatActivity implements LoadView,ErrorView,EmptyView {
+    @Inject
+    RealmManager mRealmManager;
     private VaryViewHelperController mVaryViewHelperController = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayoutResourceID());
         getApplicationComponent().inject(this);
-        changeStatusColor();
-        initViews();
+        injectDependencies();
+       // changeStatusColor();
+        initViews(savedInstanceState);
         initData();
     }
     @Override
@@ -47,7 +51,7 @@ public abstract class BaseActivity extends SkinBaseActivity implements LoadView,
             mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
         }
     }
-    protected abstract void initViews();
+    protected abstract void initViews(Bundle bundle);
 
     protected abstract @LayoutRes int setLayoutResourceID();
 
@@ -143,9 +147,9 @@ public abstract class BaseActivity extends SkinBaseActivity implements LoadView,
         transaction.commit();
     }
 
-    /*protected Navigator1 getNavigator(){
-        return navigator;
-    }*/
+    public RealmManager getRealmManager(){
+        return mRealmManager;
+    }
 
     protected ApplicationComponent getApplicationComponent() {
         return ((BaseApplication)getApplication()).getApplicationComponent();

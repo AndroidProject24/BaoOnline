@@ -35,14 +35,12 @@ public class NetworkModule {
     }
 
     @Singleton
-    @NonNull
     @Provides
     RestApi sRestClient(Retrofit retrofit) {
         return retrofit.create(RestApi.class);
     }
 
     @Singleton
-    @NonNull
     @Provides
     Retrofit sRetrofit(@NonNull OkHttpClient okHttpClient,@NonNull RxJavaCallAdapterFactory rxJavaCallAdapter) {
         return new Retrofit.Builder()
@@ -54,7 +52,6 @@ public class NetworkModule {
     }
 
     @Singleton
-    @NonNull
     @Provides
     OkHttpClient makeOkHttpClient(@NonNull HttpLoggingInterceptor httpLoggingInterceptor,@NonNull Interceptor interceptor) {
         Cache cache = null;
@@ -90,14 +87,12 @@ public class NetworkModule {
         return builder.create();
     }*/
     @Singleton
-    @NonNull
     @Provides
     RxJavaCallAdapterFactory providesRxJavaCallAdapterFactory() {
         return RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
     }
 
     @Singleton
-    @NonNull
     @Provides
     HttpLoggingInterceptor makeLoggingInterceptor() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
@@ -106,7 +101,6 @@ public class NetworkModule {
     }
 
     @Singleton
-    @NonNull
     @Provides
     Interceptor cache(){
         return chain -> {

@@ -1,8 +1,8 @@
 package com.toan_itc.baoonline.library.injector.module;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 
 import com.toan_itc.baoonline.library.injector.qualifier.ActivityContext;
 import com.toan_itc.baoonline.library.injector.scope.PerActivity;
@@ -15,9 +15,9 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-  private final AppCompatActivity mActivity;
+  private final FragmentActivity mActivity;
 
-  public ActivityModule(AppCompatActivity activity) {
+  public ActivityModule(FragmentActivity activity) {
     mActivity = activity;
   }
 

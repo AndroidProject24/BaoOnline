@@ -86,7 +86,9 @@ public class RealmManager implements CacheService {
     public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
         return getRealmInstance().where(clazz).findAll();
     }
-
+    public <T extends RealmObject> T findFist(Class<T> clazz) {
+        return getRealmInstance().where(clazz).findFirst();
+    }
     public <T extends RealmObject> long size(Class<T> clazz) {
         return getRealmInstance().where(clazz).count();
     }

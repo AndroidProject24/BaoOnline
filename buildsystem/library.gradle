@@ -101,6 +101,7 @@ ext {
             tikxml_processor       : "com.tickaroo.tikxml:processor:${tikxmlVersion}",
             jsoup                  : "org.jsoup:jsoup:${jsoupVersion}",
             boomMenu               : "com.nightonke:boommenu:${bommenuVersion}",
+            drawer                 : "com.mikepenz:materialdrawer:5.6.0@aar",
     ]
 
     developmentDependencies = [

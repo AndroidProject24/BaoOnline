@@ -1,6 +1,5 @@
 package com.toan_itc.baoonline.library;
 
-import android.graphics.Color;
 import android.os.Environment;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -17,7 +16,6 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
-import com.toan_itc.baoonline.library.injector.module.DataModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
 import com.toan_itc.data.exception.CrashException;
 import com.toan_itc.data.local.realm.RealmManager;
@@ -27,7 +25,6 @@ import java.io.File;
 
 import javax.inject.Inject;
 
-import jp.wasabeef.takt.Seat;
 import jp.wasabeef.takt.Takt;
 
 /**
@@ -73,11 +70,11 @@ public class BaseApplication extends SkinBaseApplication {
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                     .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
                     .build());
-            Takt.stock(this)
+          /*  Takt.stock(this)
                     .seat(Seat.TOP_LEFT)
                     .color(Color.RED)
                     .size(20f)
-                    .play();
+                    .play();*/
         }
     }
     private void initInjector(){
@@ -85,7 +82,7 @@ public class BaseApplication extends SkinBaseApplication {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(cacheDir,true))
-                .dataModule(new DataModule(this))
+               // .dataModule(new DataModule(this))
                 .build();
     }
     private void initCache(){
