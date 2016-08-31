@@ -25,7 +25,7 @@ public class RssDiskRealmMapper implements Mapper<RssFeedItem, RssDiskRealm>{
         RssDiskRealm rssDiskRealm = new RssDiskRealm();
         rssDiskRealm.setImage(model.getImage());
         rssDiskRealm.setDescription(model.getDescription());
-        rssDiskRealm.setPubDate(model.getPubDate());
+       // rssDiskRealm.setPubDate(model.getPubDate());
         rssDiskRealm.setLink(model.getLink());
         return rssDiskRealm;
     }
@@ -37,7 +37,7 @@ public class RssDiskRealmMapper implements Mapper<RssFeedItem, RssDiskRealm>{
         }
 
         RssFeedItem names = new RssFeedItem();
-       /* names.setId(data.getId());
+      /*  names.setId(data.getId());
         names.setName(data.getName());
         names.setDescription(data.getDescription());*/
 

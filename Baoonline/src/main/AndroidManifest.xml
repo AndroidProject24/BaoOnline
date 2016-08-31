@@ -20,16 +20,16 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".ui.splash.activity.SplashScreen">
-
-        </activity>
-        <activity android:name=".ui.home.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.details.activity.DetailsActivity"/>
+        <activity android:name=".ui.home.activity.MainActivity">
+
+        </activity>
+        <activity android:name=".ui.readnews.activity.ReadNewsActivity"/>
     </application>
 
 </manifest>

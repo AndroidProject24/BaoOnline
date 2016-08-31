@@ -12,6 +12,7 @@ import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.repository.Repository;
 import com.toan_itc.data.rxjava.RxBus;
+import com.toan_itc.data.rxjava.RxUtils;
 import com.toan_itc.data.thread.DefaultExecutorSupplier;
 
 import javax.inject.Singleton;
@@ -30,6 +31,8 @@ public interface ApplicationComponent{
     void inject(BaseFragment baseFragment);
 
     RxBus mRxBus();
+
+    RxUtils mRxUtils();
 
     Repository mRepository();
 

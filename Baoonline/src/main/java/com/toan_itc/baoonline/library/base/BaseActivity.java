@@ -2,27 +2,25 @@ package com.toan_itc.baoonline.library.base;
 
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.squareup.leakcanary.RefWatcher;
+import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.base.view.EmptyView;
 import com.toan_itc.baoonline.library.base.view.ErrorView;
 import com.toan_itc.baoonline.library.base.view.LoadView;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
-import com.toan_itc.data.libs.view.VaryViewHelperController;
+import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.utils.logger.Logger;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
-
-import static dagger.internal.Preconditions.checkNotNull;
 
 
 /**
@@ -32,10 +30,14 @@ import static dagger.internal.Preconditions.checkNotNull;
 public abstract class BaseActivity extends AppCompatActivity implements LoadView,ErrorView,EmptyView {
     @Inject
     RealmManager mRealmManager;
-    private VaryViewHelperController mVaryViewHelperController = null;
+    private StateLayout mStateLayout = null;
+    public enum TransitionMode {
+        LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        animation();
         setContentView(setLayoutResourceID());
         getApplicationComponent().inject(this);
         injectDependencies();
@@ -48,7 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadView
         super.setContentView(layoutResID);
         ButterKnife.bind(this);
         if (null != getLoadingTargetView()) {
-            mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
+            mStateLayout = getLoadingTargetView();
         }
     }
     protected abstract void initViews(Bundle bundle);
@@ -59,68 +61,46 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadView
 
     protected abstract void injectDependencies();
 
-    protected abstract View getLoadingTargetView();
+    protected abstract StateLayout getLoadingTargetView();
 
     protected void toggleShowLoading(boolean toggle) {
-        if (null == mVaryViewHelperController) {
+        if (null == mStateLayout) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
-        if (toggle) {
-            mVaryViewHelperController.showLoading();
-        } else {
-            mVaryViewHelperController.restore();
-        }
+        if (toggle)
+            mStateLayout.showProgressView();
+        else
+            mStateLayout.showContentView();
     }
 
-    protected void toggleShowEmpty(boolean toggle, String msg, View.OnClickListener onClickListener) {
-        if (null == mVaryViewHelperController) {
+    protected void toggleShowEmpty(String msg, View.OnClickListener onClickListener) {
+        if (null == mStateLayout) {
             throw new IllegalArgumentException("You must return a right target view for Empty");
         }
-
-        if (toggle) {
-            mVaryViewHelperController.showEmpty(msg, onClickListener);
-        } else {
-            mVaryViewHelperController.restore();
+        mStateLayout.showEmptyView(msg);
+        if(onClickListener!=null){
+            mStateLayout.setEmptyAction(onClickListener);
         }
     }
 
-    protected void toggleShowError(boolean toggle, String msg, View.OnClickListener onClickListener) {
-        if (null == mVaryViewHelperController) {
+    protected void toggleShowError(String msg, View.OnClickListener onClickListener) {
+        if (null == mStateLayout) {
             throw new IllegalArgumentException("You must return a right target view for Error");
         }
-
-        if (toggle) {
-            mVaryViewHelperController.showError(msg, onClickListener);
-        } else {
-            mVaryViewHelperController.restore();
-        }
-    }
-
-    protected void toggleNetworkError(boolean toggle, View.OnClickListener onClickListener) {
-        if (null == mVaryViewHelperController) {
-            throw new IllegalArgumentException("You must return a right target view for NetworkError");
-        }
-
-        if (toggle) {
-            mVaryViewHelperController.showNetworkError(onClickListener);
-        } else {
-            mVaryViewHelperController.restore();
+        mStateLayout.showErrorView(msg);
+        if(onClickListener!=null){
+            mStateLayout.setErrorAction(onClickListener);
         }
     }
 
     @Override
     public void showEmptyView(String message) {
-        toggleShowEmpty(true,message,null);
+        toggleShowEmpty(message,null);
     }
 
     @Override
     public void showError(String message) {
-        toggleShowError(true, message, null);
-    }
-
-    @Override
-    public void showNetworkError() {
-        toggleNetworkError(true, null);
+        toggleShowError(message, null);
     }
 
     @Override
@@ -131,20 +111,6 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadView
     @Override
     public void hideLoading() {
         toggleShowLoading(false);
-    }
-
-    protected void addFagment(int containerViewId, Fragment fragment){
-        checkNotNull(fragment);
-        FragmentTransaction transaction =  this.getSupportFragmentManager().beginTransaction();
-        transaction.add(containerViewId, fragment,fragment.getClass().getName());
-        transaction.commit();
-    }
-
-    protected void replaceFagment(int containerViewId, Fragment fragment){
-        checkNotNull(fragment);
-        FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
-        transaction.replace(containerViewId, fragment,fragment.getClass().getName());
-        transaction.commit();
     }
 
     public RealmManager getRealmManager(){
@@ -159,11 +125,56 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadView
         return new ActivityModule(this);
     }
 
+    private TransitionMode getOverridePendingTransitionMode() {
+        return TransitionMode.RIGHT;
+    }
+
+    protected Snackbar snackBarBuild(String message){
+        if(getLoadingTargetView()==null){
+            throw new RuntimeException("This getLoadingTargetView not view!");
+        }
+        return Snackbar.make(getLoadingTargetView(), message, Snackbar.LENGTH_LONG);
+    }
+
+    protected boolean toggleOverridePendingTransition() {
+        return true;
+    }
+    private void animation(){
+        if (toggleOverridePendingTransition()) {
+
+            switch (getOverridePendingTransitionMode()) {
+                case LEFT:
+                    overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                    break;
+                case RIGHT:
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
+                    break;
+                case TOP:
+                    overridePendingTransition(R.anim.top_in, R.anim.top_out);
+                    break;
+                case BOTTOM:
+                    overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
+                    break;
+                case SCALE:
+                    overridePendingTransition(R.anim.scale_in, R.anim.scale_out);
+                    break;
+                case FADE:
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    break;
+            }
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Logger.d("BaseActivity:onDestroy");
         RefWatcher refWatcher = BaseApplication.getRefWatcher();
         refWatcher.watch(this);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        animation();
     }
 }

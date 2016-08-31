@@ -4,10 +4,9 @@ package com.toan_itc.data.model.rss;
  * Date: 29/06/2016
  */
 
-import android.annotation.SuppressLint;
-
 import com.tickaroo.tikxml.annotation.PropertyElement;
 import com.tickaroo.tikxml.annotation.Xml;
+import com.toan_itc.data.utils.TimeUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -23,6 +22,8 @@ public class RssFeedItem{
     String link;
     @PropertyElement
     String description;
+    @PropertyElement
+    String enclosure;
     private String image;
     private String article;
     private String articleLink;
@@ -49,17 +50,8 @@ public class RssFeedItem{
         return description;
     }
 
-    @SuppressLint("SimpleDateFormat")
-    public long getPubDate() {
-       /* SimpleDateFormat f = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z");
-        Date d = null;
-        try {
-            d = f.parse(pubDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return d.getTime();*/
-        return 0;
+    public String getPubDate() {
+        return TimeUtils.getStringToDate(this.pubDate);
     }
 
     public String getLink() {
@@ -103,5 +95,10 @@ public class RssFeedItem{
         setImage(html.getElementsByTag("img").first().attr("src"));
        // setArticleLink(html.getElementsByTag("a").first().attr("href"));
         return this;
+    }
+    public String image(){
+        String HTMLSTring = this.getDescription();
+        Document html = Jsoup.parse(HTMLSTring);
+        return html.getElementsMatchingText("url").text();
     }
 }

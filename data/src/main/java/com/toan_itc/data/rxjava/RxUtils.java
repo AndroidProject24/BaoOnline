@@ -4,23 +4,9 @@ import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 public class RxUtils {
-    private Subscription subscription;
     private CompositeSubscription mCompositeSubscription;
-    public static void unsubscribeIfNotNull(Subscription subscription) {
-        if (subscription != null) {
-            subscription.unsubscribe();
-        }
-    }
 
-    public CompositeSubscription getCompositeSubscription() {
-        if (this.mCompositeSubscription == null) {
-            this.mCompositeSubscription = new CompositeSubscription();
-        }
-
-        return this.mCompositeSubscription;
-    }
-
-    public void addSubscription(Subscription s) {
+    public void addCompositeSubscription(Subscription s) {
         if (s == null) {
             return;
         }
@@ -30,11 +16,14 @@ public class RxUtils {
         this.mCompositeSubscription.add(s);
     }
 
-    public static CompositeSubscription getNewCompositeSubIfUnsubscribed(CompositeSubscription subscription) {
-        if (subscription == null || subscription.isUnsubscribed()) {
-            return new CompositeSubscription();
+    public void clearSubscription(Subscription subscription) {
+        if (subscription != null) {
+            subscription.unsubscribe();
         }
-
-        return subscription;
     }
+
+    public void clearCompositeSubscription(){
+        this.mCompositeSubscription.clear();
+    }
+
 }

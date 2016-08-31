@@ -11,9 +11,8 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
-import com.toan_itc.baoonline.utils.RelativeTimeTextView;
+import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.model.rss.RssFeedItem;
 
 import java.util.ArrayList;
@@ -62,7 +61,7 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_adapter, parent, false);
         return new ViewHolder(view);
     }
     @Override
@@ -72,15 +71,14 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
             if(rssFeedItem!=null) {
                 viewHolder.txt_title.setText(rssFeedItem.getTitle());
                 viewHolder.txt_description.setText(rssFeedItem.getArticle());
-                viewHolder.txt_time.setReferenceTime(rssFeedItem.getPubDate());
+                viewHolder.txt_time.setText(rssFeedItem.getPubDate());
                 imageLoaderListener.loadImage(rssFeedItem.getImage(),viewHolder.img_news);
                 viewHolder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(rssFeedItem));
             }
-            }catch (Exception e){
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
-
 
     @Override
     public int getItemCount() {
@@ -92,10 +90,10 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
         @BindView(R.id.txt_description)
         TextView txt_description;
         @BindView(R.id.txt_time)
-        RelativeTimeTextView txt_time;
+        TextView txt_time;
         @BindView(R.id.img_news)
         SimpleDraweeView img_news;
-        public ViewHolder(View itemView) {
+        private ViewHolder(View itemView) {
             super(itemView);
             try {
                 ButterKnife.bind(this, itemView);

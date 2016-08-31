@@ -3,12 +3,8 @@ package com.toan_itc.baoonline.library.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +18,7 @@ import com.toan_itc.baoonline.library.base.view.LoadView;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.data.libs.view.VaryViewHelperController;
+import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.utils.logger.Logger;
 
@@ -30,8 +26,6 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import static dagger.internal.Preconditions.checkNotNull;
 
 /**
  * Created by Toan.IT
@@ -43,7 +37,7 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
     private Snackbar snackbar;
     private Context mContext;
     private Unbinder unbinder;
-    private VaryViewHelperController mVaryViewHelperController = null;
+    private StateLayout mStateLayout = null;
     protected String TAG = BaseFragment.class.getSimpleName();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +61,7 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
         unbinder = ButterKnife.bind(this, view);
         mContext = getContext();
         if (null != getLoadingTargetView()) {
-            mVaryViewHelperController = new VaryViewHelperController(getLoadingTargetView());
+            mStateLayout = getLoadingTargetView();
         }
         injectDependencies();
         initViews();
@@ -78,24 +72,9 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
     protected abstract void injectDependencies();
     protected abstract void initViews();
     protected abstract void initData();
-    protected abstract View getLoadingTargetView();
+    protected abstract StateLayout getLoadingTargetView();
     public Context getContext() {
         return mContext;
-    }
-
-    protected void addFagment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment, int frameId){
-        checkNotNull(fragmentManager);
-        checkNotNull(fragment);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.add(frameId, fragment,fragment.getClass().getName());
-        transaction.commit();
-    }
-    protected void replaceFagment(@NonNull FragmentManager fragmentManager, @NonNull Fragment fragment, int frameId){
-        checkNotNull(fragmentManager);
-        checkNotNull(fragment);
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(frameId, fragment,fragment.getClass().getName());
-        transaction.commit();
     }
 
     protected ApplicationComponent getApplicationComponent() {
@@ -125,13 +104,7 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
         Logger.d(TAG);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Logger.d(TAG);
-    }
-
-    protected Snackbar snackbarBuild(String message){
+    protected Snackbar snackBarBuild(String message){
         if(getLoadingTargetView()==null){
             throw new RuntimeException("This getLoadingTargetView not view!");
         }
@@ -139,56 +112,40 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
         return snackbar;
     }
 
-    protected void hideSnackbar(){
+    protected void hideSnackBar(){
         if (snackbar != null){
             snackbar.dismiss();
         }
         snackbar = null;
     }
+
     protected void toggleShowLoading(boolean toggle) {
-        if (null == mVaryViewHelperController) {
+        if (null == mStateLayout) {
             throw new IllegalArgumentException("You must return a right target view for loading");
         }
-        if (toggle) {
-            mVaryViewHelperController.showLoading();
-        } else {
-            mVaryViewHelperController.restore();
-        }
+        if (toggle)
+            mStateLayout.showProgressView();
+        else
+            mStateLayout.showContentView();
     }
 
-    protected void toggleShowEmpty(boolean toggle, String msg, View.OnClickListener onClickListener) {
-        if (null == mVaryViewHelperController) {
+    protected void toggleShowEmpty(String msg, View.OnClickListener onClickListener) {
+        if (null == mStateLayout) {
             throw new IllegalArgumentException("You must return a right target view for Empty");
         }
-
-        if (toggle) {
-            mVaryViewHelperController.showEmpty(msg, onClickListener);
-        } else {
-            mVaryViewHelperController.restore();
+        mStateLayout.showEmptyView(msg);
+        if(onClickListener!=null){
+            mStateLayout.setEmptyAction(onClickListener);
         }
     }
 
-    protected void toggleShowError(boolean toggle, String msg, View.OnClickListener onClickListener) {
-        if (null == mVaryViewHelperController) {
+    protected void toggleShowError(String msg, View.OnClickListener onClickListener) {
+        if (null == mStateLayout) {
             throw new IllegalArgumentException("You must return a right target view for Error");
         }
-
-        if (toggle) {
-            mVaryViewHelperController.showError(msg, onClickListener);
-        } else {
-            mVaryViewHelperController.restore();
-        }
-    }
-
-    protected void toggleNetworkError(boolean toggle, View.OnClickListener onClickListener) {
-        if (null == mVaryViewHelperController) {
-            throw new IllegalArgumentException("You must return a right target view for NetworkError");
-        }
-
-        if (toggle) {
-            mVaryViewHelperController.showNetworkError(onClickListener);
-        } else {
-            mVaryViewHelperController.restore();
+        mStateLayout.showErrorView(msg);
+        if(onClickListener!=null){
+            mStateLayout.setErrorAction(onClickListener);
         }
     }
 
@@ -198,17 +155,12 @@ public abstract class BaseFragment extends SkinBaseFragment implements LoadView,
 
     @Override
     public void showEmptyView(String message) {
-        toggleShowEmpty(true,message,null);
+        toggleShowEmpty(message,null);
     }
 
     @Override
     public void showError(String message) {
-        toggleShowError(true, message, null);
-    }
-
-    @Override
-    public void showNetworkError() {
-        toggleNetworkError(true, null);
+        toggleShowError(message, null);
     }
 
     @Override

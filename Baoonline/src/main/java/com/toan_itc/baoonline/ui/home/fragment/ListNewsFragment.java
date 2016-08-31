@@ -1,9 +1,8 @@
 package com.toan_itc.baoonline.ui.home.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
@@ -11,17 +10,21 @@ import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.baoonline.navigation.Navigator;
-import com.toan_itc.baoonline.ui.details.activity.DetailsActivity;
 import com.toan_itc.baoonline.ui.home.adapter.ListnewsAdapter;
-import com.toan_itc.baoonline.ui.home.di.DaggerListRssComponent;
-import com.toan_itc.baoonline.ui.home.di.ListRssComponent;
-import com.toan_itc.baoonline.ui.home.di.ListRssModule;
-import com.toan_itc.baoonline.ui.home.mvp.HomePresenter;
-import com.toan_itc.baoonline.ui.home.mvp.HomeView;
+import com.toan_itc.baoonline.ui.home.di.DaggerListNewsComponent;
+import com.toan_itc.baoonline.ui.home.di.ListNewsComponent;
+import com.toan_itc.baoonline.ui.home.di.ListNewsModule;
+import com.toan_itc.baoonline.ui.home.mvp.ListNews;
+import com.toan_itc.baoonline.ui.home.mvp.ListNewsPresenter;
+import com.toan_itc.baoonline.ui.readnews.activity.ReadNewsActivity;
 import com.toan_itc.data.libs.image.ImageLoaderListener;
+import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
+import com.toan_itc.data.performance.PerformanceLog;
+import com.toan_itc.data.utils.CommonUtils;
 import com.toan_itc.data.utils.Constants;
+import com.toan_itc.data.utils.logger.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -33,30 +36,23 @@ import butterknife.ButterKnife;
  * Created by Toan.IT
  * Date: 25/05/2016
  */
-public class ListNewsFragment extends BaseFragment implements HasComponent<ListRssComponent>,HomeView,OnItemClickListener{
+public class ListNewsFragment extends BaseFragment implements HasComponent<ListNewsComponent>,ListNews,OnItemClickListener{
     @Inject
-    HomePresenter mHomePresenter;
+    ListNewsPresenter mListNewsPresenter;
     @Inject
     ImageLoaderListener mImageLoaderListener;
     @Inject
     Provider<Navigator> navigator;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
-    private ListRssComponent mListRssComponent;
+    private ListNewsComponent mListNewsComponent;
     public ListNewsFragment() {
         setRetainInstance(true);
-    }
-    public static ListNewsFragment newInstance(String linkUrl) {
-        ListNewsFragment fragment = new ListNewsFragment();
-        Bundle bdl = new Bundle(1);
-        bdl.putString(Constants.BUNLDE, linkUrl);
-        fragment.setArguments(bdl);
-        return fragment;
     }
 
     @Override
     protected int setLayoutResourceID() {
-        return R.layout.listnews_fragment;
+        return R.layout.list_news_fragment;
     }
 
     @Override
@@ -66,47 +62,60 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListR
 
     @Override
     protected void initData() {
-        mHomePresenter.getRss_Zing();
+        mListNewsPresenter.getRss_Zing();
     }
 
     @Override
-    protected View getLoadingTargetView() {
-        return ButterKnife.findById(getActivity(),R.id.recyclerview);
+    protected StateLayout getLoadingTargetView() {
+        return ButterKnife.findById(getActivity(),R.id.stateLayout);
     }
 
     @Override
     protected void initViews() {
-        mHomePresenter.attachView(this);
+        mListNewsPresenter.attachView(this);
+        PerformanceLog.stop(TAG);
+        PerformanceLog.start(TAG);
     }
 
     @Override
     public void getRss(RssChannel rssChannel) {
         ListnewsAdapter listnewsAdapter =new ListnewsAdapter(getContext(),rssChannel.getItem(),mImageLoaderListener,this);
-        recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerview.setAdapter(listnewsAdapter);
-       // Logger.e(rssChannel.toString());
+        PerformanceLog.stop(TAG);
     }
     @Override
     public void onItemClick(RssFeedItem rssFeedItem) {
-        navigator.get().startActivity(DetailsActivity.class);
+        Bundle bundle = new Bundle();
+        String link;
+        if(!CommonUtils.isEmpty(rssFeedItem.getLink())){
+            link=rssFeedItem.getLink();
+        }else if(!CommonUtils.isEmpty(rssFeedItem.getArticleLink())){
+            link=rssFeedItem.getArticleLink();
+        }else{
+            link=null;
+        }
+        bundle.putString(Constants.BUNLDE,link);
+        navigator.get().startActivity(ReadNewsActivity.class,bundle);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mListRssComponent=null;
-        mHomePresenter.detachView();
+        mListNewsPresenter.detachView();
     }
 
     @Override
-    public ListRssComponent getComponent() {
-        if(mListRssComponent == null&&getArguments().getString(Constants.BUNLDE)!=null) {
-            mListRssComponent = DaggerListRssComponent.builder()
+    public ListNewsComponent getComponent() {
+        if(mListNewsComponent == null&&getArguments().getString(Constants.BUNLDE)!=null) {
+            mListNewsComponent = DaggerListNewsComponent.builder()
                     .applicationComponent(getApplicationComponent())
                     .fragmentModule(new FragmentModule(this))
-                    .listRssModule(new ListRssModule(getArguments().getString(Constants.BUNLDE)))
+                    .listNewsModule(new ListNewsModule(getArguments().getString(Constants.BUNLDE)))
                     .build();
+        }else{
+            showEmptyView("Không tìm thấy Rss!");
         }
-        return mListRssComponent;
+        return mListNewsComponent;
     }
 }

@@ -82,7 +82,6 @@ public class BaseApplication extends SkinBaseApplication {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(cacheDir,true))
-               // .dataModule(new DataModule(this))
                 .build();
     }
     private void initCache(){
@@ -101,7 +100,10 @@ public class BaseApplication extends SkinBaseApplication {
     }
 
     public static RefWatcher getRefWatcher() {
-        return getInstance().refWatcher;
+        if(getInstance().refWatcher!=null)
+            return getInstance().refWatcher;
+        else
+            return LeakCanary.install(getInstance());
     }
     public ApplicationComponent getApplicationComponent() {
         return applicationComponent;

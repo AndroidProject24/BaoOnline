@@ -29,6 +29,7 @@ import com.toan_itc.baoonline.listener.KeyListener;
 import com.toan_itc.baoonline.listener.OnBackListener;
 import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.baoonline.ui.home.fragment.ListNewsFragment;
+import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.news.Dantri;
 import com.toan_itc.data.model.news.Dspl;
 import com.toan_itc.data.model.news.Kenh14;
@@ -41,7 +42,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class MainActivity extends BaseActivity implements HasComponent<ActivityComponent>{
@@ -97,8 +97,8 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
     }
 
     @Override
-    protected View getLoadingTargetView() {
-        return ButterKnife.findById(this, R.id.content_main);
+    protected StateLayout getLoadingTargetView() {
+        return null;
     }
 
     @Override
@@ -208,9 +208,5 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
         }
         return false;
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mActivityComponent = null;
-    }
+
 }

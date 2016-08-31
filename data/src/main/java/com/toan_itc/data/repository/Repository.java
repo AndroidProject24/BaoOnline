@@ -8,7 +8,6 @@ import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeed;
 import com.toan_itc.data.network.RestApi;
-import com.toan_itc.data.utils.logger.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +19,6 @@ import javax.inject.Singleton;
 import okhttp3.ResponseBody;
 import okio.Buffer;
 import rx.Observable;
-import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -53,13 +51,13 @@ public class Repository {
                     }
                     return rssChannel;
                 })
-                .doOnNext(new Action1<RssChannel>() {
+                /*.doOnNext(new Action1<RssChannel>() {
                     @Override
                     public void call(RssChannel rssChannel) {
                         //mRealmManager.set(RealmChannel.class,rssChannel);
                         Logger.wtf("GetRss","doOnNext");
                     }
-                })
+                })*/
                 .subscribeOn(Schedulers.from(mThreadExecutor))
                 .observeOn(mPostExecutionThread.getScheduler());
     }

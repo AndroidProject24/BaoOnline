@@ -9,6 +9,7 @@ import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.local.PreferencesHelper;
 import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.rxjava.RxBus;
+import com.toan_itc.data.rxjava.RxUtils;
 
 import javax.inject.Singleton;
 
@@ -34,6 +35,12 @@ public class ApplicationModule {
     @Singleton
     RxBus mRxBus() {
         return new RxBus();
+    }
+
+    @Provides
+    @Singleton
+    RxUtils mRxUtils() {
+      return new RxUtils();
     }
 
     @Provides

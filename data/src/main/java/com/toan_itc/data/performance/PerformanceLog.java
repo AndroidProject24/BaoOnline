@@ -49,9 +49,9 @@ public class PerformanceLog {
       long elapsed = System.nanoTime() - startTime;
 
       if (elapsed > 5 * MILLI) {
-         Log.d(TAG, id + ": " + (elapsed / MILLI) + " mili");
+         Log.wtf(TAG, id + ": " + (elapsed / MILLI) + " mili");
       } else {
-         Log.d(TAG, id + ": " + FORMAT.format(elapsed) + " nano");
+         Log.wtf(TAG, id + ": " + FORMAT.format(elapsed) + " nano");
       }
    }
    //Use

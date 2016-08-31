@@ -9,5 +9,4 @@ public interface ErrorView {
 
     void showError(String message);
 
-    void showNetworkError();
 }
