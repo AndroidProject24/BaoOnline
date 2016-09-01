@@ -7,15 +7,17 @@ import android.util.Log;
 import com.github.moduth.blockcanary.BlockCanaryContext;
 import com.toan_it.library.BuildConfig;
 
+import java.util.List;
+
 /**
  * Created by Toan.IT
  * Date: 22/05/2016
  */
 public class AppBlockCanaryContext extends BlockCanaryContext {
-    private static final String TAG = "AppBlockCanaryContext";
+    private static final String TAG = "AppContext";
 
     @Override
-    public String getQualifier() {
+    public String provideQualifier() {
         String qualifier = "";
         try {
             PackageInfo info = BaseApplication.getInstance().getPackageManager().getPackageInfo(BaseApplication.getInstance().getPackageName(), 0);
@@ -27,27 +29,41 @@ public class AppBlockCanaryContext extends BlockCanaryContext {
     }
 
     @Override
-    public String getUid() {
+    public String provideUid() {
         return "87224330";
     }
 
     @Override
-    public String getNetworkType() {
+    public String provideNetworkType() {
         return "4G";
     }
 
     @Override
-    public int getConfigDuration() {
+    public int provideMonitorDuration() {
         return 9999;
     }
 
     @Override
-    public int getConfigBlockThreshold() {
+    public int provideBlockThreshold() {
         return 500;
     }
 
     @Override
-    public boolean isNeedDisplay() {
+    public boolean displayNotification() {
         return BuildConfig.DEBUG;
+    }
+
+    @Override
+    public List<String> concernPackages() {
+        List<String> list = super.provideWhiteList();
+        list.add("com.example");
+        return list;
+    }
+
+    @Override
+    public List<String> provideWhiteList() {
+        List<String> list = super.provideWhiteList();
+        list.add("com.whitelist");
+        return list;
     }
 }

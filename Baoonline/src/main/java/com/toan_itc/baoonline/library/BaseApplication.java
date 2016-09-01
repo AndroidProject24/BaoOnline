@@ -1,7 +1,10 @@
 package com.toan_itc.baoonline.library;
 
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Environment;
 
+import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.backends.okhttp3.OkHttpImagePipelineConfigFactory;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -25,6 +28,7 @@ import java.io.File;
 
 import javax.inject.Inject;
 
+import jp.wasabeef.takt.Seat;
 import jp.wasabeef.takt.Takt;
 
 /**
@@ -47,7 +51,7 @@ public class BaseApplication extends SkinBaseApplication {
         initInjector();
         initDatabase();
         initFresco();
-        initDebug();
+        //initDebug();
     }
     private void initDatabase(){
         getApplicationComponent().inject(this);
@@ -55,8 +59,14 @@ public class BaseApplication extends SkinBaseApplication {
         mRealmManager.Set_News(this);
     }
     private void initFresco(){
+	    DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(getApplicationContext())
+			    .setBaseDirectoryPath(cacheDir)
+			    .setMaxCacheSize(100)
+	            .build();
         ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
                 .newBuilder(getApplicationContext(), applicationComponent.mOkHttpClient())
+                .setBitmapsConfig(Bitmap.Config.RGB_565)
+		        .setSmallImageDiskCacheConfig(diskCacheConfig)
                 .build();
         Fresco.initialize(getApplicationContext(),config);
     }
@@ -70,11 +80,11 @@ public class BaseApplication extends SkinBaseApplication {
                     .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
                     .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
                     .build());
-          /*  Takt.stock(this)
+            Takt.stock(this)
                     .seat(Seat.TOP_LEFT)
                     .color(Color.RED)
                     .size(20f)
-                    .play();*/
+                    .play();
         }
     }
     private void initInjector(){

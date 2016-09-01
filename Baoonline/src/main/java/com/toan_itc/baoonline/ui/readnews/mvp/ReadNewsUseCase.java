@@ -11,18 +11,18 @@ import rx.Observable;
 
 public class ReadNewsUseCase extends UseCase {
 
-  private final String userId;
+  private final String urlNews;
   private final Repository mRepository;
 
   @Inject
-  public ReadNewsUseCase(String userId, Repository repository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
+  public ReadNewsUseCase(String urlNews, Repository repository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {
     super(threadExecutor, postExecutionThread);
-    this.userId = userId;
+    this.urlNews = urlNews;
     this.mRepository = repository;
   }
 
   @Override
   protected Observable buildUseCaseObservable() {
-    return this.mRepository.GetRss(this.userId);
+    return this.mRepository.loadNews(this.urlNews);
   }
 }

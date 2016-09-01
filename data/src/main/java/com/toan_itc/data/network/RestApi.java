@@ -13,5 +13,7 @@ import rx.Observable;
 public interface RestApi {
     String BaoOnline = "https://medium.com/";
     @GET()
-    Observable<ResponseBody> GetRss(@Url String url);
+    Observable<ResponseBody> getRss(@Url String url);
+    @GET()
+    Observable<ResponseBody> loadNews(@Url String url);
 }

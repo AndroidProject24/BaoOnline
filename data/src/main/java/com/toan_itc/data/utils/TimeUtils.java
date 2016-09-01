@@ -43,8 +43,13 @@ public class TimeUtils {
             Log.wtf("33333","33333");
             if(time.substring(0,time.indexOf("-")).length()>2)
                 format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-            else
+            else if(time.substring(0,time.indexOf("-")).length()<4)
                 format = new SimpleDateFormat("dd-mm-yyyy HH:mm:ss");
+            else
+                format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss a");
+        }else{
+            Log.wtf("4444","44444");
+            format = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss a");
         }
         Date date = new Date();
         try {

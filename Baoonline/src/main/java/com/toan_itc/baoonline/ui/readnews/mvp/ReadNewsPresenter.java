@@ -1,37 +1,34 @@
-package com.toan_itc.baoonline.ui.home.mvp;
+package com.toan_itc.baoonline.ui.readnews.mvp;
+
+import android.text.TextUtils;
 
 import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.toan_itc.baoonline.library.base.presenter.BasePresenter;
-import com.toan_itc.baoonline.library.injector.scope.PerFragment;
+import com.toan_itc.baoonline.library.injector.scope.PerActivity;
 import com.toan_itc.data.exception.NetworkError;
 import com.toan_itc.data.executor.DefaultSubscriber;
-import com.toan_itc.data.model.rss.RssChannel;
+import com.toan_itc.data.model.newdetails.NewsDetails;
 import com.toan_itc.data.usecase.UseCase;
 
 import javax.inject.Inject;
 
 /**
  * Created by Toan.IT
- * Date: 06/06/2016
+ * Date: 31/08/2016
  */
-@PerFragment
-public class ListNewsPresenter extends BasePresenter<ListNews> {
+@PerActivity
+public class ReadNewsPresenter extends BasePresenter<ReadNews> {
     private final UseCase mUseCase;
     @Inject
-    ListNewsPresenter(UseCase useCase){
+    ReadNewsPresenter(UseCase useCase){
         this.mUseCase=useCase;
     }
-    public void getRss_Zing(){
+    public void getContent_News(){
         getView().showLoading();
         this.mUseCase.execute(new UserListSubscriber());
     }
     @RxLogSubscriber
-    private final class UserListSubscriber extends DefaultSubscriber<RssChannel> {
-
-        @Override
-        public void onCompleted() {
-            getView().hideLoading();
-        }
+    private final class UserListSubscriber extends DefaultSubscriber<NewsDetails> {
 
         @Override
         public void onError(Throwable e) {
@@ -40,9 +37,9 @@ public class ListNewsPresenter extends BasePresenter<ListNews> {
         }
 
         @Override
-        public void onNext(RssChannel rssChannel) {
-            if(rssChannel.getItem().size()>0)
-                getView().getRss(rssChannel);
+        public void onNext(NewsDetails newsDetails) {
+            if(!TextUtils.isEmpty(newsDetails.getDetails()))
+                getView().loadNews(newsDetails);
             else
                 getView().showEmptyView("");
         }

@@ -10,43 +10,40 @@
 
     <LinearLayout
         style="@style/style_base_height_wrap"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/img_news"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:contentDescription="@null"/>
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            app:fadeDuration="300"
+            app:viewAspectRatio="1.33"/>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/style_base"
+            android:layout_margin="5dp"
+            android:maxLines="2"
+            android:textColor="@color/material_black"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/txt_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginTop="3dp"
+            android:textColor="@color/material_black"
+            android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/txt_title"
-                style="@style/style_base"
-                android:layout_margin="5dp"
-                android:maxLines="2"
-                android:textColor="@color/material_black"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:id="@+id/txt_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="4"
-                android:layout_marginTop="3dp"
-                android:textColor="@color/material_black"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:id="@+id/txt_time"
-                style="@style/style_base"
-                android:padding="5dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp"/>
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txt_time"
+            style="@style/style_base"
+            android:padding="5dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="12sp"/>
     </LinearLayout>
 </android.support.v7.widget.CardView>

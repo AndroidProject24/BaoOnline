@@ -126,7 +126,7 @@ dependencies {
     compile supportDependencies.supportCompat
     compile supportDependencies.supportRecyclerView
     compile supportDependencies.supportCardView
-
+    compile supportDependencies.customtabs
     //----- Butterknife
     compile supportDependencies.butterKnife
     apt     supportDependencies.apt_butterKnife
@@ -160,7 +160,8 @@ dependencies {
     compile developmentDependencies.stethoOkHttp
     compile developmentDependencies.realmStetho
     compile developmentDependencies.takt
-    //Drawer
+    //App
+    compile appDependencies.boomMenu
     compile (appDependencies.drawer) {
         transitive = true
     }

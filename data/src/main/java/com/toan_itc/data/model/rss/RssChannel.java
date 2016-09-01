@@ -28,8 +28,18 @@ public class RssChannel{
     }
 
     public List<RssFeedItem> getItem() {
-        for (RssFeedItem rssFeedItem : mItem) {
-            rssFeedItem.extractDescription();
+        if(generator.equalsIgnoreCase("Dân trí")){
+            for (RssFeedItem rssFeedItem : mItem) {
+                rssFeedItem.extractDescriptionDantri();
+            }
+        }else if(generator.equalsIgnoreCase("Kenh14.vn")){
+            for (RssFeedItem rssFeedItem : mItem) {
+                rssFeedItem.extractDescriptionKenh14();
+            }
+        }else {
+            for (RssFeedItem rssFeedItem : mItem) {
+                rssFeedItem.extractDescription();
+            }
         }
         return mItem;
     }
@@ -37,6 +47,7 @@ public class RssChannel{
     public String getGenerator() {
         return generator;
     }
+
     @Override
     public String toString() {
         return "channel{" +

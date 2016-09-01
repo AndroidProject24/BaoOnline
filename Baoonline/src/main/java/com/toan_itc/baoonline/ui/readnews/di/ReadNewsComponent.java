@@ -13,8 +13,6 @@ import dagger.Component;
     *Date:09/08/2016
     *Email:huynhvantoan.itc@gmail.com
 */
-
-
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = {ActivityModule.class, ReadNewsModule.class})
 public interface ReadNewsComponent extends ActivityComponent {

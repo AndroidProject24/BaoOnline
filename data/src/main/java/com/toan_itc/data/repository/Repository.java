@@ -5,9 +5,16 @@ import com.tickaroo.tikxml.TikXml;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
 import com.toan_itc.data.local.realm.RealmManager;
+import com.toan_itc.data.model.newdetails.NewsDetails;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeed;
 import com.toan_itc.data.network.RestApi;
+import com.toan_itc.data.utils.Constants;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +47,7 @@ public class Repository {
     }
     @RxLogObservable
     public Observable<RssChannel> GetRss(String url) {
-        return mRestApi.GetRss(url)
+        return mRestApi.getRss(url)
                 .map(responseBody -> {
                     RssChannel rssChannel=null;
                     try {
@@ -78,5 +85,71 @@ public class Repository {
             e.printStackTrace();
         }
         return sb.toString();
+    }
+    ///Load News Details
+    @RxLogObservable
+    public Observable<NewsDetails> loadNews(String url) {
+        return mRestApi.loadNews(url)
+                .map(responseBody -> {
+                    NewsDetails newsDetails=new NewsDetails();
+                    loadData(url,responseBody,newsDetails);
+                    return newsDetails;
+                })
+                .subscribeOn(Schedulers.from(mThreadExecutor))
+                .observeOn(mPostExecutionThread.getScheduler());
+    }
+    private void loadData(String url,ResponseBody responseBody,NewsDetails newsDetails){
+        Document html = Jsoup.parse(parse(responseBody));
+        if(url.startsWith("http://vietnamnet.vn/")) {
+            Elements detail = html.select("div[class=ArticleContent]");
+            for (Element details : detail) {
+                details.select("img[class=logo-small]").remove();
+                details.select("a").remove();
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://www.24h.com.vn/")){
+            Elements detail=html.select("div[class= text-conent]");
+            for (Element details:detail) {
+                details.select("div[class=fb-like fb_iframe_widget]").remove();
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://www.nguoiduatin.vn/")){
+            Elements detail=html.select("div[id=main-detail]");
+            for (Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://cand.com.vn/")){
+            Elements detail=html.select("div[id=links]");
+            for (Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://kenh14.vn/")){
+            Elements detail=html.select("div[class=content]");
+            for(Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://ngoisao.net/")){
+            Elements detail=html.select("div[class=fck_detail]");
+            for(Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://www.doisongphapluat.com/")){
+            Elements detail=html.select("div[id=main-detail]");
+            detail.select("iframe").remove();
+            for(Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://dantri.com.vn/")){
+            Elements detail=html.select("div[class=fon34 mt3 mr2 fon43 detail-content]");
+            detail.select("div[class=news-tag-list]").remove();
+            for(Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }else if(url.startsWith("http://vnexpress.net/")){
+            Elements detail=html.select("div[class=fck_detail width_common]");
+            for(Element details:detail) {
+                newsDetails.setDetails(Constants.FIT_IMAGE + details.html());
+            }
+        }
     }
 }

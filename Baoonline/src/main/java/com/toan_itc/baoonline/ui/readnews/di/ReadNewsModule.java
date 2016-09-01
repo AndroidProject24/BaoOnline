@@ -22,7 +22,6 @@ public class ReadNewsModule {
     this.link = link;
   }
 
-
   @Provides
   @PerActivity
   UseCase provideGetUserDetailsUseCase(Repository repository, ThreadExecutor threadExecutor, PostExecutionThread postExecutionThread) {

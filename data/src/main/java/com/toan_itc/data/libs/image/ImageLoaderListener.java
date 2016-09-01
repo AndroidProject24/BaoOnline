@@ -6,4 +6,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 public interface ImageLoaderListener {
     void loadImage(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView);
+
+    void loadController(@NonNull String url,@NonNull SimpleDraweeView simpleDraweeView);
+
+	void loadHierarchy(@NonNull String url,@NonNull SimpleDraweeView simpleDraweeView);
 }

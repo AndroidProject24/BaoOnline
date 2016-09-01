@@ -61,7 +61,7 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_adapter, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.list_item_adapter, parent, false);
         return new ViewHolder(view);
     }
     @Override
@@ -72,7 +72,7 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
                 viewHolder.txt_title.setText(rssFeedItem.getTitle());
                 viewHolder.txt_description.setText(rssFeedItem.getArticle());
                 viewHolder.txt_time.setText(rssFeedItem.getPubDate());
-                imageLoaderListener.loadImage(rssFeedItem.getImage(),viewHolder.img_news);
+                imageLoaderListener.loadController(rssFeedItem.getImage(),viewHolder.img_news);
                 viewHolder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(rssFeedItem));
             }
         }catch (Exception e){
@@ -82,9 +82,10 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return mRssFeedItems.size();
+        return mRssFeedItems!=null?mRssFeedItems.size():0;
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.txt_title)
         TextView txt_title;
         @BindView(R.id.txt_description)

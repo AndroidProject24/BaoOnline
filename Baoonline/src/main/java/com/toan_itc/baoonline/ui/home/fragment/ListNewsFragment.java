@@ -21,10 +21,8 @@ import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
-import com.toan_itc.data.performance.PerformanceLog;
 import com.toan_itc.data.utils.CommonUtils;
 import com.toan_itc.data.utils.Constants;
-import com.toan_itc.data.utils.logger.Logger;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -46,6 +44,7 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListN
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     private ListNewsComponent mListNewsComponent;
+
     public ListNewsFragment() {
         setRetainInstance(true);
     }
@@ -73,16 +72,13 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListN
     @Override
     protected void initViews() {
         mListNewsPresenter.attachView(this);
-        PerformanceLog.stop(TAG);
-        PerformanceLog.start(TAG);
     }
 
     @Override
     public void getRss(RssChannel rssChannel) {
-        ListnewsAdapter listnewsAdapter =new ListnewsAdapter(getContext(),rssChannel.getItem(),mImageLoaderListener,this);
+        ListnewsAdapter listnewsAdapter =new ListnewsAdapter(getActivity(),rssChannel.getItem(),mImageLoaderListener,this);
         recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerview.setAdapter(listnewsAdapter);
-        PerformanceLog.stop(TAG);
     }
     @Override
     public void onItemClick(RssFeedItem rssFeedItem) {
@@ -96,6 +92,8 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListN
             link=null;
         }
         bundle.putString(Constants.BUNLDE,link);
+        bundle.putString(Constants.NEWS_TITLE,rssFeedItem.getTitle());
+        bundle.putString(Constants.NEWS_PUBDATE,rssFeedItem.getPubDate());
         navigator.get().startActivity(ReadNewsActivity.class,bundle);
     }
 

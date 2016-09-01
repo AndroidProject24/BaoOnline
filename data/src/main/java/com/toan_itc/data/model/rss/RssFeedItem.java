@@ -96,6 +96,20 @@ public class RssFeedItem{
        // setArticleLink(html.getElementsByTag("a").first().attr("href"));
         return this;
     }
+    RssFeedItem extractDescriptionDantri() {
+        String HTMLSTring = this.getDescription();
+        Document html = Jsoup.parse(HTMLSTring);
+        setArticle(html.body().text());
+        setImage(html.getElementsByTag("img").first().attr("src").replace("80_50","300_250"));
+        return this;
+    }
+    RssFeedItem extractDescriptionKenh14() {
+        String HTMLSTring = this.getDescription();
+        Document html = Jsoup.parse(HTMLSTring);
+        setArticle(html.body().text());
+        setImage(html.getElementsByTag("img").first().attr("src").replace("110_69","300_250"));
+        return this;
+    }
     public String image(){
         String HTMLSTring = this.getDescription();
         Document html = Jsoup.parse(HTMLSTring);

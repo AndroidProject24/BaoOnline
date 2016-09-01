@@ -38,6 +38,9 @@ import com.toan_itc.data.model.news.Tinhot;
 import com.toan_itc.data.model.news.Vnexpress;
 import com.toan_itc.data.utils.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -70,25 +73,7 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
 
     @Override
     protected void initData() {
-        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.item_in_list);
-        for (int i = 0; i < getRealmManager().size(Tinhot.class); i++) {
-            adapter.add(getRealmManager().findAll(Tinhot.class).get(i).getTitle());
-        }
-        adapter.setDropDownViewResource(R.layout.item_in_drop_down_list);
-        mSpinner.setAdapter(adapter);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.BUNLDE, getRealmManager().findAll(Tinhot.class).get(position).getUrl());
-                mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+        initSpinner(1);
     }
 
     @Override
@@ -145,21 +130,27 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
                     if (drawerItem != null) {
                         Bundle bundle = new Bundle();
                         if (drawerItem.getIdentifier() == 1) {
+                            initSpinner(1);
                             bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Tinhot.class).getUrl());
                             mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
                         } else if (drawerItem.getIdentifier() == 2) {
+	                        initSpinner(2);
                             bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Vnexpress.class).getUrl());
                             mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
                         } else if (drawerItem.getIdentifier() == 3) {
+	                        initSpinner(3);
                             bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Dantri.class).getUrl());
                             mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
                         } else if (drawerItem.getIdentifier() == 4) {
+	                        initSpinner(4);
                             bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Ngoisao.class).getUrl());
                             mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
                         } else if (drawerItem.getIdentifier() == 5) {
+	                        initSpinner(5);
                             bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Kenh14.class).getUrl());
                             mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
                         }else if(drawerItem.getIdentifier()==6){
+	                        initSpinner(6);
                             bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Dspl.class).getUrl());
                             mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
                         }
@@ -208,5 +199,63 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
         }
         return false;
     }
+    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
+    private void initSpinner(int index){
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, R.layout.item_in_list);
+	    List<String> listUrl=new ArrayList<>();
+	    switch (index){
+		    case 1:
+			    for (int i = 0; i < getRealmManager().size(Tinhot.class); i++) {
+				    adapter.add(getRealmManager().findAll(Tinhot.class).get(i).getTitle());
+				    listUrl.add(getRealmManager().findAll(Tinhot.class).get(i).getUrl());
+			    }
+			    break;
+		    case 2:
+			    for (int i = 0; i < getRealmManager().size(Vnexpress.class); i++) {
+				    adapter.add(getRealmManager().findAll(Vnexpress.class).get(i).getTitle());
+				    listUrl.add(getRealmManager().findAll(Vnexpress.class).get(i).getUrl());
+			    }
+			    break;
+		    case 3:
+			    for (int i = 0; i < getRealmManager().size(Dantri.class); i++) {
+				    adapter.add(getRealmManager().findAll(Dantri.class).get(i).getTitle());
+				    listUrl.add(getRealmManager().findAll(Dantri.class).get(i).getUrl());
+			    }
+			    break;
+		    case 4:
+			    for (int i = 0; i < getRealmManager().size(Ngoisao.class); i++) {
+				    adapter.add(getRealmManager().findAll(Ngoisao.class).get(i).getTitle());
+				    listUrl.add(getRealmManager().findAll(Ngoisao.class).get(i).getUrl());
+			    }
+			    break;
+		    case 5:
+			    for (int i = 0; i < getRealmManager().size(Kenh14.class); i++) {
+				    adapter.add(getRealmManager().findAll(Kenh14.class).get(i).getTitle());
+				    listUrl.add(getRealmManager().findAll(Kenh14.class).get(i).getUrl());
+			    }
+			    break;
+		    case 6:
+			    for (int i = 0; i < getRealmManager().size(Dspl.class); i++) {
+				    adapter.add(getRealmManager().findAll(Dspl.class).get(i).getTitle());
+				    listUrl.add(getRealmManager().findAll(Dspl.class).get(i).getUrl());
+			    }
+			    break;
+	    }
 
+        adapter.setDropDownViewResource(R.layout.item_in_drop_down_list);
+        mSpinner.setAdapter(adapter);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.BUNLDE,listUrl.get(position));
+                mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
 }
