@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.toan_itc.baoonline.ui.home.activity.MainActivity">
+    tools:context="com.toan_itc.baoonline.ui.readnews.activity.ReadNewsActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -14,42 +14,49 @@
 
         <include layout="@layout/toolbar"/>
 
-        <ScrollView
+        <com.toan_itc.data.libs.view.StateLayout
+            android:id="@+id/stateLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.toan_itc.data.libs.view.StateLayout
-                android:id="@+id/stateLayout"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/txt_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
-
-                <TextView
-                    android:id="@+id/txt_pubdate"
-                    android:layout_below="@+id/txt_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="13sp"/>
-
-                <WebView
-                    android:id="@+id/webView"
-                    android:layout_below="@+id/txt_pubdate"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-            </com.toan_itc.data.libs.view.StateLayout>
-        </ScrollView>
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/txt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <TextView
+                        android:id="@+id/txt_pubdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"/>
+
+                    <WebView
+                        android:id="@+id/webView"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                </LinearLayout>
+            </ScrollView>
+
+        </com.toan_itc.data.libs.view.StateLayout>
     </android.support.design.widget.CoordinatorLayout>
+
     <com.nightonke.boommenu.BoomMenuButton
         android:id="@+id/boom_circle"
         android:layout_width="56dp"

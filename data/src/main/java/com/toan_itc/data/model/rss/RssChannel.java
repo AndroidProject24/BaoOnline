@@ -36,7 +36,12 @@ public class RssChannel{
             for (RssFeedItem rssFeedItem : mItem) {
                 rssFeedItem.extractDescriptionKenh14();
             }
-        }else {
+        }else if(generator.startsWith("VietNamNet")){
+            for (RssFeedItem rssFeedItem : mItem) {
+                rssFeedItem.extractDescriptionVietnamNet();
+            }
+        }
+        else {
             for (RssFeedItem rssFeedItem : mItem) {
                 rssFeedItem.extractDescription();
             }

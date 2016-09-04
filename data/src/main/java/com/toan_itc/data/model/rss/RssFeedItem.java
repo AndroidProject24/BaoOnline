@@ -110,6 +110,13 @@ public class RssFeedItem{
         setImage(html.getElementsByTag("img").first().attr("src").replace("110_69","300_250"));
         return this;
     }
+    RssFeedItem extractDescriptionVietnamNet() {
+        String HTMLSTring = this.getDescription();
+        Document html = Jsoup.parse(HTMLSTring);
+        setArticle(html.body().text());
+        setImage(html.getElementsByTag("img").first().attr("src").replace("220","300"));
+        return this;
+    }
     public String image(){
         String HTMLSTring = this.getDescription();
         Document html = Jsoup.parse(HTMLSTring);

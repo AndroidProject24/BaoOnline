@@ -122,9 +122,9 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 		}
 		Drawable[] subButtonDrawables = new Drawable[3];
 		int[] drawablesResource = new int[]{
-				R.drawable.ic_back,
-				R.drawable.ic_back,
-				R.drawable.ic_back
+				R.drawable.ic_empty,
+				R.drawable.ic_empty,
+				R.drawable.ic_empty
 		};
 		String[] menu={"aaaa","bbbb","cccc"};
 		for (int i = 0; i < 3; i++)
@@ -208,8 +208,10 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
         if(!CommonUtils.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))){
 	        mWebView.loadDataWithBaseURL(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE),newsDetails.getDetails(),"text/html", "utf-8", null);
         }
-        else
-            snackBarBuild("Không tìm thấy link!");
+        else {
+	        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
+	        CustomTabActivityHelper.openCustomTab(ReadNewsActivity.this, customTabsIntent, Uri.parse(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE)), null);
+        }
     }
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

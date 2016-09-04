@@ -2,7 +2,7 @@ package com.toan_itc.baoonline.library.injector.module;
 
 import android.support.annotation.NonNull;
 
-import com.toan_it.library.BuildConfig;
+import com.toan_itc.baoonline.BuildConfig;
 import com.toan_itc.data.network.RestApi;
 
 import java.io.File;

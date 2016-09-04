@@ -1,3 +1,2 @@
 include ':Baoonline'
-include ':theme'
 include ':data'

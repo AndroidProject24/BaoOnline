@@ -1,5 +1,6 @@
 package com.toan_itc.baoonline.library;
 
+import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Environment;
@@ -13,7 +14,6 @@ import com.frogermcs.androiddevmetrics.AndroidDevMetrics;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
-import com.toan_it.library.skinloader.base.SkinBaseApplication;
 import com.toan_itc.baoonline.BuildConfig;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
@@ -36,7 +36,7 @@ import jp.wasabeef.takt.Takt;
  * Date:2016/3/30
  * Time:20:59
  */
-public class BaseApplication extends SkinBaseApplication {
+public class BaseApplication extends Application {
     private static BaseApplication mInstance;
     private RefWatcher refWatcher;
     private ApplicationComponent applicationComponent;

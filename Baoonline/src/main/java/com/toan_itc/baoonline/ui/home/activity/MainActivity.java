@@ -1,5 +1,7 @@
 package com.toan_itc.baoonline.ui.home.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -36,6 +38,7 @@ import com.toan_itc.data.model.news.Kenh14;
 import com.toan_itc.data.model.news.Ngoisao;
 import com.toan_itc.data.model.news.Tinhot;
 import com.toan_itc.data.model.news.Vnexpress;
+import com.toan_itc.data.theme.MaterialTheme;
 import com.toan_itc.data.utils.Constants;
 
 import java.util.ArrayList;
@@ -58,8 +61,29 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
     private AccountHeader headerResult = null;
     private Drawer result = null;
     private boolean doubleBackToExitPressedOnce;
+	private static final String KEY_ARG_CURRENT_THEME = "KEY_ARG_CURRENT_THEME";
+
+	private MaterialTheme mCurrentTheme;
+
+	public static Intent newInstanceTheme(Context context, MaterialTheme currentTheme) {
+		// Create an intent that will start the activity
+		Intent intent = new Intent(context, MainActivity.class);
+
+		// Get arguments passed in, if any
+		Bundle args = intent.getExtras();
+		if (args == null) {
+			args = new Bundle();
+		}
+
+		// Add parameters to the argument bundle
+		args.putSerializable(KEY_ARG_CURRENT_THEME, currentTheme);
+		intent.putExtras(args);
+
+		return intent;
+	}
     @Override
     protected void initViews(Bundle savedInstanceState) {
+	    setTheme();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.BUNLDE, getRealmManager().findFist(Tinhot.class).getUrl());
         mNavigator.get().replaceFragment(R.id.content_main, new ListNewsFragment(),ListNewsFragment.class.getName(), bundle);
@@ -258,4 +282,25 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
             }
         });
     }
+	private void setTheme(){
+		Bundle args = getIntent().getExtras();
+
+		// If no parameters were passed in, default them
+		if (args == null) {
+			mCurrentTheme = null;
+		}
+		// Otherwise, set incoming parameters
+		else {
+			mCurrentTheme = (MaterialTheme) args.getSerializable(KEY_ARG_CURRENT_THEME);
+		}
+
+		// If not set, default the theme
+		if (mCurrentTheme == null) {
+			mCurrentTheme = MaterialTheme.THEME_TEAL;
+		}
+
+		// Theme must be set before calling super or setContentView
+		setTheme(mCurrentTheme.getThemeResId());
+
+	}
 }

@@ -1,7 +1,5 @@
 package com.toan_itc.baoonline.ui.readnews.mvp;
 
-import android.text.TextUtils;
-
 import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.toan_itc.baoonline.library.base.presenter.BasePresenter;
 import com.toan_itc.baoonline.library.injector.scope.PerActivity;
@@ -38,10 +36,7 @@ public class ReadNewsPresenter extends BasePresenter<ReadNews> {
 
         @Override
         public void onNext(NewsDetails newsDetails) {
-            if(!TextUtils.isEmpty(newsDetails.getDetails()))
-                getView().loadNews(newsDetails);
-            else
-                getView().showEmptyView("");
+            getView().loadNews(newsDetails);
         }
     }
     @Override

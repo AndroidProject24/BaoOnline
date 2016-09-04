@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.squareup.leakcanary.RefWatcher;
-import com.toan_it.library.skinloader.base.SkinBaseFragment;
 import com.toan_itc.baoonline.library.BaseApplication;
 import com.toan_itc.baoonline.library.base.view.EmptyView;
 import com.toan_itc.baoonline.library.base.view.ErrorView;
@@ -31,7 +31,7 @@ import butterknife.Unbinder;
  * Created by Toan.IT
  * Date:22/5/2016
  */
-public abstract class BaseFragment extends SkinBaseFragment implements LoadView,ErrorView,EmptyView {
+public abstract class BaseFragment extends Fragment implements LoadView,ErrorView,EmptyView {
     @Inject
     RealmManager mRealmManager;
     private Snackbar snackbar;

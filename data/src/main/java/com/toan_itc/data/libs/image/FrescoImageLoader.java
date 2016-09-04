@@ -38,9 +38,7 @@ public class FrescoImageLoader implements ImageLoaderListener {
 
     @Override
     public void loadHierarchy(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView) {
-	    GenericDraweeHierarchyBuilder builder =
-			    new GenericDraweeHierarchyBuilder(null);
-	    GenericDraweeHierarchy hierarchy = builder
+	    GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(null)
 			    .setFadeDuration(300)
 			    .setPlaceholderImage(null)
 			    .setBackground(null)

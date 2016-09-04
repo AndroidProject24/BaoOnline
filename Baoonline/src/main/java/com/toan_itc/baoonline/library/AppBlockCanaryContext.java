@@ -5,7 +5,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.github.moduth.blockcanary.BlockCanaryContext;
-import com.toan_it.library.BuildConfig;
+import com.toan_itc.baoonline.BuildConfig;
 
 import java.util.List;
 

@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import com.toan_itc.baoonline.library.base.view.BaseView;
 import com.toan_itc.data.utils.logger.Logger;
 
+import java.lang.ref.WeakReference;
+
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -14,7 +16,7 @@ import rx.subscriptions.CompositeSubscription;
  * can be accessed from the children classes by calling getMvpView().
  */
 public class BasePresenter<T extends BaseView> implements Presenter<T> {
-    private T mMvpView;
+    private WeakReference<T> mMvpView;
     private static final String TAG = BasePresenter.class.getSimpleName();
 
     @NonNull
@@ -22,7 +24,7 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
 
     @Override
     public void attachView(@NonNull T mvpView) {
-        this.mMvpView = mvpView;
+        this.mMvpView = new WeakReference<>(mvpView);
     }
 
     @Override
@@ -33,14 +35,15 @@ public class BasePresenter<T extends BaseView> implements Presenter<T> {
     }
 
     public T getView() {
-        if(this.mMvpView == null) {
-            Logger.wtf(TAG, "This presenter does not set view!");
-            throw new RuntimeException("This presenter does not set view!");
-        }return this.mMvpView;
+	    if(isViewAttached())
+		    return this.mMvpView.get();
+	    else
+		    Logger.wtf(TAG, "This presenter does not set view!");
+	        throw new RuntimeException("This presenter does not set view!");
     }
 
     private boolean isViewAttached() {
-        return this.mMvpView != null;
+        return this.mMvpView != null && this.mMvpView.get()!=null;
     }
 
     public void checkViewAttached() {
