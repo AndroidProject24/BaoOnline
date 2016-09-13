@@ -11,5 +11,5 @@ import com.toan_itc.data.model.rss.RssChannel;
  * Date: 28/05/2016
  */
 public interface ListNews extends BaseView,LoadView,ErrorView,EmptyView {
-    void getRss(RssChannel rssChannel);
+    void getRss(RssChannel realmFeedItemList);
 }

@@ -4,44 +4,19 @@ package com.toan_itc.data.model.rssrealm;
  * Date: 29/06/2016
  */
 
-import com.tickaroo.tikxml.annotation.Element;
-import com.tickaroo.tikxml.annotation.PropertyElement;
-import com.tickaroo.tikxml.annotation.Xml;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
-import java.util.List;
+public class RealmChannel extends RealmObject{
 
-@Xml(name = "channel")
-public class RealmChannel {
-
-    @PropertyElement
-    private String generator;
-
-    @Element(name = "item")
-    List<RealmFeedItem> mItem;
-
-    public void setGenerator(String generator) {
-        this.generator = generator;
-    }
-
-    public void setItem(List<RealmFeedItem> item) {
-        mItem = item;
-    }
-
-    public List<RealmFeedItem> getItem() {
-        for (RealmFeedItem realmFeedItem : mItem) {
-            realmFeedItem.extractDescription();
-        }
+    public RealmList<RealmFeedItem> getItem() {
         return mItem;
     }
 
-    public String getGenerator() {
-        return generator;
+    public void setItem(RealmList<RealmFeedItem> item) {
+        mItem = item;
     }
-    @Override
-    public String toString() {
-        return "channel{" +
-                "mGenerator='" + generator + '\'' +
-                ", mItem=" + mItem +
-                '}';
-    }
+
+    private RealmList<RealmFeedItem> mItem;
+
 }

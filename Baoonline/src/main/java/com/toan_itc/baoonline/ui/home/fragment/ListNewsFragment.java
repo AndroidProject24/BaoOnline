@@ -17,12 +17,12 @@ import com.toan_itc.baoonline.ui.home.di.ListNewsModule;
 import com.toan_itc.baoonline.ui.home.mvp.ListNews;
 import com.toan_itc.baoonline.ui.home.mvp.ListNewsPresenter;
 import com.toan_itc.baoonline.ui.readnews.activity.ReadNewsActivity;
+import com.toan_itc.data.config.Constants;
 import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
-import com.toan_itc.data.utils.CommonUtils;
-import com.toan_itc.data.utils.Constants;
+import com.toan_itc.data.rxjava.Preconditions;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -75,26 +75,10 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListN
     }
 
     @Override
-    public void getRss(RssChannel rssChannel) {
-        ListnewsAdapter listnewsAdapter =new ListnewsAdapter(getActivity(),rssChannel.getItem(),mImageLoaderListener,this);
+    public void getRss(RssChannel realmFeedItemList) {
+	    Preconditions.checkState(recyclerview != null, "recyclerview should not be null.");
         recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerview.setAdapter(listnewsAdapter);
-    }
-    @Override
-    public void onItemClick(RssFeedItem rssFeedItem) {
-        Bundle bundle = new Bundle();
-        String link;
-        if(!CommonUtils.isEmpty(rssFeedItem.getLink())){
-            link=rssFeedItem.getLink();
-        }else if(!CommonUtils.isEmpty(rssFeedItem.getArticleLink())){
-            link=rssFeedItem.getArticleLink();
-        }else{
-            link=null;
-        }
-        bundle.putString(Constants.BUNLDE,link);
-        bundle.putString(Constants.NEWS_TITLE,rssFeedItem.getTitle());
-        bundle.putString(Constants.NEWS_PUBDATE,rssFeedItem.getPubDate());
-        navigator.get().startActivity(ReadNewsActivity.class,bundle);
+        recyclerview.setAdapter(new ListnewsAdapter(getActivity(),Preconditions.checkNotNull(realmFeedItemList.getItem(), "realmFeedItemList cannot be null."),mImageLoaderListener,this));
     }
 
     @Override
@@ -115,5 +99,34 @@ public class ListNewsFragment extends BaseFragment implements HasComponent<ListN
             showEmptyView("Không tìm thấy Rss!");
         }
         return mListNewsComponent;
+    }
+
+    @Override
+    public void onItemClick(RssFeedItem rssFeedItem) {
+        Bundle bundle = new Bundle();
+        String link;
+        if(!Preconditions.isEmpty(rssFeedItem.getLink())){
+            link=rssFeedItem.getLink();
+        }/*else if(!CommonUtils.isEmpty(rssFeedItem.getLink())){
+            link=rssFeedItem.getLink();
+        }*/else{
+            link=null;
+        }
+        bundle.putString(Constants.BUNLDE,link);
+        bundle.putString(Constants.NEWS_TITLE,rssFeedItem.getTitle());
+        bundle.putString(Constants.NEWS_PUBDATE,rssFeedItem.getPubDate());
+        navigator.get().startActivity(ReadNewsActivity.class,bundle);
+        //
+       /* if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+            final android.support.v4.util.Pair<View, String>[] pairs = Help.createSafeTransitionParticipants
+                    ((Activity) mContext, false,new android.support.v4.util.Pair<>(holder.imageView, mContext.getString(R.string.transition_shot)),
+                            new android.support.v4.util.Pair<>(holder.linearLayout, mContext.getString(R.string.transition_shot_background)));
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) mContext, pairs);
+            mContext.startActivity(intent, options.toBundle());
+        }else {
+
+            mContext.startActivity(intent);
+
+        }*/
     }
 }

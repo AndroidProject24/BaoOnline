@@ -24,9 +24,9 @@ public class RssFeedItem{
     String description;
     @PropertyElement
     String enclosure;
-    private String image;
-    private String article;
-    private String articleLink;
+    String image;
+    String article;
+    String articleLink;
 
 
     @Override
@@ -67,6 +67,25 @@ public class RssFeedItem{
         this.image = image;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setEnclosure(String enclosure) {
+        this.enclosure = enclosure;
+    }
     public String getArticle() {
         return article;
     }
@@ -85,9 +104,14 @@ public class RssFeedItem{
 
     public RssFeedItem() {}
 
+    public boolean isEmpty() {
+        return (title == null || "".equals(title)) && (link == null || "".equals(link));
+    }
+
     public boolean hasImage() {
         return this.getImage() != null && !getImage().isEmpty();
     }
+
     RssFeedItem extractDescription() {
         String HTMLSTring = this.getDescription();
         Document html = Jsoup.parse(HTMLSTring);

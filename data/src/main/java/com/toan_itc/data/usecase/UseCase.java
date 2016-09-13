@@ -48,6 +48,8 @@ public abstract class UseCase {
    */
   protected abstract Observable buildUseCaseObservable();
 
+  protected abstract Observable buildUseCaseObservableDB();
+
   /**
    * Executes the current use case.
    *
@@ -70,7 +72,7 @@ public abstract class UseCase {
    */
   @SuppressWarnings("unchecked")
   public void executeDb(Subscriber useCaseSubscriber){
-    this.subscription = this.buildUseCaseObservable()
+    this.subscription = this.buildUseCaseObservableDB()
             .observeOn(postExecutionThread.getScheduler())
             .subscribe(useCaseSubscriber);
   }

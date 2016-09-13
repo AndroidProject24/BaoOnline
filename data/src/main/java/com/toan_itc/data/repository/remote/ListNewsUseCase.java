@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.ui.home.mvp;
+package com.toan_itc.data.repository.remote;
 
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
@@ -24,5 +24,10 @@ public class ListNewsUseCase extends UseCase {
     @Override
     public Observable buildUseCaseObservable() {
         return this.mRepository.GetRss(this.linkRss);
+    }
+
+    @Override
+    protected Observable buildUseCaseObservableDB() {
+        return this.mRepository.getChannel();
     }
 }

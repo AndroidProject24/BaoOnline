@@ -25,7 +25,7 @@ ext {
     constraintVersion = '1.0.0-alpha4'
     daggerVersion = '2.6'
     butterKnifeVersion = '8.2.1'
-    rxJavaVersion = '1.1.9'
+    rxJavaVersion = '1.1.10'
     rxAndroidVersion = '1.2.1'
     rxBindingVersion = '0.4.0'
     rxPermissionsVersion ='0.7.0@aar'
@@ -38,7 +38,7 @@ ext {
     jsoupVersion   = '1.9.2'
     tikxmlVersion = '0.5.2-SNAPSHOT'
     baseRecyclerVersion = 'v1.8.5'
-    reactivenetwork = '0.2.0'
+    reactivenetwork = '0.5.2'
     autoValue       = '1.2'
     bommenuVersion  ='1.0.9'
     //Testing

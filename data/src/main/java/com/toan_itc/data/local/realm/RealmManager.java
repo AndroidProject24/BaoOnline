@@ -2,12 +2,13 @@ package com.toan_itc.data.local.realm;
 
 import android.content.Context;
 
-import com.toan_itc.data.local.realm.cache.CacheObject;
-import com.toan_itc.data.local.realm.cache.CacheService;
+import com.toan_itc.data.config.Constants;
+import com.toan_itc.data.local.realm.entities.RssDiskRealm;
 import com.toan_itc.data.local.realm.help.Migration;
+import com.toan_itc.data.model.bookmark.NewsBookmark;
 import com.toan_itc.data.model.news.Data;
 import com.toan_itc.data.model.news.News;
-import com.toan_itc.data.utils.Constants;
+import com.toan_itc.data.model.rssrealm.RealmChannel;
 import com.toan_itc.data.utils.logger.Logger;
 
 import java.io.IOException;
@@ -18,13 +19,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
-import rx.Observable;
 
 /**
  * Created by Toan.IT
  * Date: 14/07/2016
  */
-public class RealmManager implements CacheService {
+public class RealmManager extends AbstractRealm{
     private final Context context;
     public RealmManager(Context context){
         this.context = context;
@@ -41,41 +41,11 @@ public class RealmManager implements CacheService {
         Realm.setDefaultConfiguration(realmConfiguration);
     }
 
-    @Override
-    public <T, E extends RealmObject & CacheObject<T>> void set(final Class<E> clazz, T model) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> realm1.createObject(clazz).map(model));
-        realm.close();
+    public Realm getRealmInstance() {
+        return Realm.getDefaultInstance();
     }
 
-    @Override
-    public <T, E extends RealmObject & CacheObject<T>> Observable<T> get(final Class<E> clazz) {
-        return Observable.create(subscriber -> {
-            Realm realm = Realm.getDefaultInstance();
-            for (E result : realm.where(clazz).findAll()) {
-                subscriber.onNext(result.map());
-            }
-            subscriber.onCompleted();
-            realm.close();
-        });
-    }
-
-    @Override
-    public <T, E extends RealmObject & CacheObject<T>> long count(Class<E> clazz) {
-        Realm realm = Realm.getDefaultInstance();
-        long count = realm.where(clazz).count();
-        realm.close();
-        return count;
-    }
-
-    @Override
-    public <T, E extends RealmObject & CacheObject<T>> void deleteAll(Class<E> clazz) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> realm1.delete(clazz));
-        realm.close();
-    }
-
-    public <T extends RealmObject> T add(T model) {
+	public <T extends RealmObject> T add(T model) {
         Realm realm = getRealmInstance();
         realm.beginTransaction();
         realm.copyToRealm(model);
@@ -84,17 +54,23 @@ public class RealmManager implements CacheService {
     }
 
     public <T extends RealmObject> List<T> findAll(Class<T> clazz) {
-        return getRealmInstance().where(clazz).findAll();
+        return getRealmInstance().copyFromRealm(getRealmInstance().where(clazz).findAll());
     }
+
+	public <T extends RealmObject> List<T> findAllAsync(Class<T> clazz) {
+		return getRealmInstance().where(clazz).findAllAsync();
+	}
+
     public <T extends RealmObject> T findFist(Class<T> clazz) {
         return getRealmInstance().where(clazz).findFirst();
     }
-    public <T extends RealmObject> long size(Class<T> clazz) {
-        return getRealmInstance().where(clazz).count();
+
+    public <T extends RealmObject> T findLast(Class<T> clazz) {
+        return getRealmInstance().where(clazz).findAll().last();
     }
 
-    private Realm getRealmInstance() {
-        return Realm.getDefaultInstance();
+    public <T extends RealmObject> long size(Class<T> clazz) {
+        return getRealmInstance().where(clazz).count();
     }
 
     public void closeRealm(){
@@ -102,6 +78,7 @@ public class RealmManager implements CacheService {
         if(!realm.isClosed())
             realm.close();
     }
+
     public void Set_News(Context context){
         getRealmInstance().executeTransaction(realm -> {
             InputStream stream =null;
@@ -121,6 +98,7 @@ public class RealmManager implements CacheService {
             }
         });
     }
+
     //Add data
     public void Set_Data(String title,String url){
         getRealmInstance().executeTransactionAsync(realm -> {
@@ -139,6 +117,7 @@ public class RealmManager implements CacheService {
             realm.copyToRealmOrUpdate(data);
         });
     }
+
     public void Set_News(String titlenews){
         getRealmInstance().executeTransactionAsync(realm -> {
             int id=0;
@@ -154,12 +133,72 @@ public class RealmManager implements CacheService {
             realm.copyToRealmOrUpdate(news);
         });
     }
+
     public News getnews(String title){
         if(title!=null&&!title.equalsIgnoreCase(""))
             return getRealmInstance().where(News.class).equalTo("Title",title).findFirst();
         else
             return null;
     }
+
+    @Override
+    public void clearListDatabase() {
+        Realm realm = getRealmInstance();
+        realm.executeTransaction(realm1 -> realm1.delete(RssDiskRealm.class));
+        realm.close();
+    }
+
+    @Override
+    public void clearDetailsDatabase() {
+        Realm realm = getRealmInstance();
+        realm.executeTransaction(realm1 -> realm1.delete(RssDiskRealm.class));
+        realm.close();
+    }
+
+    @Override
+    public void clearBookmarkDatabase() {
+        Realm realm = getRealmInstance();
+        realm.executeTransaction(realm1 -> realm1.delete(NewsBookmark.class));
+        realm.close();
+    }
+
+    //Bookmark
+
+    public void storeOrUpdateNewsList(List<NewsBookmark> newsBookmarks) {
+        Realm realm = getRealmInstance();
+        realm.executeTransaction(realm1 -> realm1.insertOrUpdate(newsBookmarks));
+        realm.close();
+    }
+
+    public void storeOrUpdateNews(NewsBookmark newsBookmarks) {
+        Realm realm = getRealmInstance();
+        realm.executeTransaction(realm1 -> realm1.insertOrUpdate(newsBookmarks));
+        realm.close();
+    }
+
+    public Boolean getBookmarkListStatus() {
+        Realm realm = getRealmInstance();
+        boolean dataStatus;
+        dataStatus = (realm.where(NewsBookmark.class).count() > 0);
+        realm.close();
+        return dataStatus;
+    }
+
+    //RssChannel
+    public void storeOrUpdateRssChannel(RealmChannel rssChannel) {
+        Realm realm = getRealmInstance();
+        realm.executeTransaction(realm1 -> realm1.insertOrUpdate(rssChannel));
+        realm.close();
+    }
+
+    public Boolean getRssChannelListStatus() {
+        Realm realm = getRealmInstance();
+        boolean dataStatus;
+        dataStatus = (realm.where(RealmChannel.class).count() > 0);
+        realm.close();
+        return dataStatus;
+    }
+
     //Page Size,Page Index
     /*public void getFromDatabase(int pageSize, int page) {
         if (page == 1) mEntityList.clear();

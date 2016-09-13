@@ -3,6 +3,7 @@ package com.toan_itc.baoonline.library.injector.module;
 import android.support.annotation.NonNull;
 
 import com.toan_itc.baoonline.BuildConfig;
+import com.toan_itc.data.libs.reactivenetwork.ReactiveNetwork;
 import com.toan_itc.data.network.RestApi;
 
 import java.io.File;
@@ -32,6 +33,12 @@ public class NetworkModule {
     public NetworkModule(@NonNull File cacheFile,boolean checkConnect) {
         this.mCacheFile = cacheFile;
         this.isConnected=checkConnect;
+    }
+
+    @Singleton
+    @Provides
+    ReactiveNetwork mReactiveNetwork(){
+        return new ReactiveNetwork();
     }
 
     @Singleton

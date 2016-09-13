@@ -19,7 +19,9 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.injector.component.ApplicationComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerApplicationComponent;
 import com.toan_itc.baoonline.library.injector.module.ApplicationModule;
+import com.toan_itc.baoonline.library.injector.module.DataModule;
 import com.toan_itc.baoonline.library.injector.module.NetworkModule;
+import com.toan_itc.baoonline.library.injector.module.ThreadingModule;
 import com.toan_itc.data.exception.CrashException;
 import com.toan_itc.data.local.realm.RealmManager;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
@@ -92,6 +94,8 @@ public class BaseApplication extends Application {
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .networkModule(new NetworkModule(cacheDir,true))
+                .threadingModule(new ThreadingModule())
+		        .dataModule(new DataModule(this))
                 .build();
     }
     private void initCache(){

@@ -14,6 +14,7 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.listener.OnItemClickListener;
 import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.model.rss.RssFeedItem;
+import com.toan_itc.data.rxjava.Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +33,8 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
     private OnItemClickListener onItemClickListener;
     public ListnewsAdapter(@NonNull Context context, List<RssFeedItem> mRssFeedItems, ImageLoaderListener imageLoaderListener, OnItemClickListener onItemClickListener) {
        try {
-           if (mRssFeedItems == null) {
-               throw new IllegalArgumentException("articles cannot be null");
-           }
            this.mContext = context;
-           this.mRssFeedItems = mRssFeedItems;
+           this.mRssFeedItems = Preconditions.checkNotNull(mRssFeedItems,"articles cannot be null");
            this.imageLoaderListener=imageLoaderListener;
            this.onItemClickListener = onItemClickListener;
        }catch (Exception e){
@@ -67,12 +65,12 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         try {
-            RssFeedItem rssFeedItem=mRssFeedItems.get(position);
+	        RssFeedItem rssFeedItem=mRssFeedItems.get(position);
             if(rssFeedItem!=null) {
                 viewHolder.txt_title.setText(rssFeedItem.getTitle());
                 viewHolder.txt_description.setText(rssFeedItem.getArticle());
                 viewHolder.txt_time.setText(rssFeedItem.getPubDate());
-                imageLoaderListener.loadController(rssFeedItem.getImage(),viewHolder.img_news);
+                imageLoaderListener.loadController(rssFeedItem.getImage(),viewHolder.img_news,300,250,null);
                 viewHolder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(rssFeedItem));
             }
         }catch (Exception e){

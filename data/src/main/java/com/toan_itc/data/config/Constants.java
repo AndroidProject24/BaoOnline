@@ -1,4 +1,4 @@
-package com.toan_itc.data.utils;
+package com.toan_itc.data.config;
 
 public class Constants {
   public static final String BaoOnline_Realm = "BaoOnline.realm";

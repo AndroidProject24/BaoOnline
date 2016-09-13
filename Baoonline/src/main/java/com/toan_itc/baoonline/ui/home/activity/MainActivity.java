@@ -3,7 +3,6 @@ package com.toan_itc.baoonline.ui.home.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatSpinner;
@@ -31,6 +30,7 @@ import com.toan_itc.baoonline.listener.KeyListener;
 import com.toan_itc.baoonline.listener.OnBackListener;
 import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.baoonline.ui.home.fragment.ListNewsFragment;
+import com.toan_itc.data.config.Constants;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.news.Dantri;
 import com.toan_itc.data.model.news.Dspl;
@@ -39,7 +39,7 @@ import com.toan_itc.data.model.news.Ngoisao;
 import com.toan_itc.data.model.news.Tinhot;
 import com.toan_itc.data.model.news.Vnexpress;
 import com.toan_itc.data.theme.MaterialTheme;
-import com.toan_itc.data.utils.Constants;
+import com.toan_itc.data.utils.DoubleClickExit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,6 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
     private ActivityComponent mActivityComponent;
     private AccountHeader headerResult = null;
     private Drawer result = null;
-    private boolean doubleBackToExitPressedOnce;
 	private static final String KEY_ARG_CURRENT_THEME = "KEY_ARG_CURRENT_THEME";
 
 	private MaterialTheme mCurrentTheme;
@@ -198,12 +197,10 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
         } else {
             String currentTag = getSupportFragmentManager().findFragmentById(R.id.content_main).getTag();
             if (currentTag.equals(ListNewsFragment.class.getName())) {
-                if (doubleBackToExitPressedOnce) {
-                    finish();
-                }
-                this.doubleBackToExitPressedOnce = true;
-                Snackbar.make(mToolbar,R.string.msg_exit,Snackbar.LENGTH_SHORT).show();
-                new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+	            if (!DoubleClickExit.check()) {
+		            Snackbar.make(mToolbar,R.string.msg_exit,Snackbar.LENGTH_SHORT).show();
+	            }else
+		            finish();
             } else {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_main);
                 if (fragment instanceof OnBackListener) {

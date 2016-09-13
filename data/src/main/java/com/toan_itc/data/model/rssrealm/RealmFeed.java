@@ -4,11 +4,6 @@ package com.toan_itc.data.model.rssrealm;
  * Date: 29/06/2016
  */
 
-import com.tickaroo.tikxml.annotation.Element;
-import com.tickaroo.tikxml.annotation.Xml;
-
-
-@Xml(name = "rss")
 public class RealmFeed {
     @Override
     public String toString() {
@@ -17,7 +12,6 @@ public class RealmFeed {
                 '}';
     }
 
-    @Element
     private RealmChannel channel;
     public RealmChannel getChannel() {
         return channel;

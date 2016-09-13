@@ -25,11 +25,12 @@ android {
     }
 
     packagingOptions {
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/ASL2.0'
         exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/DEPENDENCIES'
     }
 
     lintOptions {
@@ -52,24 +53,31 @@ dependencies {
     compile supportDependencies.supportRecyclerView
     compile supportDependencies.supportCardView
     compile supportDependencies.customtabs
-
     compile  supportDependencies.supportannotations
 
+    //----- Dagger
     compile  injectDependencies.dagger
     apt      injectDependencies.daggerCompiler
     provided injectDependencies.javaxannotation
     compile  injectDependencies.rxjava
     compile  injectDependencies.rxandroid
 
+    //----- Retrofit
     compile  networkDependencies.gson
     compile  networkDependencies.okHttp
     compile  networkDependencies.retrofitRxJavaAdapter
+
+    //-----Network
+    //compile networkDependencies.reactivenetwork
+
     //----- Fresco
     compile networkDependencies.fresco
     compile networkDependencies.frescoHttp
+
     //-----Jsoup
     compile appDependencies.jsoup
 
+    //Tikxml
     compile  appDependencies.tikxml
     compile  appDependencies.tikxml_annotation
     compile  appDependencies.tikxml_core

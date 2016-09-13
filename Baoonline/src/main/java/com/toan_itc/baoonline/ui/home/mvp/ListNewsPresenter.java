@@ -5,6 +5,7 @@ import com.toan_itc.baoonline.library.base.presenter.BasePresenter;
 import com.toan_itc.baoonline.library.injector.scope.PerFragment;
 import com.toan_itc.data.exception.NetworkError;
 import com.toan_itc.data.executor.DefaultSubscriber;
+import com.toan_itc.data.local.realm.RealmManager;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.usecase.UseCase;
 
@@ -17,14 +18,18 @@ import javax.inject.Inject;
 @PerFragment
 public class ListNewsPresenter extends BasePresenter<ListNews> {
     private final UseCase mUseCase;
+    private RealmManager mRealmManager;
     @Inject
-    ListNewsPresenter(UseCase useCase){
+    ListNewsPresenter(UseCase useCase,RealmManager mRealmManager){
         this.mUseCase=useCase;
+        this.mRealmManager=mRealmManager;
     }
+
     public void getRss_Zing(){
         getView().showLoading();
         this.mUseCase.execute(new UserListSubscriber());
     }
+
     @RxLogSubscriber
     private final class UserListSubscriber extends DefaultSubscriber<RssChannel> {
 

@@ -141,9 +141,6 @@ dependencies {
     compile networkDependencies.okHttp
     compile networkDependencies.okHttpLogging
 
-    //-----Network
-    compile networkDependencies.reactivenetwork
-
     //-----BaseAdapter
     compile supportDependencies.baseRecyclerView
 

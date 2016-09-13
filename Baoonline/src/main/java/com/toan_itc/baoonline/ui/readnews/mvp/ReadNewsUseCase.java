@@ -25,4 +25,9 @@ public class ReadNewsUseCase extends UseCase {
   protected Observable buildUseCaseObservable() {
     return this.mRepository.loadNews(this.urlNews);
   }
+
+  @Override
+  protected Observable buildUseCaseObservableDB() {
+    return null;
+  }
 }

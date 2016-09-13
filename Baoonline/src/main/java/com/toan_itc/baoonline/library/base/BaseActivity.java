@@ -42,6 +42,8 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadView
         getApplicationComponent().inject(this);
         injectDependencies();
        // changeStatusColor();
+	    setNightOrDayMode();
+	    initNightModeSwitch();
         initViews(savedInstanceState);
         initData();
     }
@@ -164,6 +166,29 @@ public abstract class BaseActivity extends AppCompatActivity implements LoadView
             }
         }
     }
+
+	private void initNightModeSwitch() {
+		//ColorfulNews-master
+		/*if (this instanceof NewsActivity || this instanceof PhotoActivity) {
+			MenuItem menuNightMode = mBaseNavView.getMenu().findItem(R.id.nav_night_mode);
+			SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat
+					.getActionView(menuNightMode);
+			setCheckedState(dayNightSwitch);
+			setCheckedEvent(dayNightSwitch);
+		}*/
+	}
+
+	private void setNightOrDayMode() {
+		/*if (MyUtils.isNightMode()) {
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+			initNightView();
+			mNightView.setBackgroundResource(R.color.night_mask);
+		} else {
+			AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+		}*/
+	}
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

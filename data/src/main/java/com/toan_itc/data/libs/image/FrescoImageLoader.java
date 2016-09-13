@@ -2,8 +2,10 @@ package com.toan_itc.data.libs.image;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
@@ -12,6 +14,7 @@ import com.facebook.imagepipeline.common.ImageDecodeOptions;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.toan_itc.data.utils.DensityUtil;
 
 public class FrescoImageLoader implements ImageLoaderListener {
     @Override
@@ -19,19 +22,22 @@ public class FrescoImageLoader implements ImageLoaderListener {
         simpleDraweeView.setImageURI(Uri.parse(url));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void loadController(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView) {
+    public void loadController(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView, int width, int height,@Nullable ControllerListener controllerListener) {
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
                 .setLocalThumbnailPreviewsEnabled(true)
 		        .setCacheChoice(ImageRequest.CacheChoice.DEFAULT)
 		        .setProgressiveRenderingEnabled(true)
 		        .setImageDecodeOptions(ImageDecodeOptions.defaults())
-		        .setResizeOptions(new ResizeOptions(300, 250))
+		        .setResizeOptions(new ResizeOptions(DensityUtil.dp2px(width), DensityUtil.dp2px(height)))
                 .build();
 	    DraweeController controller = Fresco.newDraweeControllerBuilder()
-			    .setImageRequest(request)
+			    .setTapToRetryEnabled(true)
 			    .setAutoPlayAnimations(true)
 			    .setOldController(simpleDraweeView.getController())
+			    .setImageRequest(request)
+			    .setControllerListener(controllerListener)
 			    .build();
         simpleDraweeView.setController(controller);
     }

@@ -25,4 +25,9 @@ public class SplashUseCase extends UseCase {
     public Observable buildUseCaseObservable() {
         return this.mRepository.GetRss(this.linkRss);
     }
+
+    @Override
+    protected Observable buildUseCaseObservableDB() {
+        return null;
+    }
 }

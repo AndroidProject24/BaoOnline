@@ -33,10 +33,10 @@ import com.toan_itc.baoonline.ui.readnews.di.ReadNewsComponent;
 import com.toan_itc.baoonline.ui.readnews.di.ReadNewsModule;
 import com.toan_itc.baoonline.ui.readnews.mvp.ReadNews;
 import com.toan_itc.baoonline.ui.readnews.mvp.ReadNewsPresenter;
+import com.toan_itc.data.config.Constants;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.newdetails.NewsDetails;
-import com.toan_itc.data.utils.CommonUtils;
-import com.toan_itc.data.utils.Constants;
+import com.toan_itc.data.rxjava.Preconditions;
 import com.toan_itc.data.utils.logger.Logger;
 
 import java.util.Random;
@@ -92,7 +92,7 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 
     @Override
     public ReadNewsComponent getComponent() {
-        if (mReadNewsComponent == null&&!CommonUtils.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))) {
+        if (mReadNewsComponent == null&&!Preconditions.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))) {
             mReadNewsComponent = DaggerReadNewsComponent.builder()
                     .applicationComponent(getApplicationComponent())
                     .activityModule(new ActivityModule(this))
@@ -205,7 +205,7 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
     @Override
     public void loadNews(NewsDetails newsDetails) {
         Logger.wtf(newsDetails.getDetails());
-        if(!CommonUtils.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))){
+        if(!Preconditions.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))){
 	        mWebView.loadDataWithBaseURL(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE),newsDetails.getDetails(),"text/html", "utf-8", null);
         }
         else {

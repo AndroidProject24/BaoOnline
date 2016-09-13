@@ -7,9 +7,6 @@ public class RxUtils {
     private CompositeSubscription mCompositeSubscription;
 
     public void addCompositeSubscription(Subscription s) {
-        if (s == null) {
-            return;
-        }
         if (this.mCompositeSubscription == null) {
             this.mCompositeSubscription = new CompositeSubscription();
         }
@@ -19,11 +16,15 @@ public class RxUtils {
     public void clearSubscription(Subscription subscription) {
         if (subscription != null) {
             subscription.unsubscribe();
+            subscription=null;
         }
     }
 
     public void clearCompositeSubscription(){
-        this.mCompositeSubscription.clear();
+        if (this.mCompositeSubscription != null) {
+            this.mCompositeSubscription.clear();
+            this.mCompositeSubscription=null;
+        }
     }
 
 }
