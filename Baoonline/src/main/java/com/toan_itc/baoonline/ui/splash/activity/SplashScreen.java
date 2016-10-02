@@ -104,7 +104,7 @@ public class SplashScreen extends BaseActivity implements HasComponent<ActivityC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mRxUtils.clearCompositeSubscription();
+        mRxUtils.unCompositeSubscription();
     }
 
     @Override

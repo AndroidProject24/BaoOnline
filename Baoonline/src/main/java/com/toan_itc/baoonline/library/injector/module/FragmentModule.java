@@ -30,29 +30,37 @@ import dagger.Provides;
 @Module
 public class FragmentModule {
 
-    private final Fragment mFragment;
+	private final Fragment mFragment;
 
-    public FragmentModule(Fragment fragment) {
-        mFragment = fragment;
-    }
+	public FragmentModule(Fragment fragment) {
+		mFragment = fragment;
+	}
 
-    @Provides
-    @PerFragment
-    @ActivityContext
-    Context provideActivityContext() { return mFragment.getActivity(); }
+	@Provides
+	@PerFragment
+	@ActivityContext
+	Context provideActivityContext() {
+		return mFragment.getActivity();
+	}
 
-    @Provides
-    @PerFragment
-    @DefaultFragmentManager
-    FragmentManager provideDefaultFragmentManager() { return mFragment.getFragmentManager(); }
+	@Provides
+	@PerFragment
+	@DefaultFragmentManager
+	FragmentManager provideDefaultFragmentManager() {
+		return mFragment.getFragmentManager();
+	}
 
-    @Provides
-    @PerFragment
-    @ChildFragmentManager
-    FragmentManager provideChildFragmentManager() { return mFragment.getChildFragmentManager(); }
+	@Provides
+	@PerFragment
+	@ChildFragmentManager
+	FragmentManager provideChildFragmentManager() {
+		return mFragment.getChildFragmentManager();
+	}
 
-    @Provides
-    @PerFragment
-    Navigator provideNavigator() { return new FragmentNavigator(mFragment); }
+	@Provides
+	@PerFragment
+	Navigator provideNavigator() {
+		return new FragmentNavigator(mFragment);
+	}
 
 }

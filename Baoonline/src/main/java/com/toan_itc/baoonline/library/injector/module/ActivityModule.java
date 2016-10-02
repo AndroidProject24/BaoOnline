@@ -15,23 +15,29 @@ import dagger.Provides;
 @Module
 public class ActivityModule {
 
-  private final FragmentActivity mActivity;
+	private final FragmentActivity mActivity;
 
-  public ActivityModule(FragmentActivity activity) {
-    mActivity = activity;
-  }
+	public ActivityModule(FragmentActivity activity) {
+		mActivity = activity;
+	}
 
-  @Provides
-  @PerActivity
-  @ActivityContext
-  Context provideActivityContext() { return mActivity; }
+	@Provides
+	@PerActivity
+	@ActivityContext
+	Context provideActivityContext() {
+		return mActivity;
+	}
 
-  @Provides
-  @PerActivity
-  FragmentManager provideFragmentManager() { return mActivity.getSupportFragmentManager(); }
+	@Provides
+	@PerActivity
+	FragmentManager provideFragmentManager() {
+		return mActivity.getSupportFragmentManager();
+	}
 
-  @Provides
-  @PerActivity
-  Navigator provideNavigator() { return new ActivityNavigator(mActivity); }
+	@Provides
+	@PerActivity
+	Navigator provideNavigator() {
+		return new ActivityNavigator(mActivity);
+	}
 
 }

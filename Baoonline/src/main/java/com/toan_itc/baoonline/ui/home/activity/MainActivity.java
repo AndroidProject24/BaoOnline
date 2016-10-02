@@ -26,8 +26,8 @@ import com.toan_itc.baoonline.library.injector.component.ActivityComponent;
 import com.toan_itc.baoonline.library.injector.component.DaggerActivityComponent;
 import com.toan_itc.baoonline.library.injector.module.ActivityModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.baoonline.listener.KeyListener;
-import com.toan_itc.baoonline.listener.OnBackListener;
+import com.toan_itc.baoonline.interfaces.KeyListener;
+import com.toan_itc.baoonline.interfaces.OnBackListener;
 import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.baoonline.ui.home.fragment.ListNewsFragment;
 import com.toan_itc.data.config.Constants;
@@ -39,6 +39,7 @@ import com.toan_itc.data.model.news.Ngoisao;
 import com.toan_itc.data.model.news.Tinhot;
 import com.toan_itc.data.model.news.Vnexpress;
 import com.toan_itc.data.theme.MaterialTheme;
+import com.toan_itc.data.utils.ActivityCollector;
 import com.toan_itc.data.utils.DoubleClickExit;
 
 import java.util.ArrayList;
@@ -200,7 +201,7 @@ public class MainActivity extends BaseActivity implements HasComponent<ActivityC
 	            if (!DoubleClickExit.check()) {
 		            Snackbar.make(mToolbar,R.string.msg_exit,Snackbar.LENGTH_SHORT).show();
 	            }else
-		            finish();
+		            ActivityCollector.finishAll();
             } else {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.content_main);
                 if (fragment instanceof OnBackListener) {

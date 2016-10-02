@@ -8,7 +8,7 @@ import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.library.base.BaseFragment;
 import com.toan_itc.baoonline.library.injector.module.FragmentModule;
 import com.toan_itc.baoonline.library.injector.scope.HasComponent;
-import com.toan_itc.baoonline.listener.OnItemClickListener;
+import com.toan_itc.baoonline.interfaces.OnItemClickListener;
 import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.baoonline.ui.home.adapter.ListnewsAdapter;
 import com.toan_itc.baoonline.ui.home.di.DaggerListNewsComponent;
@@ -22,7 +22,6 @@ import com.toan_itc.data.libs.image.ImageLoaderListener;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.rss.RssChannel;
 import com.toan_itc.data.model.rss.RssFeedItem;
-import com.toan_itc.data.rxjava.Preconditions;
 
 import javax.inject.Inject;
 import javax.inject.Provider;

@@ -7,6 +7,6 @@ package com.toan_itc.baoonline.library.base.view;
  */
 public interface ErrorView {
 
-    void showError(String message);
+	void showError(String message);
 
 }

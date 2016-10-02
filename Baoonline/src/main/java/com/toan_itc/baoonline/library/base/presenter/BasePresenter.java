@@ -16,52 +16,52 @@ import rx.subscriptions.CompositeSubscription;
  * can be accessed from the children classes by calling getMvpView().
  */
 public class BasePresenter<T extends BaseView> implements Presenter<T> {
-    private WeakReference<T> mMvpView;
-    private static final String TAG = BasePresenter.class.getSimpleName();
+	private WeakReference<T> mMvpView;
+	private static final String TAG = BasePresenter.class.getSimpleName();
 
-    @NonNull
-    private CompositeSubscription subscriptionsToUnsubscribeOnUnbindView = new CompositeSubscription();
+	@NonNull
+	private CompositeSubscription subscriptionsToUnsubscribeOnUnbindView = new CompositeSubscription();
 
-    @Override
-    public void attachView(@NonNull T mvpView) {
-        this.mMvpView = new WeakReference<>(mvpView);
-    }
+	@Override
+	public void attachView(@NonNull T mvpView) {
+		this.mMvpView = new WeakReference<>(mvpView);
+	}
 
-    @Override
-    public void detachView() {
-        this.mMvpView = null;
-        // Unsubscribe all subscriptions that need to be unsubscribed in this lifecycle state.
-        this.subscriptionsToUnsubscribeOnUnbindView.clear();
-    }
+	@Override
+	public void detachView() {
+		this.mMvpView = null;
+		// Unsubscribe all subscriptions that need to be unsubscribed in this lifecycle state.
+		this.subscriptionsToUnsubscribeOnUnbindView.clear();
+	}
 
-    public T getView() {
-	    if(isViewAttached())
-		    return this.mMvpView.get();
-	    else
-		    Logger.wtf(TAG, "This presenter does not set view!");
-	        throw new RuntimeException("This presenter does not set view!");
-    }
+	public T getView() {
+		if (isViewAttached())
+			return this.mMvpView.get();
+		else
+			Logger.wtf(TAG, "This presenter does not set view!");
+		throw new RuntimeException("This presenter does not set view!");
+	}
 
-    private boolean isViewAttached() {
-        return this.mMvpView != null && this.mMvpView.get()!=null;
-    }
+	private boolean isViewAttached() {
+		return this.mMvpView != null && this.mMvpView.get() != null;
+	}
 
-    public void checkViewAttached() {
-        if (!isViewAttached()) throw new MvpViewNotAttachedException();
-    }
+	public void checkViewAttached() {
+		if (!isViewAttached()) throw new MvpViewNotAttachedException();
+	}
 
-    private static class MvpViewNotAttachedException extends RuntimeException {
-        private MvpViewNotAttachedException() {
-            super("Please call Presenter.attachView(BaseView) before" + "requesting data to the Presenter");
-        }
-    }
+	private static class MvpViewNotAttachedException extends RuntimeException {
+		private MvpViewNotAttachedException() {
+			super("Please call Presenter.attachView(BaseView) before" + "requesting data to the Presenter");
+		}
+	}
 
-    protected final void addSubscribe(@NonNull Subscription subscription, @NonNull Subscription... subscriptions) {
-        this.subscriptionsToUnsubscribeOnUnbindView.add(subscription);
+	protected final void addSubscribe(@NonNull Subscription subscription, @NonNull Subscription... subscriptions) {
+		this.subscriptionsToUnsubscribeOnUnbindView.add(subscription);
 
-        for (Subscription s : subscriptions) {
-            this.subscriptionsToUnsubscribeOnUnbindView.add(s);
-        }
-    }
+		for (Subscription s : subscriptions) {
+			this.subscriptionsToUnsubscribeOnUnbindView.add(s);
+		}
+	}
 }
 

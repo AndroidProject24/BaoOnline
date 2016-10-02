@@ -20,4 +20,5 @@ import javax.inject.Scope;
  * limitations under the License. */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PerActivity {}
+public @interface PerActivity {
+}

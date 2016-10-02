@@ -8,33 +8,37 @@ import android.support.v7.widget.Toolbar;
  * Date: 14/07/2016
  */
 
-public abstract class BaseToolbar extends BaseActivity{
+public abstract class BaseToolbar extends BaseActivity {
 
-    private Toolbar toolbar = null;
+	private Toolbar toolbar = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initializeToolbar();
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		initializeToolbar();
+	}
 
-    protected boolean hasToolbar() { return toolbar != null; }
+	protected boolean hasToolbar() {
+		return toolbar != null;
+	}
 
-    protected Toolbar getToolbar() { return toolbar; }
+	protected Toolbar getToolbar() {
+		return toolbar;
+	}
 
-    protected abstract int getToolbarResId();
+	protected abstract int getToolbarResId();
 
-    protected abstract int getToolbarTitleResId();
+	protected abstract int getToolbarTitleResId();
 
-    private void initializeToolbar() {
-        toolbar = (Toolbar) findViewById(getToolbarResId());
-        if (hasToolbar()) {
-            setSupportActionBar(toolbar);
-            if (getToolbarTitleResId() > 0) {
-                setTitle(getString(getToolbarTitleResId()));
-            }else{
-                setTitle("");
-            }
-        }
-    }
+	private void initializeToolbar() {
+		toolbar = (Toolbar) findViewById(getToolbarResId());
+		if (hasToolbar()) {
+			setSupportActionBar(toolbar);
+			if (getToolbarTitleResId() > 0) {
+				setTitle(getString(getToolbarTitleResId()));
+			} else {
+				setTitle("");
+			}
+		}
+	}
 }

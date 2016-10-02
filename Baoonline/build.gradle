@@ -73,7 +73,8 @@ android {
         disable 'IconMissingDensityFolder'  //For testing purpose. This is safe to remove.
     }
     dexOptions {
-        javaMaxHeapSize "4g"
+
+        javaMaxHeapSize "2048M" // used by the out-of-process Jack, ignored if running in-process
     }
     sourceSets {
         main {

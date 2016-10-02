@@ -7,7 +7,7 @@ package com.toan_itc.baoonline.library.base.view;
  */
 public interface LoadView {
 
-    void showLoading();
+	void showLoading();
 
-    void hideLoading();
+	void hideLoading();
 }

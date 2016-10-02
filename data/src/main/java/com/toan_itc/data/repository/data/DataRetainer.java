@@ -1,8 +1,8 @@
 package com.toan_itc.data.repository.data;
 
-import com.toan_itc.data.model.rssrealm.RealmFeedItem;
+import android.support.annotation.Nullable;
 
-import java.util.List;
+import com.toan_itc.data.model.rss.RssFeedItem;
 
 /**
  * Created by Toan.IT
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface DataRetainer {
 
-    void retainList(List<RealmFeedItem> feedItemList);
+    void retainList(@Nullable RssFeedItem feedItemList);
 
     boolean isCached();
 }

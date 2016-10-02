@@ -11,8 +11,8 @@ import dagger.Component;
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
 
-    void inject(SplashScreen splashScreen);
+	void inject(SplashScreen splashScreen);
 
-    void inject(MainActivity mainActivity);
+	void inject(MainActivity mainActivity);
 
 }

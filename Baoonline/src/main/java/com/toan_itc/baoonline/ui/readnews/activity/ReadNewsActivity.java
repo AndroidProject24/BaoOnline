@@ -36,7 +36,7 @@ import com.toan_itc.baoonline.ui.readnews.mvp.ReadNewsPresenter;
 import com.toan_itc.data.config.Constants;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.model.newdetails.NewsDetails;
-import com.toan_itc.data.rxjava.Preconditions;
+import com.toan_itc.data.utils.Preconditions;
 import com.toan_itc.data.utils.logger.Logger;
 
 import java.util.Random;

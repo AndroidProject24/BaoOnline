@@ -23,7 +23,7 @@ public class ListNewsUseCase extends UseCase {
 
     @Override
     public Observable buildUseCaseObservable() {
-        return this.mRepository.GetRss(this.linkRss);
+        return this.mRepository.getRss(this.linkRss,false);
     }
 
     @Override

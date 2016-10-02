@@ -22,9 +22,9 @@ ext {
 
     //Libraries
     supportLibsVersion = '24.2.0'
-    constraintVersion = '1.0.0-alpha4'
-    daggerVersion = '2.6'
-    butterKnifeVersion = '8.2.1'
+    constraintVersion = '1.0.0-alpha8'
+    daggerVersion = '2.7'
+    butterKnifeVersion = '8.4.0'
     rxJavaVersion = '1.1.10'
     rxAndroidVersion = '1.2.1'
     rxBindingVersion = '0.4.0'

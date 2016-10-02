@@ -19,21 +19,21 @@ import dagger.Provides;
 @Module
 public class ThreadingModule {
 
-    @Provides
-    @Singleton
-    DefaultExecutorSupplier provideDefaultExecutorSupplier() {
-        return new DefaultExecutorSupplier();
-    }
+	@Provides
+	@Singleton
+	DefaultExecutorSupplier provideDefaultExecutorSupplier() {
+		return new DefaultExecutorSupplier();
+	}
 
-    @Provides
-    @Singleton
-    ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
-        return jobExecutor;
-    }
+	@Provides
+	@Singleton
+	ThreadExecutor provideThreadExecutor(JobExecutor jobExecutor) {
+		return jobExecutor;
+	}
 
-    @Provides
-    @Singleton
-    PostExecutionThread providePostExecutionThread(UIThread uiThread) {
-        return uiThread;
-    }
+	@Provides
+	@Singleton
+	PostExecutionThread providePostExecutionThread(UIThread uiThread) {
+		return uiThread;
+	}
 }

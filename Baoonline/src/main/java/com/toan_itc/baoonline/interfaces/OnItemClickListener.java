@@ -1,4 +1,4 @@
-package com.toan_itc.baoonline.listener;
+package com.toan_itc.baoonline.interfaces;
 import com.toan_itc.data.model.rss.RssFeedItem;
 
 /**

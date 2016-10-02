@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.toan_itc.data.local.preferences.PreferencesHelper;
 import com.toan_itc.data.local.realm.RealmManager;
+import com.toan_itc.data.repository.disk.DiskDataSource;
+import com.toan_itc.data.repository.memory.MemoryDataSource;
 
 import javax.inject.Singleton;
 
@@ -43,4 +45,15 @@ public class DataModule {
 		return new RealmManager(application);
 	}
 
+	@Provides
+	@Singleton
+	DiskDataSource mDiskData(RealmManager realm) {
+		return new DiskDataSource(realm);
+	}
+
+	@Singleton
+	@Provides
+	MemoryDataSource mMemoryDataSource() {
+		return new MemoryDataSource();
+	}
 }

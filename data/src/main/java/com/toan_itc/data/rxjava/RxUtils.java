@@ -13,18 +13,29 @@ public class RxUtils {
         this.mCompositeSubscription.add(s);
     }
 
-    public void clearSubscription(Subscription subscription) {
-        if (subscription != null) {
-            subscription.unsubscribe();
-            subscription=null;
-        }
-    }
-
-    public void clearCompositeSubscription(){
+    public void unCompositeSubscription(){
         if (this.mCompositeSubscription != null) {
             this.mCompositeSubscription.clear();
             this.mCompositeSubscription=null;
         }
     }
+
+    public void unSubscribe(Subscription subscription) {
+        if (subscription != null) {
+            subscription.unsubscribe();
+        }
+    }
+
+    public static void unSubscribe(Subscription... subscriptions)
+    {
+        for (Subscription subscription : subscriptions)
+        {
+            if (subscription != null && !subscription.isUnsubscribed())
+            {
+                subscription.unsubscribe();
+            }
+        }
+    }
+
 
 }

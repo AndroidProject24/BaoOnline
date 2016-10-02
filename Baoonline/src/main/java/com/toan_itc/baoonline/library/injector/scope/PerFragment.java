@@ -20,4 +20,5 @@ import javax.inject.Scope;
  * limitations under the License. */
 @Scope
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PerFragment {}
+public @interface PerFragment {
+}

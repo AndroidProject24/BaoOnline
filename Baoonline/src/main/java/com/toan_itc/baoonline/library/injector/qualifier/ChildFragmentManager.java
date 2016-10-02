@@ -20,4 +20,5 @@ import javax.inject.Qualifier;
  * limitations under the License. */
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ChildFragmentManager {}
+public @interface ChildFragmentManager {
+}

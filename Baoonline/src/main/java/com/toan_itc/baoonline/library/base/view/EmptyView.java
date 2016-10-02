@@ -7,6 +7,6 @@ package com.toan_itc.baoonline.library.base.view;
  */
 public interface EmptyView {
 
-    void showEmptyView(String message);
+	void showEmptyView(String message);
 
 }

@@ -39,92 +39,101 @@ import jp.wasabeef.takt.Takt;
  * Time:20:59
  */
 public class BaseApplication extends Application {
-    private static BaseApplication mInstance;
-    private RefWatcher refWatcher;
-    private ApplicationComponent applicationComponent;
-    private File cacheDir =null;
-    @Inject
-    RealmManager mRealmManager;
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mInstance = this;
-        initCache();
-        initInjector();
-        initDatabase();
-        initFresco();
-        //initDebug();
-    }
-    private void initDatabase(){
-        getApplicationComponent().inject(this);
-        mRealmManager.initialize();
-        mRealmManager.Set_News(this);
-    }
-    private void initFresco(){
-	    DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(getApplicationContext())
-			    .setBaseDirectoryPath(cacheDir)
-			    .setMaxCacheSize(100)
-	            .build();
-        ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
-                .newBuilder(getApplicationContext(), applicationComponent.mOkHttpClient())
-                .setBitmapsConfig(Bitmap.Config.RGB_565)
-		        .setSmallImageDiskCacheConfig(diskCacheConfig)
-                .build();
-        Fresco.initialize(getApplicationContext(),config);
-    }
-    private void initDebug(){
-        CrashException.init(this, getString(R.string.app_name)).setAppend(true).setSimple(false);
-        if (BuildConfig.DEBUG) {
-            AndroidDevMetrics.initWith(this);
-            refWatcher = LeakCanary.install(this);
-            BlockCanary.install(this, new AppBlockCanaryContext()).start();
-            Stetho.initialize(Stetho.newInitializerBuilder(this)
-                    .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                    .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
-                    .build());
-            Takt.stock(this)
-                    .seat(Seat.TOP_LEFT)
-                    .color(Color.RED)
-                    .size(20f)
-                    .play();
-        }
-    }
-    private void initInjector(){
-        if(applicationComponent==null)
-        applicationComponent = DaggerApplicationComponent.builder()
-                .applicationModule(new ApplicationModule(this))
-                .networkModule(new NetworkModule(cacheDir,true))
-                .threadingModule(new ThreadingModule())
-		        .dataModule(new DataModule(this))
-                .build();
-    }
-    private void initCache(){
-        try {
-            if (getApplicationContext().getExternalCacheDir() != null && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                cacheDir = getApplicationContext().getExternalCacheDir();
-            } else {
-                cacheDir = getApplicationContext().getCacheDir();
-            }
-        } catch (Exception e) {
-            cacheDir = getApplicationContext().getCacheDir();
-        }
-    }
-    public static BaseApplication getInstance() {
-        return mInstance;
-    }
+	private static BaseApplication mInstance;
+	private RefWatcher refWatcher;
+	private ApplicationComponent applicationComponent;
+	private File cacheDir = null;
+	@Inject
+	RealmManager mRealmManager;
 
-    public static RefWatcher getRefWatcher() {
-        if(getInstance().refWatcher!=null)
-            return getInstance().refWatcher;
-        else
-            return LeakCanary.install(getInstance());
-    }
-    public ApplicationComponent getApplicationComponent() {
-        return applicationComponent;
-    }
-    @Override
-    public void onTerminate() {
-        Takt.finish();
-        super.onTerminate();
-    }
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		mInstance = this;
+		initCache();
+		initInjector();
+		initDatabase();
+		initFresco();
+		//initDebug();
+	}
+
+	private void initDatabase() {
+		getApplicationComponent().inject(this);
+		mRealmManager.initialize();
+		mRealmManager.Set_News(this);
+	}
+
+	private void initFresco() {
+		DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder(getApplicationContext())
+				.setBaseDirectoryPath(cacheDir)
+				.setMaxCacheSize(100)
+				.build();
+		ImagePipelineConfig config = OkHttpImagePipelineConfigFactory
+				.newBuilder(getApplicationContext(), applicationComponent.mOkHttpClient())
+				.setBitmapsConfig(Bitmap.Config.RGB_565)
+				.setSmallImageDiskCacheConfig(diskCacheConfig)
+				.build();
+		Fresco.initialize(getApplicationContext(), config);
+	}
+
+	private void initDebug() {
+		CrashException.init(this, getString(R.string.app_name)).setAppend(true).setSimple(false);
+		if (BuildConfig.DEBUG) {
+			AndroidDevMetrics.initWith(this);
+			refWatcher = LeakCanary.install(this);
+			BlockCanary.install(this, new AppBlockCanaryContext()).start();
+			Stetho.initialize(Stetho.newInitializerBuilder(this)
+					.enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+					.enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
+					.build());
+			Takt.stock(this)
+					.seat(Seat.TOP_LEFT)
+					.color(Color.RED)
+					.size(20f)
+					.play();
+		}
+	}
+
+	private void initInjector() {
+		if (applicationComponent == null)
+			applicationComponent = DaggerApplicationComponent.builder()
+					.applicationModule(new ApplicationModule(this))
+					.networkModule(new NetworkModule(cacheDir, true))
+					.threadingModule(new ThreadingModule())
+					.dataModule(new DataModule(this))
+					.build();
+	}
+
+	private void initCache() {
+		try {
+			if (getApplicationContext().getExternalCacheDir() != null && Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+				cacheDir = getApplicationContext().getExternalCacheDir();
+			} else {
+				cacheDir = getApplicationContext().getCacheDir();
+			}
+		} catch (Exception e) {
+			cacheDir = getApplicationContext().getCacheDir();
+		}
+	}
+
+	public static BaseApplication getInstance() {
+		return mInstance;
+	}
+
+	public static RefWatcher getRefWatcher() {
+		if (getInstance().refWatcher != null)
+			return getInstance().refWatcher;
+		else
+			return LeakCanary.install(getInstance());
+	}
+
+	public ApplicationComponent getApplicationComponent() {
+		return applicationComponent;
+	}
+
+	@Override
+	public void onTerminate() {
+		Takt.finish();
+		super.onTerminate();
+	}
 }

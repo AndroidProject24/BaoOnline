@@ -16,23 +16,29 @@ import dagger.Provides;
 @Module
 public class ViewHolderModule {
 
-    private final AppCompatActivity activity;
+	private final AppCompatActivity activity;
 
-    public ViewHolderModule(View itemView) {
-        activity = (AppCompatActivity) itemView.getContext();
-    }
+	public ViewHolderModule(View itemView) {
+		activity = (AppCompatActivity) itemView.getContext();
+	}
 
-    @Provides
-    @PerViewHolder
-    @ActivityContext
-    Context provideActivityContext() { return activity; }
+	@Provides
+	@PerViewHolder
+	@ActivityContext
+	Context provideActivityContext() {
+		return activity;
+	}
 
-    @Provides
-    @PerViewHolder
-    FragmentManager provideFragmentManager() { return activity.getSupportFragmentManager(); }
+	@Provides
+	@PerViewHolder
+	FragmentManager provideFragmentManager() {
+		return activity.getSupportFragmentManager();
+	}
 
-    @Provides
-    @PerViewHolder
-    Navigator provideNavigator() { return new ActivityNavigator(activity); }
+	@Provides
+	@PerViewHolder
+	Navigator provideNavigator() {
+		return new ActivityNavigator(activity);
+	}
 
 }

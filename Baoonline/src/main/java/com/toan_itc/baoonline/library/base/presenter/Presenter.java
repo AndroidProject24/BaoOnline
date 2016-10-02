@@ -8,7 +8,7 @@ import com.toan_itc.baoonline.library.base.view.BaseView;
  */
 public interface Presenter<V extends BaseView> {
 
-    void attachView(V mvpView);
+	void attachView(V mvpView);
 
-    void detachView();
+	void detachView();
 }

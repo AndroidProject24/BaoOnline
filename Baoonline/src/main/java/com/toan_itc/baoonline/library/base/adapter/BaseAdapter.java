@@ -2,8 +2,6 @@ package com.toan_itc.baoonline.library.base.adapter;
 
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -12,90 +10,105 @@ import java.util.List;
  * Email: huynhvantoan.itc@gmail.com
  */
 
-public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class BaseAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> implements DataManager<T> {
+	private DataManager<T> mTDataManager;
 
-    private List<T> mList = new ArrayList<>();
+	public BaseAdapter() {
+		this(null);
+	}
 
-    public BaseAdapter() {
-        this(null);
-    }
+	public BaseAdapter(List<T> list) {
+		mTDataManager = new ListDataManagerImpl<>(list, this);
+	}
 
-    public BaseAdapter(List<T> list) {
-        if (list != null) {
-            mList.addAll(list);
-        }
-    }
+	@Override
+	public void add(T elem) {
+		mTDataManager.add(elem);
+	}
 
-    public List<T> getList() {
-        return mList;
-    }
+	@Override
+	public void addAt(int location, T elem) {
+		mTDataManager.addAt(location, elem);
+	}
 
-    public void addAll(Collection<? extends T> collection) {
-        int oldSize = mList.size();
-        mList.addAll(collection);
-        notifyItemRangeInserted(oldSize, collection.size());
-    }
+	@Override
+	public void addItems(List<T> elements) {
+		mTDataManager.addItems(elements);
+	}
 
-    public void replace(Collection<? extends T> collection) {
-        mList.clear();
-        mList.addAll(collection);
-        notifyDataSetChanged();
-    }
+	@Override
+	public void addItemsAt(int location, List<T> elements) {
+		mTDataManager.addItemsAt(location, elements);
+	}
 
-    public void add(T item) {
-        mList.add(item);
-        notifyItemInserted(mList.size() - 1);
-    }
+	@Override
+	public void replace(T oldElem, T newElem) {
+		mTDataManager.replace(oldElem, newElem);
+	}
 
-    public void set(int position, T item) {
-        mList.set(position, item);
-        notifyItemChanged(position);
-    }
+	@Override
+	public void replaceAt(int index, T elem) {
+		mTDataManager.replaceAt(index, elem);
+	}
 
-    public T remove(int position) {
-        T item = mList.remove(position);
-        notifyItemRemoved(position);
-        return item;
-    }
+	@Override
+	public void replaceAll(List<T> elements) {
+		mTDataManager.replaceAll(elements);
+	}
 
-    public void clear() {
-        int oldSize = mList.size();
-        mList.clear();
-        notifyItemRangeRemoved(0, oldSize);
-    }
+	@Override
+	public void remove(T elem) {
+		mTDataManager.remove(elem);
+	}
 
-    public int findPositionById(long id) {
-        int count = getItemCount();
-        for (int i = 0; i < count; ++i) {
-            if (getItemId(i) == id) {
-                return i;
-            }
-        }
-        return RecyclerView.NO_POSITION;
-    }
+	@Override
+	public void removeItems(List<T> elements) {
+		mTDataManager.removeItems(elements);
+	}
 
-    public void notifyItemChangedById(long id) {
-        int position = findPositionById(id);
-        if (position != RecyclerView.NO_POSITION) {
-            notifyItemChanged(position);
-        }
-    }
+	@Override
+	public void removeAt(int index) {
+		mTDataManager.removeAt(index);
+	}
 
-    public T removeById(long id) {
-        int position = findPositionById(id);
-        if (position != RecyclerView.NO_POSITION) {
-            return remove(position);
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public T getItem(int position) {
+		return mTDataManager.getItem(position);
+	}
 
-    public T getItem(int position) {
-        return mList.get(position);
-    }
+	@Override
+	public final int getDataSize() {
+		return mTDataManager.getDataSize();
+	}
 
-    @Override
-    public int getItemCount() {
-        return mList.size();
-    }
+
+	@Override
+	public boolean contains(T elem) {
+		return mTDataManager.contains(elem);
+	}
+
+	@Override
+	public void setDataSource(List<T> elements) {
+		mTDataManager.setDataSource(elements);
+	}
+
+	@Override
+	public void clear() {
+		mTDataManager.clear();
+	}
+
+	@Override
+	public List<T> getItems() {
+		return mTDataManager.getItems();
+	}
+
+	@Override
+	public int getItemCount() {
+		return mTDataManager.getDataSize();
+	}
+
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
 }

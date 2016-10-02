@@ -15,16 +15,20 @@ import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.toan_itc.data.utils.DensityUtil;
+import com.toan_itc.data.utils.Preconditions;
 
 public class FrescoImageLoader implements ImageLoaderListener {
     @Override
     public void loadImage(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView) {
+	    Preconditions.checkNotNull(simpleDraweeView,"SimpleDraweeView not null!");
         simpleDraweeView.setImageURI(Uri.parse(url));
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void loadController(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView, int width, int height,@Nullable ControllerListener controllerListener) {
+	    Preconditions.checkNotNull(simpleDraweeView,"simpleDraweeView not null!");
+	    Preconditions.checkNotNull(controllerListener,"controllerListener not null!");
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
                 .setLocalThumbnailPreviewsEnabled(true)
 		        .setCacheChoice(ImageRequest.CacheChoice.DEFAULT)
@@ -44,6 +48,7 @@ public class FrescoImageLoader implements ImageLoaderListener {
 
     @Override
     public void loadHierarchy(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView) {
+	    Preconditions.checkNotNull(simpleDraweeView,"simpleDraweeView not null!");
 	    GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(null)
 			    .setFadeDuration(300)
 			    .setPlaceholderImage(null)
