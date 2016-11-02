@@ -6,7 +6,6 @@
    public *;
 }
 
-
 # ----------------------------------------
 # Retrolambda
 # ----------------------------------------
@@ -28,6 +27,7 @@
 -keep class butterknife.** { *; }
 -dontwarn butterknife.internal.**
 -keep class **$$ViewBinder { *; }
+-keep public class * implements butterknife.Unbinder { public <init>(...); }
 -keepclasseswithmembernames class * {
     @butterknife.* <fields>;
 }
@@ -35,9 +35,8 @@
     @butterknife.* <methods>;
 }
 
-
 # ----------------------------------------
-# REALM
+# Realm
 # ----------------------------------------
 -keep class com.kct.box.mvp.model.** { *; }
 -keep class io.realm.annotations.RealmModule
@@ -70,9 +69,10 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 -keep class com.google.gson.FieldNamingStrategy { *; }
--keep class com.google.gson.examples.android.model.** { *; }
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
 -keep class com.kct.box.mvp.model.** { *; }
-
 
 # ----------------------------------------
 # Libs
@@ -131,3 +131,4 @@
 #Stetho
 -keep class com.facebook.stetho.** { *; }
 -keep class com.uphyca.** { *; }
+-dontwarn com.facebook.stetho.**

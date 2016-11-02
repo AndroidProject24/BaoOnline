@@ -1,6 +1,6 @@
 
 # ----------------------------------------
-# Retrofit and ExoOKHttp
+# Retrofit and Exo OKHttp
 # ----------------------------------------
 # OKHttp 3
 -keepattributes Signature
@@ -9,6 +9,7 @@
 -keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
 -keep class okhttp3.** { *; }
+-dontwarn okio.**
 # ----------------------------------------
 # Dagger 2
 # ----------------------------------------
@@ -31,6 +32,9 @@
 -keep class retrofit2.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
+-dontnote retrofit2.Platform
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-dontwarn retrofit2.Platform$Java8
 -keepclasseswithmembers class * {
     @retrofit2.http.* <methods>;
 }
@@ -41,12 +45,13 @@
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
 -dontwarn okio.**
 
-# LeakCanary
+# Leakcanary
 -dontwarn com.squareup.haha.guava.**
 -dontwarn com.squareup.haha.perflib.**
 -dontwarn com.squareup.haha.trove.**
 -dontwarn com.squareup.leakcanary.**
 -keep class com.squareup.haha.** { *; }
 -keep class com.squareup.leakcanary.** { *; }
+-dontwarn android.app.Notification
 ## Marshmallow removed Notification.setLatestEventInfo()
 -dontwarn android.app.Notification

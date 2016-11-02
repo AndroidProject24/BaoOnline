@@ -24,7 +24,6 @@ public class FrescoImageLoader implements ImageLoaderListener {
         simpleDraweeView.setImageURI(Uri.parse(url));
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void loadController(@NonNull String url, @NonNull SimpleDraweeView simpleDraweeView, int width, int height,@Nullable ControllerListener controllerListener) {
 	    Preconditions.checkNotNull(simpleDraweeView,"simpleDraweeView not null!");

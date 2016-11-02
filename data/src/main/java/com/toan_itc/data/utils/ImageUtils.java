@@ -37,27 +37,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+
 /**
- * <pre>
- *     author: Blankj
- *     blog  : http://blankj.com
- *     time  : 2016/8/12
- *     desc  : 图片相关工具类
- * </pre>
+ * Created by huynhvantoan on 9/23/16.
+ * Email huynhvantoan.itc@gmail.com
  */
 public class ImageUtils {
 
     private ImageUtils() {
-        throw new UnsupportedOperationException("u can't fuck me...");
+        throw new UnsupportedOperationException("Error ...");
     }
 
-    /**
-     * bitmap转byteArr
-     *
-     * @param bitmap bitmap对象
-     * @param format 格式
-     * @return 字节数组
-     */
     public static byte[] bitmap2Bytes(Bitmap bitmap, CompressFormat format) {
         if (bitmap == null) return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -65,75 +55,30 @@ public class ImageUtils {
         return baos.toByteArray();
     }
 
-    /**
-     * byteArr转bitmap
-     *
-     * @param bytes 字节数组
-     * @return bitmap对象
-     */
     public static Bitmap bytes2Bitmap(byte[] bytes) {
         return (bytes == null || bytes.length == 0) ? null : BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
     }
 
-    /**
-     * drawable转bitmap
-     *
-     * @param drawable drawable对象
-     * @return bitmap对象
-     */
     public static Bitmap drawable2Bitmap(Drawable drawable) {
         return drawable == null ? null : ((BitmapDrawable) drawable).getBitmap();
     }
 
-    /**
-     * bitmap转drawable
-     *
-     * @param resources resources对象
-     * @param bitmap    bitmap对象
-     * @return drawable对象
-     */
     public static Drawable bitmap2Drawable(Resources resources, Bitmap bitmap) {
         return bitmap == null ? null : new BitmapDrawable(resources, bitmap);
     }
 
-    /**
-     * drawable转byteArr
-     *
-     * @param drawable drawable对象
-     * @param format   格式
-     * @return 字节数组
-     */
     public static byte[] drawable2Bytes(Drawable drawable, CompressFormat format) {
         return bitmap2Bytes(drawable2Bitmap(drawable), format);
     }
 
-    /**
-     * byteArr转drawable
-     *
-     * @param resources resources对象
-     * @param bytes     字节数组
-     * @return drawable对象
-     */
     public static Drawable bytes2Drawable(Resources resources, byte[] bytes) {
         return bitmap2Drawable(resources, bytes2Bitmap(bytes));
     }
 
-    /**
-     * 根据文件路径获取bitmap
-     *
-     * @param filePath 文件路径
-     * @return bitmap
-     */
     public static Bitmap getBitmapByFile(String filePath) {
         return getBitmapByFile(FileUtils.getFileByPath(filePath));
     }
 
-    /**
-     * 根据文件路径获取bitmap
-     *
-     * @param file 文件路径
-     * @return bitmap
-     */
     public static Bitmap getBitmapByFile(File file) {
         if (file == null) return null;
         try {
@@ -144,12 +89,6 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * 根据文件路径获取bitmap
-     *
-     * @param filePath 文件路径
-     * @return bitmap
-     */
     public static Bitmap getBitmapByFile(String filePath, int reqWidth, int reqHeight) {
         if (StringUtils.isSpace(filePath)) return null;
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -184,26 +123,10 @@ public class ImageUtils {
     }
 
 
-    /**
-     * 缩放图片
-     *
-     * @param src       源图片
-     * @param newWidth  新宽度
-     * @param newHeight 新高度
-     * @return 缩放后的图片
-     */
     public static Bitmap scaleImage(Bitmap src, int newWidth, int newHeight) {
         return scaleImage(src, (float) newWidth / src.getWidth(), (float) newHeight / src.getHeight());
     }
 
-    /**
-     * 缩放图片
-     *
-     * @param src         源图片
-     * @param scaleWidth  缩放宽度比
-     * @param scaleHeight 缩放高度比
-     * @return 缩放后的图片
-     */
     public static Bitmap scaleImage(Bitmap src, float scaleWidth, float scaleHeight) {
         if (src == null) return null;
         Matrix matrix = new Matrix();
@@ -213,12 +136,6 @@ public class ImageUtils {
         return res;
     }
 
-    /**
-     * 旋转图片
-     *
-     * @param src     源图片
-     * @param degrees 旋转角度
-     */
     public static Bitmap rotateBitmap(Bitmap src, int degrees) {
         if (src == null || degrees == 0) return src;
         Matrix matrix = new Matrix();
@@ -228,11 +145,6 @@ public class ImageUtils {
         return res;
     }
 
-    /**
-     * 获取图片旋转角度
-     *
-     * @param path 路径
-     */
     public static int getRotateDegree(String path) {
         int degree = 0;
         try {
@@ -259,12 +171,6 @@ public class ImageUtils {
         return degree;
     }
 
-    /**
-     * 转为圆形图片
-     *
-     * @param src 源图片
-     * @return 圆形图片
-     */
     public static Bitmap toRound(Bitmap src) {
         if (src == null) return null;
         int width = src.getWidth();
@@ -283,13 +189,6 @@ public class ImageUtils {
         return output;
     }
 
-    /**
-     * 转为圆角图片
-     *
-     * @param src 源图片
-     * @param ret 圆角的度数
-     * @return 圆角图片
-     */
     public static Bitmap toRoundCorner(Bitmap src, float ret) {
         if (null == src) return null;
         int width = src.getWidth();
@@ -310,16 +209,6 @@ public class ImageUtils {
         return out;
     }
 
-    /**
-     * 快速模糊
-     * <p>先缩小原图，对小图进行模糊，再放大回原先尺寸</p>
-     *
-     * @param context 上下文
-     * @param src     源图片
-     * @param scale   缩小倍数
-     * @param radius  模糊半径
-     * @return 模糊后的图片
-     */
     public static Bitmap fastBlur(Context context, Bitmap src, int scale, float radius) {
         if (isEmptyBitmap(src)) return null;
         int width = src.getWidth();
@@ -348,15 +237,6 @@ public class ImageUtils {
         return res;
     }
 
-    /**
-     * renderScript模糊图片
-     * <p>API大于17</p>
-     *
-     * @param context 上下文
-     * @param src     源图片
-     * @param radius  模糊度(0...25)
-     * @return 模糊后的图片
-     */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     public static Bitmap renderScriptBlur(Context context, Bitmap src, float radius) {
         if (isEmptyBitmap(src)) return null;
@@ -385,14 +265,6 @@ public class ImageUtils {
         return src;
     }
 
-    /**
-     * stack模糊图片
-     *
-     * @param src              源图片
-     * @param radius           模糊半径
-     * @param canReuseInBitmap 是否回收
-     * @return stackBlur模糊图片
-     */
     public static Bitmap stackBlur(Bitmap src, int radius, boolean canReuseInBitmap) {
         Bitmap bitmap;
         if (canReuseInBitmap) {
@@ -597,14 +469,6 @@ public class ImageUtils {
         return (bitmap);
     }
 
-    /**
-     * 添加颜色边框
-     *
-     * @param src         源图片
-     * @param borderWidth 边框宽度
-     * @param color       边框的颜色值
-     * @return 带颜色边框图
-     */
     public static Bitmap addFrame(Bitmap src, int borderWidth, int color) {
         if (isEmptyBitmap(src)) return null;
         int newWidth = src.getWidth() + borderWidth;
@@ -626,13 +490,6 @@ public class ImageUtils {
         return out;
     }
 
-    /**
-     * 添加倒影
-     *
-     * @param src              源图片的
-     * @param reflectionHeight 倒影高度
-     * @return 倒影图
-     */
     public static Bitmap addReflection(Bitmap src, int reflectionHeight) {
         if (isEmptyBitmap(src)) return null;
         final int REFLECTION_GAP = 0;
@@ -667,17 +524,6 @@ public class ImageUtils {
         return out;
     }
 
-    /**
-     * 添加水印文字
-     *
-     * @param src      源图片
-     * @param text     文本
-     * @param textSize 字体大小
-     * @param color    颜色
-     * @param x        起始坐标x
-     * @param y        起始坐标y
-     * @return 带有水印文字的图片
-     */
     public static Bitmap addText(Bitmap src, String text, int textSize, int color, float x, float y) {
         Config bitmapConfig = src.getConfig();
         if (bitmapConfig == null) bitmapConfig = Config.ARGB_8888;
@@ -705,26 +551,10 @@ public class ImageUtils {
         return BitmapFactory.decodeStream(new ByteArrayInputStream(os.toByteArray()));
     }
 
-    /**
-     * 保存图片
-     *
-     * @param src      源图片
-     * @param filePath 要保存到的文件路径
-     * @param format   格式
-     * @return {@code true}: 成功<br>{@code false}: 失败
-     */
     public static boolean save(Bitmap src, String filePath, CompressFormat format) {
         return save(src, FileUtils.getFileByPath(filePath), format);
     }
 
-    /**
-     * 保存图片
-     *
-     * @param src    源图片
-     * @param file   要保存到的文件
-     * @param format 格式
-     * @return {@code true}: 成功<br>{@code false}: 失败
-     */
     public static boolean save(Bitmap src, File file, CompressFormat format) {
         if (isEmptyBitmap(src) || file == null) return false;
         System.out.println(src.getWidth() + "," + src.getHeight());
@@ -740,42 +570,20 @@ public class ImageUtils {
         }
     }
 
-    /**
-     * 判断文件是否为图片
-     *
-     * @param file 　文件
-     */
     public static boolean isImage(File file) {
         return file != null && isImage(file.getPath());
     }
 
-    /**
-     * 判断文件是否为图片
-     *
-     * @param filePath 　文件路径
-     */
     public static boolean isImage(String filePath) {
         String path = filePath.toUpperCase();
         return path.endsWith(".PNG") || path.endsWith(".JPG") ||
                 path.endsWith(".JPEG") || path.endsWith(".BMP");
     }
 
-    /**
-     * 获取图片类型
-     *
-     * @param filePath 文件路径
-     * @return 图片类型
-     */
     public static String getImageType(String filePath) {
         return getImageType(FileUtils.getFileByPath(filePath));
     }
 
-    /**
-     * 获取图片类型
-     *
-     * @param file 文件
-     * @return 文件类型
-     */
     public static String getImageType(File file) {
         if (file == null || !file.exists()) return null;
         InputStream is = null;
@@ -843,13 +651,6 @@ public class ImageUtils {
                 && (b[0] == 0x42) && (b[1] == 0x4d);
     }
 
-
-    /**
-     * 判断bitmap对象是否为空
-     *
-     * @param src 源图片
-     * @return {@code true}: 是<br>{@code false}: 否
-     */
     private static boolean isEmptyBitmap(Bitmap src) {
         return src == null || src.getWidth() == 0 || src.getHeight() == 0;
     }
