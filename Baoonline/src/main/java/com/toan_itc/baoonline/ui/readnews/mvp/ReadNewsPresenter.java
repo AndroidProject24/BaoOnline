@@ -1,12 +1,8 @@
 package com.toan_itc.baoonline.ui.readnews.mvp;
 
-import com.fernandocejas.frodo.annotation.RxLogSubscriber;
-import com.toan_itc.baoonline.library.base.presenter.BasePresenter;
-import com.toan_itc.baoonline.library.injector.scope.PerActivity;
-import com.toan_itc.data.exception.NetworkError;
-import com.toan_itc.data.executor.DefaultSubscriber;
-import com.toan_itc.data.model.newdetails.NewsDetails;
-import com.toan_itc.data.usecase.UseCase;
+import com.toan_itc.baoonline.base.presenter.BasePresenter;
+import com.toan_itc.baoonline.injector.scope.PerActivity;
+import com.toan_itc.data.interactor.UseCase;
 
 import javax.inject.Inject;
 
@@ -23,10 +19,10 @@ public class ReadNewsPresenter extends BasePresenter<ReadNews> {
     }
     public void getContent_News(){
         getView().showLoading();
-        this.mUseCase.execute(new UserListSubscriber());
+        //this.mUseCase.execute(new UserListSubscriber());
     }
-    @RxLogSubscriber
-    private final class UserListSubscriber extends DefaultSubscriber<NewsDetails> {
+    /*@RxLogSubscriber
+    private final class UserListSubscriber extends DefaultObserver<NewsDetails> {
 
         @Override
         public void onError(Throwable e) {
@@ -38,7 +34,7 @@ public class ReadNewsPresenter extends BasePresenter<ReadNews> {
         public void onNext(NewsDetails newsDetails) {
             getView().loadNews(newsDetails);
         }
-    }
+    }*/
     @Override
     public void detachView() {
         super.detachView();

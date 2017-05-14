@@ -15,13 +15,12 @@
  */
 package com.toan_itc.baoonline.ui.home.di;
 
-import com.toan_itc.baoonline.library.injector.scope.PerFragment;
-import com.toan_itc.data.repository.remote.ListNewsUseCase;
+import com.toan_itc.baoonline.injector.scope.PerFragment;
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
+import com.toan_itc.data.interactor.ListNewsUseCase;
+import com.toan_itc.data.interactor.UseCase;
 import com.toan_itc.data.repository.Repository;
-import com.toan_itc.data.usecase.UseCase;
-
 import dagger.Module;
 import dagger.Provides;
 

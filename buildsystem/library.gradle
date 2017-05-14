@@ -14,34 +14,36 @@ allprojects {
 
 ext {
     //Android
-    androidBuildToolsVersion = "24.0.2"
+    androidBuildToolsVersion = "25.0.2"
     androidMinSdkVersion = 16
-    androidTargetSdkVersion = 24
-    androidCompileSdkVersion = 24
+    androidTargetSdkVersion = 25
+    androidCompileSdkVersion = 25
     java8 = true
 
-    //Libraries
-    supportLibsVersion = '24.2.0'
-    constraintVersion = '1.0.0-alpha8'
-    daggerVersion = '2.7'
-    butterKnifeVersion = '8.4.0'
-    rxJavaVersion = '1.1.10'
-    rxAndroidVersion = '1.2.1'
-    rxBindingVersion = '0.4.0'
-    rxPermissionsVersion ='0.7.0@aar'
-    javaxAnnotationVersion = '1.0'
-    okHttpVersion = '3.4.1'
-    retrofitVersion ='2.1.0'
-    gsonVersion     ='2.7'
-    frescoVersion   = '0.13.0'
-    frescoHttpVersion = '0.13.0+'
-    jsoupVersion   = '1.9.2'
-    tikxmlVersion = '0.5.2-SNAPSHOT'
-    baseRecyclerVersion = 'v1.8.5'
-    reactivenetwork = '0.5.2'
+    //Libraries :Core
+    supportLibsVersion = '25.2.0'
+    constraintVersion = '1.0.1'
+    daggerVersion = '2.9'
+    butterKnifeVersion = '8.5.1'
+    rxJavaVersion = '1.2.5'//'2.0.6'
+    rxAndroidVersion = '1.2.1'//'2.0.1'
+    rxBindingVersion = '1.0.0'
+    rxPermissionsVersion ='0.9.1@aar'
+    okHttpVersion = '3.6.0'
+    retrofitVersion ='2.2.0'
+    gsonVersion     ='2.8.0'
+    frescoVersion   = '1.1.0'
+    fragmentationVersion ='0.10.4'
+
+    //Libraries :App
+    jsoupVersion   = '1.10.2'
+    tikxmlVersion = '0.8.11-SNAPSHOT'
+    baseRecyclerVersion = '2.8.1'
+    reactivenetwork = '0.8.0'
     autoValue       = '1.2'
-    bommenuVersion  ='1.0.9'
-    //Testing
+    bommenuVersion  ='2.0.7'
+
+    //Libraries :Testing
     robolectricVersion = '3.0'
     jUnitVersion = '4.12'
     assertJVersion = '1.7.1'
@@ -49,14 +51,14 @@ ext {
     dexmakerVersion = '1.0'
     espressoVersion = '2.0'
     testingSupportLibVersion = '0.1'
-    autoValue='1.2-rc1'
+    autoValue='1.2'
 
-    //Development
-    leakCanaryVersion = '1.4-beta2'
-    blockcanaryVersion = '1.3.0'
-    stethoVersion = '1.3.1'
-    realmStethoVersion='0.9.0'
-    taktVersion   = '1.0.2'
+    //Libraries: Development
+    leakCanaryVersion = '1.6-SNAPSHOT'
+    blockcanaryVersion = '1.4.1'
+    stethoVersion = '1.4.2'
+    realmStethoVersion='2.0.0'
+    taktVersion   = '1.0.3'
 
     supportDependencies = [
             supportCompat          : "com.android.support:appcompat-v7:${supportLibsVersion}",
@@ -67,17 +69,18 @@ ext {
             constraintLayout       : "com.android.support.constraint:constraint-layout:${constraintVersion}",
             customtabs             : "com.android.support:customtabs:${supportLibsVersion}",
             butterKnife            : "com.jakewharton:butterknife:${butterKnifeVersion}",
-            apt_butterKnife        : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            butterknifeCompiler    : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
             baseRecyclerView       : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${baseRecyclerVersion}",
+            fragmentation          : "me.yokeyword:fragmentation:${fragmentationVersion}"
     ]
-
 
     injectDependencies = [
             dagger                 : "com.google.dagger:dagger:${daggerVersion}",
             daggerCompiler         : "com.google.dagger:dagger-compiler:${daggerVersion}",
-            javaxannotation        : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             rxjava                 : "io.reactivex:rxjava:${rxJavaVersion}",
             rxandroid              : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            /*rxjava                 : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxandroid              : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",*/
             rxbinding              : "com.jakewharton.rxbinding:rxbinding:${rxBindingVersion}",
             rxpermissions          : "com.tbruyelle.rxpermissions:rxpermissions:${rxPermissionsVersion}",
             autoValue              : "com.google.auto.value:auto-value:${autoValue}",
@@ -92,7 +95,7 @@ ext {
             retrofitRxJavaAdapter  : "com.squareup.retrofit2:adapter-rxjava:${retrofitVersion}",
             reactivenetwork        : "com.github.pwittchen:reactivenetwork:${reactivenetwork}",
             fresco                 : "com.facebook.fresco:fresco:${frescoVersion}",
-            frescoHttp             : "com.facebook.fresco:imagepipeline-okhttp3:${frescoHttpVersion}",
+            frescoHttp             : "com.facebook.fresco:imagepipeline-okhttp3:${frescoVersion}",
     ]
 
     appDependencies  =[
@@ -100,14 +103,15 @@ ext {
             tikxml_annotation      : "com.tickaroo.tikxml:annotation:${tikxmlVersion}",
             tikxml_core            : "com.tickaroo.tikxml:core:${tikxmlVersion}",
             tikxml_processor       : "com.tickaroo.tikxml:processor:${tikxmlVersion}",
+            tikxml_auto_value      : "com.tickaroo.tikxml:auto-value-tikxml:${tikxmlVersion}",
             jsoup                  : "org.jsoup:jsoup:${jsoupVersion}",
             boomMenu               : "com.nightonke:boommenu:${bommenuVersion}",
-            drawer                 : "com.mikepenz:materialdrawer:5.6.0@aar",
+            drawer                 : "com.mikepenz:materialdrawer:5.6.0@aar",//5.8.1
     ]
 
     developmentDependencies = [
             leakCanary  : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
-            blockCanary : "com.github.moduth:blockcanary-android:${blockcanaryVersion}",
+            blockCanary : "com.github.markzhai:blockcanary-android:${blockcanaryVersion}",
             stetho      : "com.facebook.stetho:stetho:${stethoVersion}",
             realmStetho : "com.uphyca:stetho_realm:${realmStethoVersion}",
             stethoOkHttp: "com.facebook.stetho:stetho-okhttp3:${stethoVersion}",

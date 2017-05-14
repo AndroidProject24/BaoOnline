@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BaoOnlineMVP.iml" filepath="$PROJECT_DIR$/BaoOnlineMVP.iml" />
       <module fileurl="file://$PROJECT_DIR$/Baoonline/Baoonline.iml" filepath="$PROJECT_DIR$/Baoonline/Baoonline.iml" />
-      <module fileurl="file://$PROJECT_DIR$/data/data.iml" filepath="$PROJECT_DIR$/data/data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
     </modules>
   </component>
 </project>

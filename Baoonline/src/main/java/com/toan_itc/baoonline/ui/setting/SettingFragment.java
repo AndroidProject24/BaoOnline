@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.base.BaseFragment;
+import com.toan_itc.baoonline.base.BaseFragment;
 import com.toan_itc.baoonline.ui.home.activity.MainActivity;
 import com.toan_itc.data.libs.view.StateLayout;
 import com.toan_itc.data.theme.MaterialTheme;

@@ -1,9 +1,9 @@
 package com.toan_itc.baoonline.ui.readnews.mvp;
 
-import com.toan_itc.baoonline.library.base.view.BaseView;
-import com.toan_itc.baoonline.library.base.view.EmptyView;
-import com.toan_itc.baoonline.library.base.view.ErrorView;
-import com.toan_itc.baoonline.library.base.view.LoadView;
+import com.toan_itc.baoonline.base.view.BaseView;
+import com.toan_itc.baoonline.base.view.EmptyView;
+import com.toan_itc.baoonline.base.view.ErrorView;
+import com.toan_itc.baoonline.base.view.LoadView;
 import com.toan_itc.data.model.newdetails.NewsDetails;
 
 /**

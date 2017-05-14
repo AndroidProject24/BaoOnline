@@ -1,2 +1,2 @@
 include ':Baoonline'
-include ':data'
+include ':core'

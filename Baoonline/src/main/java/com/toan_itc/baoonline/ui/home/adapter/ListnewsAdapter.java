@@ -13,7 +13,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.toan_itc.baoonline.R;
 import com.toan_itc.baoonline.interfaces.OnItemClickListener;
 import com.toan_itc.data.libs.image.ImageLoaderListener;
-import com.toan_itc.data.model.rss.RssFeedItem;
+import com.toan_itc.data.model.rssrealm.RealmFeedItem;
+import com.toan_itc.data.utils.Preconditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,10 @@ import butterknife.ButterKnife;
  */
 public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHolder> {
     private Context mContext;
-    private List<RssFeedItem> mRssFeedItems=new ArrayList<>();
+    private List<RealmFeedItem> mRssFeedItems=new ArrayList<>();
     private ImageLoaderListener imageLoaderListener;
     private OnItemClickListener onItemClickListener;
-    public ListnewsAdapter(@NonNull Context context, List<RssFeedItem> mRssFeedItems, ImageLoaderListener imageLoaderListener, OnItemClickListener onItemClickListener) {
+    public ListnewsAdapter(@NonNull Context context, List<RealmFeedItem> mRssFeedItems, ImageLoaderListener imageLoaderListener, OnItemClickListener onItemClickListener) {
        try {
            this.mContext = context;
            this.mRssFeedItems = Preconditions.checkNotNull(mRssFeedItems,"articles cannot be null");
@@ -40,7 +41,7 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
            e.printStackTrace();
        }
     }
-    public void addAll(List<RssFeedItem> list) {
+    public void addAll(List<RealmFeedItem> list) {
         try {
             if(list!=null&&list.size()>0) {
                 int startIndex = mRssFeedItems.size();
@@ -51,7 +52,7 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
             e.printStackTrace();
         }
     }
-    public void updateList(List<RssFeedItem> rssFeedItemList) {
+    public void updateList(List<RealmFeedItem> rssFeedItemList) {
         this.mRssFeedItems.clear();
         this.mRssFeedItems.addAll(rssFeedItemList);
         notifyDataSetChanged();
@@ -64,12 +65,12 @@ public class ListnewsAdapter extends RecyclerView.Adapter<ListnewsAdapter.ViewHo
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         try {
-	        RssFeedItem rssFeedItem=mRssFeedItems.get(position);
+            RealmFeedItem rssFeedItem=mRssFeedItems.get(position);
             if(rssFeedItem!=null) {
                 viewHolder.txt_title.setText(rssFeedItem.getTitle());
                 viewHolder.txt_description.setText(rssFeedItem.getArticle());
                 viewHolder.txt_time.setText(rssFeedItem.getPubDate());
-                imageLoaderListener.loadController(rssFeedItem.getImage(),viewHolder.img_news,300,250,null);
+                imageLoaderListener.loadController(rssFeedItem.getImage(),viewHolder.img_news,300,250);
                 viewHolder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(rssFeedItem));
             }
         }catch (Exception e){

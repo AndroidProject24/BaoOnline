@@ -63,6 +63,6 @@
         android:layout_height="56dp"
         android:layout_gravity="bottom|right"
         android:layout_margin="@dimen/activity_horizontal_margin"
-        app:boom_button_color="@color/colorPrimary"
-        app:boom_button_pressed_color="@color/colorPrimaryDark"/>
+        app:bmb_normalColor="@color/colorPrimary"
+        app:bmb_highlightedColor="@color/colorPrimaryDark"/>
 </FrameLayout>

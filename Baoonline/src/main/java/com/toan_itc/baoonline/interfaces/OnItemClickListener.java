@@ -1,5 +1,6 @@
 package com.toan_itc.baoonline.interfaces;
-import com.toan_itc.data.model.rss.RssFeedItem;
+
+import com.toan_itc.data.model.rssrealm.RealmFeedItem;
 
 /**
  * Created by Toan.IT
@@ -7,5 +8,5 @@ import com.toan_itc.data.model.rss.RssFeedItem;
  */
 
 public interface OnItemClickListener {
-    void onItemClick(RssFeedItem rssFeedItem);
+    void onItemClick(RealmFeedItem data);
 }

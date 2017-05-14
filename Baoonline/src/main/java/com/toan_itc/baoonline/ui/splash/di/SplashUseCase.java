@@ -1,9 +1,10 @@
+/*
 package com.toan_itc.baoonline.ui.splash.di;
 
 import com.toan_itc.data.executor.PostExecutionThread;
 import com.toan_itc.data.executor.ThreadExecutor;
+import com.toan_itc.data.interactor.UseCase;
 import com.toan_itc.data.repository.Repository;
-import com.toan_itc.data.usecase.UseCase;
 
 import javax.inject.Inject;
 
@@ -31,3 +32,4 @@ public class SplashUseCase extends UseCase {
         return null;
     }
 }
+*/

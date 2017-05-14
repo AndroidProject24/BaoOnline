@@ -1,12 +1,11 @@
+/*
 package com.toan_itc.baoonline.ui.readnews.activity;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsIntent;
-import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -15,17 +14,10 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.nightonke.boommenu.BoomMenuButton;
-import com.nightonke.boommenu.Eases.EaseType;
-import com.nightonke.boommenu.Types.BoomType;
-import com.nightonke.boommenu.Types.ButtonType;
-import com.nightonke.boommenu.Types.ClickEffectType;
-import com.nightonke.boommenu.Types.DimType;
-import com.nightonke.boommenu.Types.PlaceType;
-import com.nightonke.boommenu.Util;
 import com.toan_itc.baoonline.R;
-import com.toan_itc.baoonline.library.base.BaseToolbar;
-import com.toan_itc.baoonline.library.injector.module.ActivityModule;
-import com.toan_itc.baoonline.library.injector.scope.HasComponent;
+import com.toan_itc.data.base.BaseToolbar;
+import com.toan_itc.baoonline.injector.module.ActivityModule;
+import com.toan_itc.baoonline.injector.scope.HasComponent;
 import com.toan_itc.baoonline.navigation.Navigator;
 import com.toan_itc.baoonline.ui.readnews.customtab.CustomTabActivityHelper;
 import com.toan_itc.baoonline.ui.readnews.di.DaggerReadNewsComponent;
@@ -75,8 +67,8 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 
     @Override
     protected void initData() {
-        mTextTitle.setText(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.NEWS_TITLE));
-        mTextPubdate.setText(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.NEWS_PUBDATE));
+        mTextTitle.setText(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.NEWS_TITLE));
+        mTextPubdate.setText(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.NEWS_PUBDATE));
         mReadNewsPresenter.getContent_News();
     }
 
@@ -92,11 +84,11 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 
     @Override
     public ReadNewsComponent getComponent() {
-        if (mReadNewsComponent == null&&!Preconditions.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))) {
+        if (mReadNewsComponent == null&&!Preconditions.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.BUNLDE))) {
             mReadNewsComponent = DaggerReadNewsComponent.builder()
                     .applicationComponent(getApplicationComponent())
                     .activityModule(new ActivityModule(this))
-                    .readNewsModule(new ReadNewsModule(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE)))
+                    .readNewsModule(new ReadNewsModule(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.BUNLDE)))
                     .build();
         }else{
             snackBarBuild("Không tìm thấy link!");
@@ -115,7 +107,8 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
     }
 
 	private void initBoomMenu(){
-		final int[][] subButtonColors = new int[3][2];
+		*/
+/*final int[][] subButtonColors = new int[3][2];
 		for (int i = 0; i<3; i++) {
 			subButtonColors[i][1] = GetRandomColor();
 			subButtonColors[i][0] = Util.getInstance().getPressedColor(subButtonColors[i][1]);
@@ -148,7 +141,8 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 						snackBarBuild("Click");
 					}
 				})
-				.init(mBoomMenuButton),1);
+				.init(mBoomMenuButton),1);*//*
+
 	}
     private static String[] Colors = {
             "#F44336",
@@ -199,18 +193,18 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 			super.onReceivedError(view, request, error);
 			hideLoading();
 			CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-			CustomTabActivityHelper.openCustomTab(ReadNewsActivity.this, customTabsIntent, Uri.parse(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE)),null);
+			CustomTabActivityHelper.openCustomTab(ReadNewsActivity.this, customTabsIntent, Uri.parse(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.BUNLDE)),null);
 		}
 	}
     @Override
     public void loadNews(NewsDetails newsDetails) {
         Logger.wtf(newsDetails.getDetails());
-        if(!Preconditions.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE))){
-	        mWebView.loadDataWithBaseURL(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE),newsDetails.getDetails(),"text/html", "utf-8", null);
+        if(!Preconditions.isEmpty(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.BUNLDE))){
+	        mWebView.loadDataWithBaseURL(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.BUNLDE),newsDetails.getDetails(),"text/html", "utf-8", null);
         }
         else {
 	        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().build();
-	        CustomTabActivityHelper.openCustomTab(ReadNewsActivity.this, customTabsIntent, Uri.parse(getIntent().getBundleExtra(Navigator.EXTRA_ARGS).getString(Constants.BUNLDE)), null);
+	        CustomTabActivityHelper.openCustomTab(ReadNewsActivity.this, customTabsIntent, Uri.parse(getIntent().getBundleExtra(Navigator.EXTRA_ARG).getString(Constants.BUNLDE)), null);
         }
     }
 	@Override
@@ -229,4 +223,4 @@ public class ReadNewsActivity extends BaseToolbar implements ReadNews,HasCompone
 			mWebView.destroy();
 		}
 	}
-}
+}*/
